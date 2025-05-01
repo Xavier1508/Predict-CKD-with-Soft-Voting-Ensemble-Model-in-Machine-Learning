@@ -1,0 +1,10 @@
+# Ignore virtual environment
+venv/
+
+# Ignore model & binary files
+*.pkl
+*.dll
+*.exe
+*.so
+*.zip
+*.tar.gz
