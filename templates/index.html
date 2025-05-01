@@ -1,0 +1,4010 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Penyakit Ginjal Kronis - Sistem Pendukung Keputusan Klinis</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        /* Header styling */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Card styling */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: none;
+        }
+        
+        .card-header {
+            background-color: var(--light-color);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        /* Navigation pills */
+        .nav-pills .nav-link {
+            border-radius: 50px;
+            padding: 10px 20px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .nav-pills .nav-link:not(.active):hover {
+            background-color: rgba(44, 62, 80, 0.1);
+        }
+        
+        /* Form styling */
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px 15px;
+            height: auto;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .input-group-text {
+            background-color: var(--light-color);
+            border-color: #ced4da;
+            color: var(--primary-color);
+        }
+        
+        /* Button styling */
+        .btn {
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+            border-color: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+            border-color: #7f8c8d;
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            width: 4rem;
+            height: 4rem;
+        }
+        
+        .result-card {
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            transition: all 0.5s ease;
+        }
+
+        .result-card.show {
+            display: block;
+            opacity: 1;
+            max-height: 1000px;
+            animation: fadeIn 0.5s;
+        }
+
+        #mainResult {
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #resultExplanation {
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        /* Risk levels styling */
+        .high-risk {
+            background: #ffe6e6;
+            border-left: 5px solid #ff4444;
+            color: #cc0000;
+        }
+
+        .moderate-risk {
+            background-color: rgba(243, 156, 18, 0.1);
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .low-risk {
+            background: #e6ffe6;
+            border-left: 5px solid #00cc00;
+            color: #006600;
+        }
+
+        /* Confidence badges */
+        .confidence-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .confidence-high {
+            background-color: var(--success-color);
+        }
+
+        .confidence-medium {
+            background-color: var(--warning-color);
+        }
+
+        .confidence-low {
+            background-color: var(--danger-color);
+        }
+
+        /* Feature importance */
+        #featureImportance {
+            height: 300px;
+        }
+
+        /* Tooltip styling */
+        .param-info {
+            color: var(--secondary-color);
+            margin-left: 4px;
+            cursor: help;
+        }
+
+        /* Range indicators */
+        .range-normal {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        .range-warning {
+            color: var(--warning-color);
+            font-weight: 500;
+        }
+
+        .range-danger {
+            color: var(--danger-color);
+            font-weight: 500;
+        }
+
+        /* Progress bar styling */
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .progress-bar-high {
+            background-color: var(--danger-color);
+        }
+
+        .progress-bar-medium {
+            background-color: var(--warning-color);
+        }
+
+        .progress-bar-low {
+            background-color: var(--success-color);
+        }
+
+        /* Detailed results section */
+        .details-section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .detail-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Data table styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .data-table th, 
+        .data-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .no-print {
+                display: none;
+            }
+            
+            .result-card {
+                display: block !important;
+                max-height: none !important;
+                opacity: 1 !important;
+            }
+        }
+        
+        /* Gender toggle */
+        .gender-toggle {
+            display: flex;
+            width: 100%;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+        
+        .gender-toggle label {
+            flex: 1;
+            text-align: center;
+            background-color: #f8f9fa;
+            color: #495057;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #ced4da;
+        }
+        
+        .gender-toggle input[type="radio"] {
+            display: none;
+        }
+        
+        .gender-toggle input[type="radio"]:checked + label {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .gender-toggle label:hover {
+            background-color: #e9ecef;
+        }
+        
+        .gender-toggle input[type="radio"]:checked + label:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Icon styling */
+        .gender-icon {
+            font-size: 1.5rem;
+            margin-right: 5px;
+        }
+        
+        /* Awareness section */
+        .awareness-section {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .awareness-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .awareness-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .indicator-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        /* Stage indicator */
+        .ckd-stage-indicator {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stage-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            font-weight: 600;
+        }
+        
+        .stage-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .stage-item {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            text-align: center;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stage-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .stage-value {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Print styling */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 12pt;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .app-header {
+                color: black;
+                background: white;
+                padding: 1rem 0;
+                margin-bottom: 1rem;
+                box-shadow: none;
+                text-align: center;
+            }
+            
+            #featureImportance {
+                height: 250px;
+            }
+            
+            .awareness-section {
+                border: 1px solid #ddd;
+                background-color: white;
+            }
+            
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .print-footer {
+                display: block !important;
+                text-align: center;
+                margin-top: 20px;
+                font-size: 10pt;
+                color: #666;
+                border-top: 1px solid #ddd;
+                padding-top: 10px;
+            }
+        }
+        
+        /* Print elements hidden by default */
+        .print-header, .print-footer {
+            display: none;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Risk factor badge */
+        .risk-factor-badge {
+            display: inline-block;
+            background-color: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 15px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        /* Progress steps */
+        .form-progress {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .form-progress::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #e9ecef;
+            z-index: 1;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .progress-step.active .step-number, 
+        .progress-step.completed .step-number {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .step-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #6c757d;
+        }
+        
+        .progress-step.active .step-title, 
+        .progress-step.completed .step-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Print Header -->
+    <div class="print-header">
+        <h2>Laporan Prediksi Risiko Penyakit Ginjal Kronis</h2>
+        <p>Tanggal Pemeriksaan: <span id="printDate"></span></p>
+        <hr>
+    </div>
+    
+    <!-- App Header -->
+    <header class="app-header no-print">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="app-title"><i class="fas fa-kidneys mr-2"></i> Prediksi Penyakit Ginjal Kronis</h1>
+                    <p class="lead">Sistem pendukung keputusan klinis untuk deteksi dini risiko CKD</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Progress Steps (Visible only on non-print) -->
+        <div class="form-progress no-print">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-title">Data Dasar</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-title">Parameter Ginjal</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-title">Parameter Darah</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-title">Hasil</div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills" id="formTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">
+                                    <i class="fas fa-user-circle mr-1"></i> Data Dasar
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="kidney-tab" data-toggle="tab" href="#kidney" role="tab">
+                                    <i class="fas fa-kidneys mr-1"></i> Parameter Ginjal
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="blood-tab" data-toggle="tab" href="#blood" role="tab">
+                                    <i class="fas fa-tint mr-1"></i> Parameter Darah
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-body">
+                        <form id="predictionForm">
+                            <div class="tab-content" id="formTabsContent">
+                                <!-- Basic Information Tab -->
+                                <div class="tab-pane fade show active" id="basic" role="tabpanel" data-step="1">
+                                    <h4 class="mb-3"><i class="fas fa-user-circle text-primary mr-2"></i> Informasi Pasien</h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="gender">
+                                                    Jenis Kelamin 
+                                                    <i class="fas fa-info-circle param-info" title="Gender berpengaruh pada nilai referensi parameter laboratorium"></i>
+                                                </label>
+                                                <div class="gender-toggle">
+                                                    <input type="radio" name="gender" id="gender-male" value="male" checked>
+                                                    <label for="gender-male"><i class="fas fa-mars gender-icon"></i> Laki-laki</label>
+                                                    <input type="radio" name="gender" id="gender-female" value="female">
+                                                    <label for="gender-female"><i class="fas fa-venus gender-icon"></i> Perempuan</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="age">
+                                                    Usia 
+                                                    <i class="fas fa-info-circle param-info" title="Usia pasien dalam tahun"></i>
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="age" name="age" placeholder="Masukkan usia" min="0" max="120" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">tahun</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: 0-120 tahun</small>
+                                                <div class="invalid-feedback">Usia harus antara 0 dan 120 tahun</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="weight">
+                                                    Berat Badan 
+                                                    <i class="fas fa-info-circle param-info" title="Berat badan pasien dalam kilogram"></i>
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Masukkan berat badan" min="1" max="300" step="0.1">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">kg</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="height">
+                                                    Tinggi Badan 
+                                                    <i class="fas fa-info-circle param-info" title="Tinggi badan pasien dalam sentimeter"></i>
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="height" name="height" placeholder="Masukkan tinggi badan" min="50" max="250" step="0.1">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">cm</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="bmi">
+                                                    BMI (Body Mass Index) 
+                                                    <i class="fas fa-info-circle param-info" title="Indeks massa tubuh, dihitung otomatis dari berat dan tinggi"></i>
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="bmi" name="bmi" placeholder="Dihitung otomatis" min="15" max="50" step="0.1" readonly>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">kg/m²</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">18.5-24.9 kg/m²</span></small>
+                                                <div class="invalid-feedback">BMI harus antara 15 dan 50 kg/m²</div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="bp">
+                                                    Tekanan Darah Sistolik
+                                                    <i class="fas fa-info-circle param-info" title="Tekanan darah sistolik dalam mmHg"></i>
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="bp" name="bp" placeholder="Masukkan nilai" min="60" max="240" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">mmHg</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">90-120 mmHg</span> (sistolik)</small>
+                                                <div class="invalid-feedback">Tekanan darah harus antara 60 dan 240 mmHg</div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="bp_diastolic">
+                                                    Tekanan Darah Diastolik 
+                                                    <i class="fas fa-info-circle param-info" title="Tekanan darah diastolik dalam mmHg"></i>
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="bp_diastolic" name="bp_diastolic" placeholder="Masukkan nilai" min="40" max="140" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">mmHg</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">60-80 mmHg</span></small>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="appetite">
+                                                    Nafsu Makan 
+                                                    <i class="fas fa-info-circle param-info" title="Kondisi nafsu makan pasien"></i>
+                                                </label>
+                                                <select class="form-control" id="appetite" name="appetite" required>
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="good">Baik</option>
+                                                    <option value="poor">Kurang</option>
+                                                </select>
+                                                <div class="invalid-feedback">Silakan pilih kondisi nafsu makan</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="htn">
+                                                    Hipertensi 
+                                                    <i class="fas fa-info-circle param-info" title="Apakah pasien memiliki riwayat hipertensi"></i>
+                                                </label>
+                                                <select class="form-control" id="htn" name="htn">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <div class="invalid-feedback">Silakan pilih status hipertensi</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="dm">
+                                                    Diabetes Mellitus 
+                                                    <i class="fas fa-info-circle param-info" title="Apakah pasien memiliki riwayat diabetes"></i>
+                                                </label>
+                                                <select class="form-control" id="dm" name="dm">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <div class="invalid-feedback">Silakan pilih status diabetes</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-primary next-tab">Lanjut <i class="fas fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Kidney Parameters Tab -->
+                                <div class="tab-pane fade" id="kidney" role="tabpanel" data-step="2">
+                                    <h4 class="mb-3"><i class="fas fa-kidneys text-primary mr-2"></i> Parameter Fungsi Ginjal</h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="sc">Serum Creatinine <i class="fas fa-info-circle param-info" title="Kadar kreatinin dalam darah, peningkatan menunjukkan penurunan fungsi ginjal"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="sc" name="sc" placeholder="Masukkan nilai" min="0.5" max="15" step="0.1" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">mg/dL</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted gender-specific-range">Rentang normal:
+                                                    <span class="male-range range-normal">0.7-1.3 mg/dL</span>
+                                                    <span class="female-range d-none range-normal">0.6-1.1 mg/dL</span>
+                                                </small>
+                                                <div class="invalid-feedback">Nilai harus antara 0.5 dan 15 mg/dL</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="bu">Blood Urea <i class="fas fa-info-circle param-info" title="Kadar urea dalam darah, peningkatan menunjukkan penurunan fungsi ginjal"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="bu" name="bu" placeholder="Masukkan nilai" min="10" max="300" step="0.1" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">mg/dL</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">10-50 mg/dL</span></small>
+                                                <div class="invalid-feedback">Nilai harus antara 10 dan 300 mg/dL</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="sg">Specific Gravity <i class="fas fa-info-circle param-info" title="Kerapatan urin yang menunjukkan kemampuan ginjal untuk mengkonsentrasikan urin"></i></label>
+                                                <input type="number" class="form-control" id="sg" name="sg" placeholder="Masukkan nilai" min="1.000" max="1.040" step="0.001">
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">1.005-1.030</span></small>
+                                                <div class="invalid-feedback">Nilai harus antara 1.000 dan 1.040</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="al">Albumin <i class="fas fa-info-circle param-info" title="Protein dalam urin, peningkatan menunjukkan kerusakan glomerulus"></i></label>
+                                                <select class="form-control" id="al" name="al">
+                                                    <option value="">-- Pilih nilai --</option>
+                                                    <option value="0">0 (tidak ada)</option>
+                                                    <option value="1">1 (sedikit)</option>
+                                                    <option value="2">2 (sedang)</option>
+                                                    <option value="3">3 (tinggi)</option>
+                                                    <option value="4">4 (sangat tinggi)</option>
+                                                    <option value="5">5 (ekstrem tinggi)</option>
+                                                </select>
+                                                <small class="form-text text-muted">Normal: <span class="range-normal">0 (tidak ada)</span></small>
+                                                <div class="invalid-feedback">Silakan pilih nilai albumin</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="su">Sugar <i class="fas fa-info-circle param-info" title="Gula dalam urin, menunjukkan gula darah yang tinggi atau masalah fungsi ginjal"></i></label>
+                                                <select class="form-control" id="su" name="su">
+                                                    <option value="">-- Pilih nilai --</option>
+                                                    <option value="0">0 (tidak ada)</option>
+                                                    <option value="1">1 (sedikit)</option>
+                                                    <option value="2">2 (sedang)</option>
+                                                    <option value="3">3 (tinggi)</option>
+                                                    <option value="4">4 (sangat tinggi)</option>
+                                                    <option value="5">5 (ekstrem tinggi)</option>
+                                                </select>
+                                                <small class="form-text text-muted">Normal: <span class="range-normal">0 (tidak ada)</span></small>
+                                                <div class="invalid-feedback">Silakan pilih nilai gula</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="rbc">Red Blood Cells <i class="fas fa-info-circle param-info" title="Sel darah merah dalam urin, menunjukkan kerusakan atau peradangan ginjal"></i></label>
+                                                <select class="form-control" id="rbc" name="rbc">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="normal">Normal</option>
+                                                    <option value="abnormal">Abnormal</option>
+                                                </select>
+                                                <small class="form-text text-muted">Normal: <span class="range-normal">Tidak ada RBC atau jumlah normal</span></small>
+                                                <div class="invalid-feedback">Silakan pilih status sel darah merah</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pc">Pus Cell <i class="fas fa-info-circle param-info" title="Sel nanah dalam urin, menunjukkan infeksi saluran kemih atau inflamasi ginjal"></i></label>
+                                                <select class="form-control" id="pc" name="pc">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="normal">Normal</option>
+                                                    <option value="abnormal">Abnormal</option>
+                                                </select>
+                                                <small class="form-text text-muted">Normal: <span class="range-normal">Tidak ada atau jumlah minimal</span></small>
+                                                <div class="invalid-feedback">Silakan pilih status sel nanah</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pcc">Pus Cell Clumps <i class="fas fa-info-circle param-info" title="Kumpulan sel nanah, menunjukkan infeksi saluran kemih berat"></i></label>
+                                                <select class="form-control" id="pcc" name="pcc">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="present">Ada</option>
+                                                    <option value="notpresent">Tidak Ada</option>
+                                                </select>
+                                                <small class="form-text text-muted">Normal: <span class="range-normal">Tidak Ada</span></small>
+                                                <div class="invalid-feedback">Silakan pilih status kumpulan sel nanah</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="ba">Bacteria <i class="fas fa-info-circle param-info" title="Bakteri dalam urin, menunjukkan infeksi saluran kemih"></i></label>
+                                                <select class="form-control" id="ba" name="ba">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="present">Ada</option>
+                                                    <option value="notpresent">Tidak Ada</option>
+                                                </select>
+                                                <small class="form-text text-muted">Normal: <span class="range-normal">Tidak Ada</span></small>
+                                                <div class="invalid-feedback">Silakan pilih status bakteri</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="bgr">Blood Glucose Random <i class="fas fa-info-circle param-info" title="Kadar gula darah sewaktu"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="bgr" name="bgr" placeholder="Masukkan nilai" min="70" max="500" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">mg/dL</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">70-140 mg/dL</span></small>
+                                                <div class="invalid-feedback">Nilai harus antara 70 dan 500 mg/dL</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-secondary prev-tab"><i class="fas fa-arrow-left"></i> Kembali</button>
+                                            <button type="button" class="btn btn-primary next-tab">Lanjut <i class="fas fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Blood Parameters Tab -->
+                                <div class="tab-pane fade" id="blood" role="tabpanel" data-step="3">
+                                    <h4 class="mb-3"><i class="fas fa-tint text-primary mr-2"></i> Parameter Darah</h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="hemo">Hemoglobin <i class="fas fa-info-circle param-info" title="Kadar hemoglobin dalam darah, menggambarkan kemampuan darah membawa oksigen"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="hemo" name="hemo" placeholder="Masukkan nilai" min="3" max="20" step="0.1" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">g/dL</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted gender-specific-range">Rentang normal:
+                                                    <span class="male-range range-normal">13.5-17.5 g/dL</span>
+                                                    <span class="female-range d-none range-normal">12.0-15.5 g/dL</span>
+                                                </small>
+                                                <div class="invalid-feedback">Nilai harus antara 3 dan 20 g/dL</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pcv">Packed Cell Volume <i class="fas fa-info-circle param-info" title="Persentase sel darah merah dalam darah total, menunjukkan kekentalan darah"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="pcv" name="pcv" placeholder="Masukkan nilai" min="15" max="60" step="0.1">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted gender-specific-range">Rentang normal:
+                                                    <span class="male-range range-normal">40-50%</span>
+                                                    <span class="female-range d-none range-normal">36-44%</span>
+                                                </small>
+                                                <div class="invalid-feedback">Nilai harus antara 15 dan 60%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="wc">White Blood Cell Count <i class="fas fa-info-circle param-info" title="Jumlah sel darah putih, menunjukkan kemampuan imunitas dan adanya infeksi"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="wc" name="wc" placeholder="Masukkan nilai" min="2000" max="30000" step="100">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">cells/mm³</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted">Rentang normal: <span class="range-normal">4500-11000 cells/mm³</span></small>
+                                                <div class="invalid-feedback">Nilai harus antara 2000 dan 30000 cells/mm³</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="rc">Red Blood Cell Count <i class="fas fa-info-circle param-info" title="Jumlah sel darah merah per mm kubik darah"></i></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="rc" name="rc" placeholder="Masukkan nilai" min="2" max="8" step="0.1">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">million/mm³</span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted gender-specific-range">Rentang normal:
+                                                    <span class="male-range range-normal">4.5-5.9 million/mm³</span>
+                                                    <span class="female-range d-none range-normal">4.1-5.1 million/mm³</span>
+                                                </small>
+                                                <div class="invalid-feedback">Nilai harus antara 2 dan 8 million/mm³</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="htn">Hipertensi <i class="fas fa-info-circle param-info" title="Apakah pasien memiliki riwayat hipertensi"></i></label>
+                                                <select class="form-control" id="htn-copy" name="htn-copy" disabled>
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <small class="form-text text-muted">Disalin dari data sebelumnya</small>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="dm-copy">Diabetes Mellitus <i class="fas fa-info-circle param-info" title="Apakah pasien memiliki riwayat diabetes"></i></label>
+                                                <select class="form-control" id="dm-copy" name="dm-copy" disabled>
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <small class="form-text text-muted">Disalin dari data sebelumnya</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="cad">Coronary Artery Disease <i class="fas fa-info-circle param-info" title="Apakah pasien memiliki riwayat penyakit jantung koroner"></i></label>
+                                                <select class="form-control" id="cad" name="cad">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <div class="invalid-feedback">Silakan pilih status penyakit jantung koroner</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pe">Pedal Edema <i class="fas fa-info-circle param-info" title="Pembengkakan pada kaki, sering terjadi pada gagal ginjal"></i></label>
+                                                <select class="form-control" id="pe" name="pe">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <div class="invalid-feedback">Silakan pilih status edema pedal</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="ane">Anemia <i class="fas fa-info-circle param-info" title="Apakah pasien memiliki anemia, sering terjadi pada gagal ginjal kronis"></i></label>
+                                                <select class="form-control" id="ane" name="ane">
+                                                    <option value="">-- Pilih status --</option>
+                                                    <option value="yes">Ya</option>
+                                                    <option value="no">Tidak</option>
+                                                </select>
+                                                <div class="invalid-feedback">Silakan pilih status anemia</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-secondary prev-tab"><i class="fas fa-arrow-left"></i> Kembali</button>
+                                            <button type="submit" class="btn btn-success"><i class="fas fa-chart-line"></i> Analisis</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <!-- Loading Spinner (initially hidden) -->
+                        <div id="loadingSpinner" class="text-center my-5" style="display: none;">
+                            <div class="spinner-border loading-spinner text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <p class="mt-3">Memproses data dan menganalisis risiko...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Result Cards (initially hidden) -->
+        <div class="row result-card" id="resultSection" style="display: none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-chart-pie text-primary mr-2"></i> Hasil Analisis</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary no-print" id="printReport"><i class="fas fa-print"></i> Cetak Laporan</button>
+                            <button class="btn btn-sm btn-outline-secondary no-print ml-2" id="resetForm"><i class="fas fa-redo"></i> Analisis Baru</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="mainResult" class="mb-4">
+                                    <!-- Will be filled by JS -->
+                                </div>
+                                
+                                <div id="resultExplanation">
+                                    <!-- Will be filled by JS -->
+                                </div>
+                                
+                                <div class="ckd-stage-indicator mt-4">
+                                    <div class="stage-header">
+                                        Stadium Penyakit Ginjal Kronis
+                                    </div>
+                                    <div class="stage-list">
+                                        <div class="stage-item">
+                                            <div class="stage-title">Stadium 1</div>
+                                            <div class="stage-value">GFR ≥ 90 mL/min</div>
+                                        </div>
+                                        <div class="stage-item">
+                                            <div class="stage-title">Stadium 2</div>
+                                            <div class="stage-value">GFR 60-89 mL/min</div>
+                                        </div>
+                                        <div class="stage-item">
+                                            <div class="stage-title">Stadium 3</div>
+                                            <div class="stage-value">GFR 30-59 mL/min</div>
+                                        </div>
+                                        <div class="stage-item">
+                                            <div class="stage-title">Stadium 4</div>
+                                            <div class="stage-value">GFR 15-29 mL/min</div>
+                                        </div>
+                                        <div class="stage-item">
+                                            <div class="stage-title">Stadium 5</div>
+                                            <div class="stage-value">GFR < 15 mL/min</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0"><i class="fas fa-chart-bar"></i> Faktor Risiko Signifikan</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Add canvas for Chart.js -->
+                                        <canvas id="featureImportanceChart" height="250" style="display: none;"></canvas>
+                                        <div id="featureImportance"></div>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-4">Detail Pasien</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <tr>
+                                            <th>Usia</th>
+                                            <td id="result-age">-</td>
+                                            <th>Jenis Kelamin</th>
+                                            <td id="result-gender">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hipertensi</th>
+                                            <td id="result-htn">-</td>
+                                            <th>Diabetes</th>
+                                            <td id="result-dm">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>BMI</th>
+                                            <td id="result-bmi">-</td>
+                                            <th>Tekanan Darah</th>
+                                            <td id="result-bp">-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <h5 class="mt-4">Parameter Kritis</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <tr>
+                                            <th>Kreatinin</th>
+                                            <td id="result-sc">-</td>
+                                            <th>Ureum</th>
+                                            <td id="result-bu">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hemoglobin</th>
+                                            <td id="result-hemo">-</td>
+                                            <th>Albumin Urin</th>
+                                            <td id="result-al">-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="awareness-section mt-4">
+                            <h5 class="awareness-title"><i class="fas fa-lightbulb mr-2"></i> Informasi Penyakit Ginjal Kronis</h5>
+                            <p>Penyakit Ginjal Kronis (CKD) adalah kondisi penurunan fungsi ginjal secara perlahan yang dapat berlangsung selama beberapa bulan hingga tahun. Kondisi ini sering tidak menimbulkan gejala sampai stadium lanjut.</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="awareness-indicator">
+                                        <div class="indicator-icon">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div>
+                                            <h6>Faktor Risiko Utama</h6>
+                                            <div>
+                                                <span class="risk-factor-badge">Diabetes</span>
+                                                <span class="risk-factor-badge">Hipertensi</span>
+                                                <span class="risk-factor-badge">Obesitas</span>
+                                                <span class="risk-factor-badge">Riwayat keluarga</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="awareness-indicator">
+                                        <div class="indicator-icon">
+                                            <i class="fas fa-heartbeat"></i>
+                                        </div>
+                                        <div>
+                                            <h6>Gejala Umum</h6>
+                                            <div>
+                                                <span class="risk-factor-badge">Kelelahan</span>
+                                                <span class="risk-factor-badge">Pembengkakan</span>
+                                                <span class="risk-factor-badge">Kurang nafsu makan</span>
+                                                <span class="risk-factor-badge">Tekanan darah tinggi</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="awareness-indicator">
+                                        <div class="indicator-icon">
+                                            <i class="fas fa-stethoscope"></i>
+                                        </div>
+                                        <div>
+                                            <h6>Tindakan Preventif</h6>
+                                            <div>
+                                                <span class="risk-factor-badge">Kontrol tekanan darah</span>
+                                                <span class="risk-factor-badge">Kontrol gula darah</span>
+                                                <span class="risk-factor-badge">Diet rendah garam</span>
+                                                <span class="risk-factor-badge">Berhenti merokok</span>
+                                                <span class="risk-factor-badge">Aktivitas fisik rutin</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="awareness-indicator">
+                                        <div class="indicator-icon">
+                                            <i class="fas fa-pills"></i>
+                                        </div>
+                                        <div>
+                                            <h6>Penanganan</h6>
+                                            <div>
+                                                <span class="risk-factor-badge">Obat hipertensi</span>
+                                                <span class="risk-factor-badge">Obat diabetes</span>
+                                                <span class="risk-factor-badge">Diet khusus</span>
+                                                <span class="risk-factor-badge">Hemodialisis</span>
+                                                <span class="risk-factor-badge">Transplantasi ginjal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Print Footer -->
+    <div class="print-footer">
+        <p>Laporan dibuat dengan Sistem Prediksi Penyakit Ginjal Kronis.</p>
+        <p>Catatan: Hasil prediksi ini hanya merupakan estimasi dan bukan pengganti diagnosis medis profesional. Konsultasikan dengan dokter untuk evaluasi lebih lanjut.</p>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            updateProgressSteps(1);
+    
+            // Tab Navigation Handlers
+            $('#formTabs a[data-toggle="tab"]').on('click', function(e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+            
+            // Calculate BMI when weight or height changes
+            function calculateBMI() {
+                const weight = parseFloat($("#weight").val());
+                const height = parseFloat($("#height").val()) / 100; // Convert to meters
+                
+                if (weight && height) {
+                    const bmi = weight / (height * height);
+                    $("#bmi").val(bmi.toFixed(1));
+                    
+                    // Highlight BMI status
+                    if (bmi < 18.5) {
+                        $("#bmi").removeClass("is-valid is-invalid").addClass("is-invalid");
+                    } else if (bmi >= 18.5 && bmi < 25) {
+                        $("#bmi").removeClass("is-valid is-invalid").addClass("is-valid");
+                    } else if (bmi >= 25) {
+                        $("#bmi").removeClass("is-valid is-invalid").addClass("is-invalid");
+                    }
+                } else {
+                    $("#bmi").val("");
+                    $("#bmi").removeClass("is-valid is-invalid");
+                }
+            }
+            
+            $("#weight, #height").on('input change', calculateBMI);
+            
+            // Update gender-specific reference ranges
+            function updateGenderRanges() {
+                const gender = $("input[name='gender']:checked").val();
+                
+                if (gender === "male") {
+                    $(".male-range").removeClass("d-none");
+                    $(".female-range").addClass("d-none");
+                } else {
+                    $(".male-range").addClass("d-none");
+                    $(".female-range").removeClass("d-none");
+                }
+            }
+            
+            $("input[name='gender']").change(updateGenderRanges);
+            
+            // Initialize gender ranges
+            updateGenderRanges();
+            
+            // Copy values from first tab to third tab
+            function copyBasicInfo() {
+                const htnValue = $("#htn").val();
+                const dmValue = $("#dm").val();
+                
+                $("#htn-copy").val(htnValue);
+                $("#dm-copy").val(dmValue);
+            }
+            
+            // Update progress steps indicator
+            function updateProgressSteps(currentStep) {
+                // Reset all steps
+                $('.progress-step').removeClass('active completed');
+                
+                // Update status of each step
+                $('.progress-step').each(function() {
+                    const step = parseInt($(this).data('step'));
+                    if(step < currentStep) {
+                        $(this).addClass('completed');
+                    } else if(step === currentStep) {
+                        $(this).addClass('active');
+                    }
+                });
+            }
+            
+            // Validate current tab fields
+            function validateCurrentTab(tab) {
+                let isValid = true;
+                $(tab).find(':input[required]').each(function() {
+                    const value = $(this).val();
+                    if(!value || (typeof value === 'string' && value.trim() === '')) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+                return isValid;
+            }
+            
+            // Show validation alert
+            function showValidationAlert() {
+                $("#validationAlert").fadeIn();
+                setTimeout(function() {
+                    $("#validationAlert").fadeOut();
+                }, 5000);
+            }
+            
+            // Next button handler - advances progress and validates
+            $(".next-tab").click(function() {
+                const currentTab = $(this).closest(".tab-pane");
+                const nextTab = currentTab.next(".tab-pane");
+                const nextTabId = nextTab.attr("id");
+                
+                // Validate current tab before proceeding
+                if(validateCurrentTab(currentTab)) {
+                    // Update progress steps only on successful validation
+                    const currentStep = parseInt(currentTab.data("step")) || 1;
+                    updateProgressSteps(currentStep + 1);
+                    
+                    if (nextTabId) {
+                        if (nextTabId === "blood") {
+                            copyBasicInfo();
+                        }
+                        
+                        // Switch tabs
+                        $("#formTabs .nav-link").removeClass("active");
+                        $(`#${nextTabId}-tab`).addClass("active");
+                        
+                        // Update content panels
+                        $(".tab-pane").removeClass("show active");
+                        nextTab.addClass("show active");
+                        
+                        // Scroll to top
+                        $('html, body').animate({
+                            scrollTop: $(".card-body").offset().top - 20
+                        }, 400);
+                    }
+                } else {
+                    // Show validation message
+                    showValidationAlert();
+                }
+            });
+            
+            // Previous button handler - only changes content, not progress
+            $(".prev-tab").click(function() {
+                const currentTab = $(this).closest(".tab-pane");
+                const prevTab = currentTab.prev(".tab-pane");
+                const prevTabId = prevTab.attr("id");
+                
+                if (prevTabId) {
+                    // Switch tabs
+                    $("#formTabs .nav-link").removeClass("active");
+                    $(`#${prevTabId}-tab`).addClass("active");
+                    
+                    // Update content panels
+                    $(".tab-pane").removeClass("show active");
+                    prevTab.addClass("show active");
+                    
+                    // Scroll to top
+                    $('html, body').animate({
+                        scrollTop: $(".card-body").offset().top - 20
+                    }, 400);
+                }
+            });
+            
+            // Input validation handlers
+            $(':input[required]').on('input', function() {
+                if($(this).val()) {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+            
+            // Form submission
+            $('#predictionForm').submit(function(e) {
+                e.preventDefault();
+                
+                // Validate the current tab
+                if (validateCurrentTab($('#blood'))) {
+                    // Show loading spinner and update progress
+                    $('#loadingSpinner').show();
+                    updateProgressSteps(4);
+                    
+                    // Get form data
+                    const formData = getFormData();
+                    
+                    // Simulate prediction process with timeout
+                    setTimeout(() => {
+                        // Calculate results
+                        const gfr = calculateGFR(formData);
+                        const riskScore = simulatePrediction(formData);
+                        
+                        // Update the result section
+                        updateResultSection(formData, riskScore, gfr);
+                        
+                        // Hide spinner and show results with animation
+                        $('#loadingSpinner').hide();
+                        $('#resultSection').addClass('show').fadeIn();
+                        
+                        // Scroll to results for better user experience
+                        $('html, body').animate({
+                            scrollTop: $("#resultSection").offset().top - 100
+                        }, 500);
+                        
+                    }, 1000); // Simulated process time reduced to 1 second
+                } else {
+                    // Show validation error notification
+                    showNotification('error', 'Harap isi semua field yang diperlukan!');
+                    
+                    // Find first invalid input and focus
+                    const firstInvalid = $(this).find(':invalid').first();
+                    if (firstInvalid.length > 0) {
+                        // Switch to appropriate tab
+                        const tabId = firstInvalid.closest('.tab-pane').attr('id');
+                        $(`#${tabId}-tab`).tab('show');
+                        
+                        // Focus on invalid input
+                        $('html, body').animate({
+                            scrollTop: firstInvalid.offset().top - 100
+                        }, 500);
+                        firstInvalid.focus();
+                    }
+                }
+            });
+
+            // Form field validation function
+            function validateCurrentTab(currentTab) {
+                let isValid = true;
+                
+                // Validate required fields in the current tab
+                currentTab.find(':input[required]').each(function() {
+                    if (!$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+                
+                return isValid;
+            }
+
+            // Function to show notifications
+            function showNotification(type, message) {
+                // You can implement this function based on your notification system
+                // For example, using Bootstrap toasts or alerts
+                if (type === 'error') {
+                    // Fallback to alert if custom notification not implemented
+                    if (typeof showValidationAlert === 'function') {
+                        showValidationAlert(message);
+                    } else {
+                        alert(message);
+                    }
+                }
+            }
+
+            // Initialize form validation
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                        
+                        // Add input event listeners to remove validation errors when user types
+                        $(form).find(':input').on('input', function() {
+                            if ($(this).val()) {
+                                $(this).removeClass('is-invalid');
+                            }
+                        });
+                    });
+                }, false);
+            })();
+
+            // Helper function to reset form
+            function resetForm() {
+                $('#predictionForm')[0].reset();
+                $('#predictionForm').removeClass('was-validated');
+                $('.is-invalid').removeClass('is-invalid');
+                $('#resultSection').removeClass('show').hide();
+                updateProgressSteps(1);
+            }
+
+            // Add reset button event listener
+            $('#resetButton').on('click', function() {
+                resetForm();
+            });
+            
+            // Form submission and prediction
+            function submitForm() {
+                // Validate form first
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Hide form and show loading spinner
+                $("#patientForm").hide();
+                $("#loadingSpinner").show();
+                
+                // Update progress to indicate processing
+                updateProgressSteps(3); // Assuming there are 4 steps and this is step 3
+                
+                // Collect form data
+                const formData = {
+                    age: parseInt($("#age").val()),
+                    gender: $("input[name='gender']:checked").val(),
+                    height: parseFloat($("#height").val()),
+                    weight: parseFloat($("#weight").val()),
+                    bp: parseFloat($("#bp").val()),
+                    bp_diastolic: parseFloat($("#bp_diastolic").val()), // Added from your new code
+                    appetite: $("#appetite").val(), // Added from your new code
+                    sg: parseFloat($("#sg").val()),
+                    al: parseInt($("#al").val() || "0"),
+                    su: parseInt($("#su").val() || "0"),
+                    rbc: $("#rbc").val(),
+                    pc: $("#pc").val(),
+                    pcc: $("#pcc").val(),
+                    ba: $("#ba").val(),
+                    bgr: parseFloat($("#bgr").val()),
+                    bu: parseFloat($("#bu").val()),
+                    sc: parseFloat($("#sc").val()),
+                    sod: parseFloat($("#sod").val()),
+                    pot: parseFloat($("#pot").val()),
+                    hemo: parseFloat($("#hemo").val()),
+                    pcv: parseFloat($("#pcv").val() || "0"),
+                    wc: parseFloat($("#wc").val() || "0"),
+                    rc: parseFloat($("#rc").val() || "0"),
+                    htn: $("#htn").val(),
+                    dm: $("#dm").val(),
+                    cad: $("#cad").val(),
+                    pe: $("#pe").val(),
+                    ane: $("#ane").val()
+                };
+                
+                // Calculate BMI
+                const bmi = formData.weight / Math.pow(formData.height / 100, 2);
+                formData.bmi = bmi.toFixed(1);
+                
+                // Calculate GFR (Glomerular Filtration Rate) using MDRD formula
+                let gfr;
+                const isFemale = formData.gender === 'female' ? 1 : 0;
+                const isBlack = false; // Assuming not black, adjust if needed
+                
+                // MDRD equation
+                gfr = 175 * Math.pow(formData.sc, -1.154) * Math.pow(formData.age, -0.203);
+                gfr = gfr * (isFemale ? 0.742 : 1) * (isBlack ? 1.212 : 1);
+                
+                // Try to use AJAX if available, otherwise use the simulation method
+                if (typeof $.ajax === 'function') {
+                    // Send request to backend using AJAX
+                    $.ajax({
+                        type: "POST",
+                        url: "/predict",
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function(response) {
+                            // Update result section with response data
+                            updateResultSection(formData, response.combined_probability * 100, gfr, response);
+                            
+                            // Hide loading spinner
+                            $("#loadingSpinner").hide();
+                            
+                            // Update progress to final step
+                            updateProgressSteps(4);
+                            
+                            // Show results with animation class
+                            $("#resultSection").addClass("show").fadeIn();
+                            
+                            // Smooth scroll to results
+                            $('html, body').animate({
+                                scrollTop: $("#resultSection").offset().top - 20
+                            }, 500);
+                            
+                            // Create feature importance chart if provided in response
+                            if (response.feature_importance) {
+                                createFeatureImportanceChart(response.feature_importance);
+                            } else {
+                                createFeatureImportanceChart(formData);
+                            }
+                        },
+                        error: function(xhr) {
+                            $("#loadingSpinner").hide();
+                            showNotification('error', 'Terjadi kesalahan: ' + (xhr.responseJSON?.error || 'Unknown error'));
+                        }
+                    });
+                } else {
+                    // Fallback to simulation if AJAX is not available
+                    setTimeout(function() {
+                        // Simulated risk score (0-100)
+                        const riskScore = simulatePrediction(formData);
+                        
+                        // Update result section with patient data
+                        updateResultSection(formData, riskScore, gfr);
+                        
+                        // Hide loading spinner
+                        $("#loadingSpinner").hide();
+                        
+                        // Update progress to final step
+                        updateProgressSteps(4);
+                        
+                        // Show results with animation class
+                        $("#resultSection").addClass("show").fadeIn();
+                        
+                        // Smooth scroll to results
+                        $('html, body').animate({
+                            scrollTop: $("#resultSection").offset().top - 20
+                        }, 500);
+                        
+                        // Create feature importance chart
+                        createFeatureImportanceChart(formData);
+                    }, 2000); // Simulate 2 second processing time
+                }
+            }
+
+            // Simulate prediction based on key risk factors
+            function simulatePrediction(data) {
+                // Pre-calculate all factors at once to improve performance
+                let score = 0;
+                
+                // Age factor - higher age increases risk
+                score += Math.min(40, (data.age - 30) * 1.2);
+                
+                // Creatinine is a major factor
+                if (data.sc > 1.5) {
+                    score += Math.min(35, (data.sc - 1.0) * 25);
+                }
+                
+                // Blood Urea
+                if (data.bu > 40) {
+                    score += Math.min(15, (data.bu - 40) * 0.5);
+                }
+                
+                // Hypertension
+                if (data.htn === "yes") {
+                    score += 10;
+                }
+                
+                // Diabetes
+                if (data.dm === "yes") {
+                    score += 10;
+                }
+                
+                // Anemia
+                if (data.ane === "yes" || data.hemo < 10) {
+                    score += 8;
+                }
+                
+                // Albumin in urine
+                if (data.al > 0) {
+                    score += data.al * 5;
+                }
+                
+                // RBC in urine
+                if (data.rbc === "abnormal") {
+                    score += 7;
+                }
+                
+                // Capping at 100
+                return Math.min(100, Math.max(0, score));
+            }
+
+            // Calculate GFR (Glomerular Filtration Rate) using MDRD formula
+            function calculateGFR(data) {
+                // MDRD formula: 175 × (Scr)^-1.154 × (Age)^-0.203 × 0.742 [if female] × 1.212 [if Black]
+                let gfr = 175 * Math.pow(data.sc, -1.154) * Math.pow(data.age, -0.203);
+                
+                // Adjust for gender
+                if (data.gender === "female") {
+                    gfr *= 0.742;
+                }
+                
+                return gfr;
+            }
+
+            // Update result section with patient data and prediction
+            function updateResultSection(data, riskScore, gfr) {
+                // Cache DOM elements to reduce lookups
+                const resultElements = {
+                    age: document.getElementById("result-age"),
+                    gender: document.getElementById("result-gender"),
+                    htn: document.getElementById("result-htn"),
+                    dm: document.getElementById("result-dm"),
+                    bmi: document.getElementById("result-bmi"),
+                    bp: document.getElementById("result-bp"),
+                    sc: document.getElementById("result-sc"),
+                    bu: document.getElementById("result-bu"),
+                    hemo: document.getElementById("result-hemo"),
+                    al: document.getElementById("result-al"),
+                    gfr: document.getElementById("result-gfr"),
+                    mainResult: document.getElementById("mainResult"),
+                    resultExplanation: document.getElementById("resultExplanation"),
+                    resultSection: document.getElementById("resultSection")
+                };
+                
+                // Update basic patient info in batches
+                setTimeout(() => {
+                    // Update basic patient info
+                    resultElements.age.textContent = data.age || '-';
+                    resultElements.gender.textContent = data.gender === "male" ? "Laki-laki" : "Perempuan";
+                    resultElements.htn.textContent = data.htn === "yes" ? "Ya" : "Tidak";
+                    resultElements.dm.textContent = data.dm === "yes" ? "Ya" : "Tidak";
+                    resultElements.bmi.textContent = (data.bmi || '0') + " kg/m²";
+                    resultElements.bp.textContent = data.bp + (data.bp_diastolic ? "/" + data.bp_diastolic : "") + " mmHg";
+                    
+                    // Update critical parameters
+                    resultElements.sc.textContent = (data.sc || '0') + " mg/dL";
+                    resultElements.bu.textContent = (data.bu || '0') + " mg/dL";
+                    resultElements.hemo.textContent = (data.hemo || '0') + " g/dL";
+                    resultElements.al.textContent = data.al > 0 ? "+" + data.al : "Negatif";
+                    resultElements.gfr.textContent = Math.round(gfr) + " mL/min/1.73m²";
+                }, 0);
+                
+                // Render primary results with a slight delay
+                setTimeout(() => {
+                    const riskLevel = riskScore > 50 ? "Risiko Tinggi (CKD)" : "Risiko Rendah (Non CKD)";
+                    const riskClass = riskScore > 50 ? "high-risk" : "low-risk";
+                    const stage = calculateStage(gfr);
+                    
+                    // Optimize stage selection
+                    document.querySelectorAll(".stage-item").forEach(item => item.classList.remove("active"));
+                    document.querySelector(`.stage-item:nth-child(${parseInt(stage.charAt(0))})`).classList.add("active");
+                    
+                    // Prepare HTML content before inserting
+                    const mainResultHTML = `
+                        <div class="result-indicator text-center ${riskClass}">
+                            <h3>${riskLevel}</h3>
+                            <div class="confidence-badge">
+                                Skor Prediksi: ${Math.round(riskScore)}%
+                            </div>
+                            <p class="mt-2">Perkiraan Stadium: ${stage}</p>
+                        </div>
+                    `;
+                    
+                    resultElements.mainResult.innerHTML = mainResultHTML;
+                }, 10);
+                
+                // Prepare interpretations
+                setTimeout(() => {
+                    // Generate risk description based on score
+                    let riskDescription;
+                    if (riskScore < 20) {
+                        riskDescription = "Risiko rendah untuk penyakit ginjal kronis. Tetap menjaga gaya hidup sehat dan kontrol rutin.";
+                    } else if (riskScore < 50) {
+                        riskDescription = "Risiko sedang untuk penyakit ginjal kronis. Disarankan untuk melakukan pemeriksaan lebih lanjut dan kontrol faktor risiko.";
+                    } else if (riskScore < 80) {
+                        riskDescription = "Risiko tinggi untuk penyakit ginjal kronis. Konsultasi dengan dokter spesialis sangat direkomendasikan.";
+                    } else {
+                        riskDescription = "Risiko sangat tinggi untuk penyakit ginjal kronis. Segera konsultasi dengan dokter spesialis untuk evaluasi dan penanganan lebih lanjut.";
+                    }
+                    
+                    // Create alert class based on risk
+                    let alertClass = "success";
+                    if (riskScore >= 80) alertClass = "danger";
+                    else if (riskScore >= 50) alertClass = "danger";
+                    else if (riskScore >= 20) alertClass = "warning";
+                    
+                    // Update result explanation
+                    const explanationHTML = `
+                        <div class="alert alert-${alertClass} mt-3">
+                            <h5 class="alert-heading"><i class="fas fa-info-circle mr-2"></i> Interpretasi:</h5>
+                            <p>${riskDescription}</p>
+                            <hr>
+                            <p class="mb-0"><i class="fas fa-exclamation-triangle mr-2"></i> Catatan: Hasil analisis ini hanya merupakan prediksi dan bukan pengganti diagnosis medis profesional. Konsultasikan dengan dokter untuk evaluasi lebih lanjut.</p>
+                        </div>
+                    `;
+                    
+                    resultElements.resultExplanation.innerHTML = explanationHTML;
+                }, 20);
+                
+                // Add recommendations in a separate batch
+                setTimeout(() => {
+                    // Create recommendations array for faster concatenation
+                    const recommendationItems = [
+                        "<li>Lakukan pemeriksaan fungsi ginjal secara rutin setiap 6-12 bulan</li>"
+                    ];
+                    
+                    // Specific recommendations based on risk factors
+                    if (data.htn === "yes") {
+                        recommendationItems.push("<li>Kontrol tekanan darah dengan baik (target < 130/80 mmHg)</li>");
+                        recommendationItems.push("<li>Konsumsi obat antihipertensi sesuai resep dokter</li>");
+                    }
+                    
+                    if (data.dm === "yes") {
+                        recommendationItems.push("<li>Kontrol gula darah dengan ketat (HbA1c < 7%)</li>");
+                        recommendationItems.push("<li>Periksa kadar gula darah secara teratur</li>");
+                    }
+                    
+                    if (parseFloat(data.bmi) >= 25) {
+                        recommendationItems.push("<li>Turunkan berat badan hingga mencapai BMI normal (18.5-24.9)</li>");
+                        recommendationItems.push("<li>Lakukan aktivitas fisik minimal 150 menit per minggu</li>");
+                    }
+                    
+                    if (data.al > 0) {
+                        recommendationItems.push("<li>Konsumsi makanan rendah protein (0.8 g/kg/hari) untuk mengurangi proteinuria</li>");
+                        recommendationItems.push("<li>Hindari konsumsi obat antiinflamasi non-steroid (NSAID)</li>");
+                    }
+                    
+                    if (data.sc > 1.5) {
+                        recommendationItems.push("<li>Batasi asupan protein, natrium, dan kalium</li>");
+                        recommendationItems.push("<li>Konsultasikan dengan ahli gizi untuk diet khusus penyakit ginjal</li>");
+                    }
+                    
+                    if (data.ane === "yes" || data.hemo < 12) {
+                        recommendationItems.push("<li>Evaluasi dan atasi anemia dengan konsultasi medis</li>");
+                        recommendationItems.push("<li>Konsumsi makanan tinggi zat besi sesuai anjuran dokter</li>");
+                    }
+                    
+                    if (data.appetite === "poor") {
+                        recommendationItems.push("<li>Konsultasikan dengan ahli diet untuk memperbaiki pola makan</li>");
+                        recommendationItems.push("<li>Makan dalam porsi kecil tapi sering</li>");
+                    }
+                    
+                    recommendationItems.push("<li>Minum air yang cukup (1.5-2 liter per hari)</li>");
+                    recommendationItems.push("<li>Batasi konsumsi garam (< 5 gram per hari)</li>");
+                    recommendationItems.push("<li>Hindari makanan yang diproses dan tinggi fosfor</li>");
+                    
+                    // Add lifestyle recommendations if high risk
+                    if (riskScore > 50) {
+                        recommendationItems.push("<li>Berhenti merokok dan hindari paparan asap rokok</li>");
+                        recommendationItems.push("<li>Batasi konsumsi alkohol</li>");
+                        recommendationItems.push("<li>Kelola stres dengan baik melalui meditasi atau aktivitas yang menyenangkan</li>");
+                    }
+                    
+                    // Join recommendations into HTML string
+                    const recommendations = `
+                        <h5 class='mt-4'><i class='fas fa-clipboard-list mr-2'></i> Rekomendasi:</h5>
+                        <ul class='recommendation-list'>
+                            ${recommendationItems.join('')}
+                        </ul>
+                    `;
+                    
+                    // Add recommendations to results
+                    resultElements.resultExplanation.innerHTML += recommendations;
+                }, 30);
+                
+                // Add follow-up information and educational resources
+                setTimeout(() => {
+                    const stage = calculateStage(gfr);
+                    const stageNum = parseInt(stage.charAt(0));
+                    
+                    // Add follow-up schedule if needed
+                    if (stageNum >= 3) {
+                        const followUpHTML = `
+                            <div class="alert alert-info mt-3">
+                                <h5 class="alert-heading"><i class="fas fa-calendar-check mr-2"></i> Jadwal Kontrol:</h5>
+                                <p>Untuk stadium CKD ${stageNum}, disarankan kontrol ke dokter spesialis ginjal setiap ${stageNum >= 4 ? '1-2' : '3-6'} bulan.</p>
+                            </div>
+                        `;
+                        resultElements.resultExplanation.innerHTML += followUpHTML;
+                    }
+                    
+                    // Add educational resources
+                    const educationResources = `
+                        <h5 class='mt-4'><i class='fas fa-book-medical mr-2'></i> Sumber Informasi:</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Diet CKD</h5>
+                                        <p class="card-text">Informasi tentang pola makan yang tepat untuk pasien dengan gangguan ginjal.</p>
+                                        <a href="#" class="btn btn-sm btn-primary">Baca Selengkapnya</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pengobatan CKD</h5>
+                                        <p class="card-text">Pelajari tentang pilihan pengobatan dan terapi untuk CKD.</p>
+                                        <a href="#" class="btn btn-sm btn-primary">Baca Selengkapnya</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    resultElements.resultExplanation.innerHTML += educationResources;
+                    
+                    // Show the result section with fade effect
+                    $(resultElements.resultSection).fadeIn(400);
+                    
+                    // Create the feature importance chart
+                    createFeatureImportanceChart(data);
+                }, 50);
+            }
+
+            function calculateStage(gfr) {
+                if(gfr >= 90) return "1 (GFR ≥ 90)";
+                if(gfr >= 60) return "2 (GFR 60-89)";
+                if(gfr >= 30) return "3 (GFR 30-59)";
+                if(gfr >= 15) return "4 (GFR 15-29)";
+                return "5 (GFR < 15)";
+            }
+
+            // Create feature importance chart with optimized performance
+            function createFeatureImportanceChart(data) {
+                // Prepare chart container
+                const featureImportanceContainer = document.getElementById('featureImportance');
+                const featureImportanceChart = document.getElementById('featureImportanceChart');
+                
+                // Determine if we should use Chart.js or custom implementation
+                if (Array.isArray(data) && typeof Chart !== 'undefined') {
+                    // Use Chart.js if available
+                    featureImportanceChart.style.display = 'block';
+                    featureImportanceContainer.style.display = 'none';
+                    
+                    const ctx = featureImportanceChart.getContext('2d');
+                    
+                    // Sort features by importance in descending order
+                    data.sort((a, b) => b.importance - a.importance);
+                    
+                    // Get top 10 features
+                    const topFeatures = data.slice(0, 10);
+                    
+                    // Create chart with optimized options
+                    new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels: topFeatures.map(item => item.feature),
+                            datasets: [{
+                                label: 'Feature Importance',
+                                data: topFeatures.map(item => item.importance),
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                xAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        maxTicksLimit: 5
+                                    }
+                                }]
+                            },
+                            animation: {
+                                duration: 500
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + 
+                                            (Math.round(tooltipItem.value * 100) / 100).toFixed(2);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    // Fallback to custom implementation
+                    featureImportanceChart.style.display = 'none';
+                    featureImportanceContainer.style.display = 'block';
+                    
+                    // Calculate feature importance manually
+                    const features = [
+                        { name: 'Serum Creatinine', value: data.sc > 1.5 ? 'High' : 'Normal', importance: data.sc > 1.5 ? 35 : 0 },
+                        { name: 'Age', value: data.age, importance: Math.min(40, (data.age - 30) * 1.2) },
+                        { name: 'Blood Urea', value: data.bu, importance: data.bu > 40 ? Math.min(15, (data.bu - 40) * 0.5) : 0 },
+                        { name: 'Hypertension', value: data.htn === 'yes' ? 'Yes' : 'No', importance: data.htn === 'yes' ? 10 : 0 },
+                        { name: 'Diabetes', value: data.dm === 'yes' ? 'Yes' : 'No', importance: data.dm === 'yes' ? 10 : 0 },
+                        { name: 'Anemia', value: (data.ane === 'yes' || data.hemo < 10) ? 'Yes' : 'No', importance: (data.ane === 'yes' || data.hemo < 10) ? 8 : 0 },
+                        { name: 'Albumin', value: data.al > 0 ? '+' + data.al : 'Negative', importance: data.al > 0 ? data.al * 5 : 0 },
+                        { name: 'RBC in Urine', value: data.rbc === 'abnormal' ? 'Abnormal' : 'Normal', importance: data.rbc === 'abnormal' ? 7 : 0 }
+                    ];
+                    
+                    // Sort by importance
+                    features.sort((a, b) => b.importance - a.importance);
+                    
+                    // Generate HTML for feature importance
+                    let featureHTML = '<h5 class="mt-4"><i class="fas fa-chart-bar mr-2"></i> Faktor Risiko Utama:</h5>';
+                    featureHTML += '<div class="table-responsive"><table class="table table-sm table-bordered">';
+                    featureHTML += '<thead><tr><th>Faktor</th><th>Nilai</th><th>Kontribusi</th><th>Persentase</th></tr></thead>';
+                    featureHTML += '<tbody>';
+                    
+                    // Calculate total importance for percentage
+                    const totalImportance = features.reduce((sum, feature) => sum + feature.importance, 0);
+                    
+                    // Generate rows
+                    features.forEach(feature => {
+                        const percentage = totalImportance > 0 ? (feature.importance / totalImportance * 100).toFixed(1) : '0.0';
+                        const progressClass = feature.importance > 15 ? 'bg-danger' : 
+                                            feature.importance > 8 ? 'bg-warning' : 'bg-info';
+                        
+                        featureHTML += `<tr>
+                            <td>${feature.name}</td>
+                            <td>${feature.value}</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar ${progressClass}" role="progressbar" 
+                                        style="width: ${percentage}%" 
+                                        aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${percentage}%</td>
+                        </tr>`;
+                    });
+                    
+                    featureHTML += '</tbody></table></div>';
+                    
+                    // Add recommendations based on top risk factors
+                    featureHTML += '<div class="alert alert-warning mt-3">';
+                    featureHTML += '<h5 class="alert-heading"><i class="fas fa-lightbulb mr-2"></i> Fokus Intervensi:</h5>';
+                    featureHTML += '<p>Berdasarkan analisis, intervensi sebaiknya difokuskan pada faktor-faktor berikut:</p>';
+                    featureHTML += '<ol>';
+                    
+                    // Add top 3 factors or all if less than 3
+                    const topFactors = features.filter(f => f.importance > 0).slice(0, 3);
+                    topFactors.forEach(factor => {
+                        let recommendation = '';
+                        
+                        switch(factor.name) {
+                            case 'Serum Creatinine':
+                                recommendation = 'Konsultasi dengan nefrolog untuk evaluasi fungsi ginjal dan penyesuaian pengobatan';
+                                break;
+                            case 'Age':
+                                recommendation = 'Monitoring fungsi ginjal lebih ketat sesuai dengan risiko berbasis usia';
+                                break;
+                            case 'Blood Urea':
+                                recommendation = 'Evaluasi diet protein dan fungsi ginjal secara berkala';
+                                break;
+                            case 'Hypertension':
+                                recommendation = 'Kontrol tekanan darah dengan ketat (target < 130/80 mmHg)';
+                                break;
+                            case 'Diabetes':
+                                recommendation = 'Kontrol gula darah optimal (HbA1c < 7%)';
+                                break;
+                            case 'Anemia':
+                                recommendation = 'Evaluasi dan pengobatan anemia';
+                                break;
+                            case 'Albumin':
+                                recommendation = 'Evaluasi proteinuria dan pertimbangkan obat nefroprotektif';
+                                break;
+                            case 'RBC in Urine':
+                                recommendation = 'Evaluasi lanjut untuk hematuria dan kemungkinan penyebabnya';
+                                break;
+                            default:
+                                recommendation = 'Monitoring rutin dan gaya hidup sehat';
+                        }
+                        
+                        featureHTML += `<li><strong>${factor.name}</strong>: ${recommendation}</li>`;
+                    });
+                    
+                    featureHTML += '</ol></div>';
+                    
+                    // Add disclaimer
+                    featureHTML += '<div class="small text-muted mt-2">*Analisis faktor risiko ini berdasarkan algoritma prediksi dan bukan pengganti evaluasi klinis oleh profesional kesehatan.</div>';
+                    
+                    // Insert the HTML
+                    featureImportanceContainer.innerHTML = featureHTML;
+                }
+                
+                // Show the chart section
+                document.getElementById('chartSection').style.display = 'block';
+            }
+
+            // Initialize form validation and event handlers
+            document.addEventListener('DOMContentLoaded', function() {
+                // Form submission handler
+                document.getElementById('ckdForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading indicator
+                    document.getElementById('loadingIndicator').style.display = 'block';
+                    document.getElementById('resultSection').style.display = 'none';
+                    document.getElementById('chartSection').style.display = 'none';
+                    
+                    // Get form data
+                    const formData = {
+                        age: parseFloat(document.getElementById('age').value),
+                        gender: document.querySelector('input[name="gender"]:checked').value,
+                        htn: document.querySelector('input[name="htn"]:checked').value,
+                        dm: document.querySelector('input[name="dm"]:checked').value,
+                        bmi: parseFloat(document.getElementById('bmi').value || 0),
+                        bp: parseFloat(document.getElementById('bp').value || 0),
+                        bp_diastolic: parseFloat(document.getElementById('bp_diastolic').value || 0),
+                        sc: parseFloat(document.getElementById('sc').value || 0),
+                        bu: parseFloat(document.getElementById('bu').value || 0),
+                        hemo: parseFloat(document.getElementById('hemo').value || 0),
+                        al: parseFloat(document.querySelector('input[name="al"]:checked').value || 0),
+                        rbc: document.querySelector('input[name="rbc"]:checked').value,
+                        ane: document.querySelector('input[name="ane"]:checked').value,
+                        appetite: document.querySelector('input[name="appetite"]:checked').value
+                    };
+                    
+                    // Simulate processing delay for better UX
+                    setTimeout(function() {
+                        // Calculate risk score
+                        const riskScore = simulatePrediction(formData);
+                        
+                        // Calculate GFR
+                        const gfr = calculateGFR(formData);
+                        
+                        // Update result section
+                        updateResultSection(formData, riskScore, gfr);
+                        
+                        // Hide loading indicator
+                        document.getElementById('loadingIndicator').style.display = 'none';
+                        
+                        // Scroll to results
+                        document.getElementById('resultSection').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }, 1000);
+                });
+                
+                // Reset button handler
+                document.getElementById('resetBtn').addEventListener('click', function() {
+                    document.getElementById('resultSection').style.display = 'none';
+                    document.getElementById('chartSection').style.display = 'none';
+                    document.getElementById('ckdForm').reset();
+                });
+                
+                // BMI calculator
+                const heightInput = document.getElementById('height');
+                const weightInput = document.getElementById('weight');
+                const bmiInput = document.getElementById('bmi');
+                
+                function calculateBMI() {
+                    const height = parseFloat(heightInput.value) / 100; // Convert cm to m
+                    const weight = parseFloat(weightInput.value);
+                    
+                    if (height > 0 && weight > 0) {
+                        const bmi = weight / (height * height);
+                        bmiInput.value = bmi.toFixed(1);
+                    }
+                }
+                
+                heightInput.addEventListener('input', calculateBMI);
+                weightInput.addEventListener('input', calculateBMI);
+                
+                // Print results button
+                document.getElementById('printBtn').addEventListener('click', function() {
+                    window.print();
+                });
+                
+                // Save as PDF (if available)
+                const pdfBtn = document.getElementById('pdfBtn');
+                if (pdfBtn) {
+                    pdfBtn.addEventListener('click', function() {
+                        const elementToSave = document.getElementById('resultContainer');
+                        html2pdf()
+                            .set({
+                                margin: 10,
+                                filename: 'CKD_Analysis_Report.pdf',
+                                image: { type: 'jpeg', quality: 0.98 },
+                                html2canvas: { scale: 2, useCORS: true },
+                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                            })
+                            .from(elementToSave)
+                            .save();
+                    });
+                }
+                
+                // Initialize tooltips if Bootstrap is available
+                if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+                    const tooltips = document.querySelectorAll('[data-toggle="tooltip"]');
+                    tooltips.forEach(tooltip => new bootstrap.Tooltip(tooltip));
+                } else if (typeof $ !== 'undefined' && $.fn.tooltip) {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+            
+            // Add cool effects and animations
+            // Pulse animation for important elements
+            function addPulseEffect() {
+                $(".card-header h4").addClass("pulse-animation");
+                setTimeout(function() {
+                    $(".card-header h4").removeClass("pulse-animation");
+                }, 1500);
+            }
+            
+            // Add hover effects for interactive elements
+            $(".nav-link").hover(
+                function() { $(this).addClass("nav-hover-effect"); },
+                function() { $(this).removeClass("nav-hover-effect"); }
+            );
+            
+            // Add smooth transitions
+            $(".form-control").addClass("transition-effect");
+            
+            // Add floating label effect
+            $(".form-group").addClass("floating-effect");
+            
+            // Add typing effect to main heading
+            function typeWriter(text, element, i = 0, speed = 50) {
+                if (i < text.length) {
+                    $(element).text($(element).text() + text.charAt(i));
+                    i++;
+                    setTimeout(function() {
+                        typeWriter(text, element, i, speed);
+                    }, speed);
+                }
+            }
+            
+            // Dark mode toggle
+            $(".dark-mode-toggle").click(function() {
+                $("body").toggleClass("dark-mode");
+                if ($("body").hasClass("dark-mode")) {
+                    $(this).html('<i class="fas fa-sun"></i>');
+                    localStorage.setItem("darkMode", "enabled");
+                } else {
+                    $(this).html('<i class="fas fa-moon"></i>');
+                    localStorage.setItem("darkMode", "disabled");
+                }
+            });
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem("darkMode") === "enabled") {
+                $("body").addClass("dark-mode");
+                $(".dark-mode-toggle").html('<i class="fas fa-sun"></i>');
+            }
+            
+            // Initialize with cool effects
+            addPulseEffect();
+            setInterval(addPulseEffect, 10000); // Repeat every 10 seconds
+            
+            // Add a confetti effect when results are shown
+            function showConfetti() {
+                const confettiCount = 100;
+                const confettiColors = ['#ff4d4d', '#4d79ff', '#4dff4d', '#ffff4d', '#ff4dff'];
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    createConfetti(confettiColors[Math.floor(Math.random() * confettiColors.length)]);
+                }
+            }
+            
+            function createConfetti(color) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = color;
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+            
+            // Add this to the submitForm completion
+            const originalSubmitForm = submitForm;
+            submitForm = function() {
+                originalSubmitForm();
+                setTimeout(showConfetti, 2500); // Show confetti after results are displayed
+            };
+            
+            // Add water ripple effect to buttons
+            $(".btn:not(.next-tab):not(.main-fab)").click(function(e) {
+                if (e.type === 'click' && e.clientX && e.clientY) {
+                    const ripple = document.createElement("span");
+                    ripple.className = "ripple";
+                    const button = this;
+                    const rect = button.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + "px";
+                    ripple.style.left = e.clientX - rect.left - size / 2 + "px";
+                    ripple.style.top = e.clientY - rect.top - size / 2 + "px";
+                    button.appendChild(ripple);
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                }
+            });
+            
+            // Add realtime date and time
+            function updateDateTime() {
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                $("#currentDateTime").text(now.toLocaleDateString('id-ID', options));
+            }
+            
+            updateDateTime();
+            setInterval(updateDateTime, 60000); // Update every minute
+            
+            // Add a cool notification system
+            function showNotification(message, type = 'info') {
+                const notification = $(`
+                    <div class="custom-notification ${type}">
+                        <div class="notification-icon">
+                            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i>
+                        </div>
+                        <div class="notification-content">${message}</div>
+                        <div class="notification-close"><i class="fas fa-times"></i></div>
+                    </div>
+                `);
+                
+                $("body").append(notification);
+                
+                setTimeout(function() {
+                    notification.addClass('show');
+                }, 100);
+                
+                notification.find('.notification-close').click(function() {
+                    notification.removeClass('show');
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 300);
+                });
+                
+                setTimeout(function() {
+                    notification.removeClass('show');
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
+            }
+            
+            // Show welcome notification
+            setTimeout(function() {
+                showNotification('Selamat datang! Sistem Prediksi Penyakit Ginjal Kronis siap membantu Anda.');
+            }, 1000);
+            
+            // Show tips occasionally
+            const tips = [
+                'Penyakit ginjal kronis seringkali tidak menunjukkan gejala hingga sudah mencapai tahap lanjut.',
+                'Kontrol tekanan darah dan gula darah adalah langkah penting pencegahan penyakit ginjal.',
+                'Minum air putih yang cukup dapat membantu menjaga kesehatan ginjal Anda.',
+                'Batasi konsumsi garam dan makanan olahan untuk menjaga kesehatan ginjal.',
+                'Pemeriksaan fungsi ginjal secara rutin sangat penting untuk deteksi dini.'
+            ];
+            
+            function showRandomTip() {
+                const randomTip = tips[Math.floor(Math.random() * tips.length)];
+                showNotification(randomTip, 'info');
+            }
+            
+            setTimeout(showRandomTip, 30000); // Show first tip after 30 seconds
+            setInterval(showRandomTip, 120000); // Show tips every 2 minutes
+            
+            // Add cool particle background effect
+            function createParticles() {
+                const particleContainer = $('<div class="particle-container"></div>');
+                $('body').prepend(particleContainer);
+                
+                for (let i = 0; i < 50; i++) {
+                    const particle = $('<div class="particle"></div>');
+                    particle.css({
+                        left: Math.random() * 100 + '%',
+                        top: Math.random() * 100 + '%',
+                        animationDelay: Math.random() * 5 + 's',
+                        animationDuration: Math.random() * 10 + 5 + 's'
+                    });
+                    particleContainer.append(particle);
+                }
+            }
+            
+            createParticles();
+            
+            // Add CSS for all the cool effects
+            $("<style>")
+            .prop("type", "text/css")
+            .html(`
+                :root {
+                    --progress-line-color: #e9ecef;
+                    --progress-active-color: #007bff;
+                    --progress-completed-color: #28a745;
+                    --fab-background: var(--secondary-color);
+                }
+
+                /* ========= Progress Indicator ========= */
+                .form-progress {
+                    display: flex;
+                    justify-content: space-between;
+                    position: relative;
+                    margin: 2rem 0 3rem;
+                }
+
+                .form-progress::before {
+                    content: '';
+                    position: absolute;
+                    top: 24px;
+                    left: 0;
+                    right: 0;
+                    height: 4px;
+                    background-color: var(--progress-line-color);
+                    z-index: 1;
+                }
+
+                .progress-step {
+                    flex: 1;
+                    text-align: center;
+                    position: relative;
+                    z-index: 2;
+                }
+
+                .step-number {
+                    width: 48px;
+                    height: 48px;
+                    border: 3px solid var(--progress-line-color);
+                    border-radius: 50%;
+                    background: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 700;
+                    margin: 0 auto 10px;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .progress-step.completed .step-number {
+                    border-color: var(--progress-completed-color);
+                    background: var(--progress-completed-color);
+                    color: white;
+                    transform: scale(0.9);
+                }
+
+                .progress-step.active .step-number {
+                    border-color: var(--progress-active-color);
+                    background: var(--progress-active-color);
+                    color: white;
+                    transform: scale(1.1);
+                    box-shadow: 0 0 0 4px rgba(0,123,255,0.2);
+                    animation: progress-pulse 1.5s infinite;
+                }
+
+                .step-title {
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    color: #6c757d;
+                    transition: all 0.3s ease;
+                }
+
+                .progress-step.completed .step-title {
+                    color: var(--progress-completed-color);
+                }
+
+                .progress-step.active .step-title {
+                    color: var(--progress-active-color);
+                    font-weight: 600;
+                }
+
+                /* ========= FAB Improvements ========= */
+                .floating-action-btn {
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 2rem;
+                    z-index: 1000;
+                }
+
+                .main-fab {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    background: var(--fab-background) !important;
+                    color: white !important;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .fab-options {
+                    position: absolute;
+                    bottom: calc(100% + 1rem);
+                    right: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: translateY(20px);
+                    transition: all 0.3s ease;
+                }
+
+                .floating-action-btn:hover .fab-options {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }
+
+                .fab-item {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background: white !important;
+                    color: var(--primary-color) !important;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.2s ease;
+                }
+
+                /* ========= Dark Mode ========= */
+                .dark-mode {
+                    --progress-line-color: #37474f;
+                    --fab-background: #1565c0;
+                    background-color: #121212;
+                    color: #e0e0e0;
+                }
+
+                .dark-mode .form-progress::before {
+                    background-color: #37474f;
+                }
+
+                .dark-mode .step-number {
+                    background: #2d2d2d;
+                    border-color: #37474f;
+                }
+
+                .dark-mode .card {
+                    background-color: #1e1e1e;
+                    border-color: #333;
+                }
+                
+                .dark-mode .form-control {
+                    background-color: #2a2a2a;
+                    border-color: #444;
+                    color: #e0e0e0;
+                }
+
+                /* ========= Animations ========= */
+                @keyframes progress-pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(0,123,255, 0.4); }
+                    70% { box-shadow: 0 0 0 12px rgba(0,123,255, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(0,123,255, 0); }
+                }
+
+                .pulse-animation { 
+                    animation: pulse 1.5s ease-in-out; 
+                }
+                
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+
+                /* ========= Responsive ========= */
+                @media (max-width: 768px) {
+                    .form-progress {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 1.5rem;
+                    }
+
+                    .form-progress::before {
+                        display: none;
+                    }
+
+                    .progress-step {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        text-align: left;
+                    }
+
+                    .step-number {
+                        margin: 0;
+                        flex-shrink: 0;
+                    }
+                }
+
+                /* ========= Additional Effects ========= */
+                .nav-hover-effect {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+                .floating-effect input:focus + label,
+                .floating-effect input:not(:placeholder-shown) + label {
+                    transform: translateY(-20px);
+                    font-size: 0.8em;
+                    color: #007bff;
+                }
+
+                .btn {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+                }
+            `)
+            .appendTo("head");
+        });
+    </script>
+    
+    <!-- Add preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <svg viewBox="0 0 80 80">
+                <circle id="loader-circle" cx="40" cy="40" r="32"></circle>
+            </svg>
+            <div class="loading-text">Memuat Sistem Prediksi PGK...</div>
+        </div>
+    </div>
+
+    <style>
+        .next-tab, .prev-tab {
+            transform: none !important;
+            transition: none !important;
+            box-shadow: none !important;
+        }
+    
+        .next-tab:hover, .prev-tab:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+    <!-- Add additional preloader styles -->
+    <style>
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .dark-mode #preloader {
+            background-color: #121212;
+        }
+        
+        .loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #loader-circle {
+            fill: none;
+            stroke: #007bff;
+            stroke-width: 5;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: dash 2s linear infinite;
+        }
+        
+        @keyframes dash {
+            0% {
+                stroke-dashoffset: 200;
+            }
+            50% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: -200;
+            }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #007bff;
+            position: relative;
+        }
+        
+        .loading-text:after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+            100% { content: ''; }
+        }
+    </style>
+    
+    <!-- Preloader script -->
+    <script>
+        $(window).on('load', function() {
+            setTimeout(function() {
+                $("#preloader").css({
+                    "opacity": "0",
+                    "pointer-events": "none"
+                });
+                setTimeout(function() {
+                    $("#preloader").hide();
+                }, 500);
+            }, 1500);
+        });
+    </script>
+    
+    <!-- Add floating action button for quick actions -->
+    <div class="floating-action-btn">
+        <button class="btn btn-primary main-fab"><i class="fas fa-plus"></i></button>
+        <div class="fab-options">
+            <button class="btn btn-info fab-item" data-toggle="tooltip" title="Bantuan"><i class="fas fa-question"></i></button>
+            <button class="btn btn-success fab-item" data-toggle="tooltip" title="Kontak"><i class="fas fa-envelope"></i></button>
+            <button class="btn btn-warning fab-item" data-toggle="tooltip" title="Info PGK"><i class="fas fa-info"></i></button>
+        </div>
+    </div>
+    
+    <!-- Floating action button styles -->
+    <style>
+        .floating-action-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+        
+        .main-fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+            transform: none !important; 
+            transition: none !important;
+            animation: none !important;
+        }
+
+        .floating-action-btn .main-fab {
+            background: var(--secondary-color) !important;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        }
+
+        .fab-options {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: none !important;
+            transform: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+        
+        .fab-item {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            transform: scale(0);
+            margin-bottom: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--primary-color) !important;
+            color: white !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .floating-action-btn:hover .fab-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .floating-action-btn:hover .fab-item {
+            transform: scale(1);
+        }
+        
+        .floating-action-btn:hover .main-fab {
+            transform: none !important;
+        }
+    </style>
+    
+    <!-- Quick help modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel"><i class="fas fa-question-circle mr-2"></i> Bantuan Penggunaan Sistem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="helpAccordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Cara Menggunakan Sistem Prediksi
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#helpAccordion">
+                                <div class="card-body">
+                                    <ol>
+                                        <li>Isi data pasien pada tab "Data Dasar"</li>
+                                        <li>Lanjutkan ke tab "Data Darah" untuk memasukkan hasil laboratorium</li>
+                                        <li>Isi "Data Urin" untuk hasil pemeriksaan urin</li>
+                                        <li>Pada tab "Riwayat Medis", masukkan riwayat penyakit pasien</li>
+                                        <li>Klik tombol "Prediksi" untuk mendapatkan hasil analisis</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Parameter Penting dalam Prediksi
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#helpAccordion">
+                                <div class="card-body">
+                                    <p>Beberapa parameter penting dalam prediksi PGK:</p>
+                                    <ul>
+                                        <li><strong>Kreatinin Serum (SC):</strong> Nilai normal 0.6-1.2 mg/dL</li>
+                                        <li><strong>Blood Urea Nitrogen (BUN):</strong> Nilai normal 7-20 mg/dL</li>
+                                        <li><strong>GFR (Glomerular Filtration Rate):</strong> Indikator fungsi ginjal</li>
+                                        <li><strong>Albumin dalam urin:</strong> Indikator kebocoran protein</li>
+                                        <li><strong>Tekanan darah:</strong> Hipertensi adalah faktor risiko utama PGK</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Memahami Hasil Prediksi
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#helpAccordion">
+                                <div class="card-body">
+                                    <p>Sistem akan menampilkan:</p>
+                                    <ul>
+                                        <li><strong>Skor Risiko:</strong> Angka 0-100 yang menunjukkan tingkat risiko PGK</li>
+                                        <li><strong>Tingkat Risiko:</strong> Rendah, Sedang, Tinggi, atau Sangat Tinggi</li>
+                                        <li><strong>Stadium CKD:</strong> Berdasarkan nilai GFR yang dihitung</li>
+                                        <li><strong>Faktor Penting:</strong> Parameter yang paling berpengaruh dalam prediksi</li>
+                                        <li><strong>Rekomendasi:</strong> Saran tindak lanjut berdasarkan hasil prediksi</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Info modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalLabel"><i class="fas fa-info-circle mr-2"></i> Tentang Penyakit Ginjal Kronis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="/api/placeholder/300/300" class="img-fluid rounded" alt="Kidney Illustration">
+                        </div>
+                        <div class="col-md-8">
+                            <h5>Apa itu Penyakit Ginjal Kronis (PGK)?</h5>
+                            <p>Penyakit Ginjal Kronis (PGK) adalah kondisi penurunan fungsi ginjal yang terjadi secara perlahan dalam jangka waktu lama (biasanya lebih dari 3 bulan). Kondisi ini dapat berujung pada gagal ginjal yang memerlukan dialisis atau transplantasi.</p>
+                            
+                            <h5 class="mt-3">Faktor Risiko</h5>
+                            <ul>
+                                <li>Diabetes</li>
+                                <li>Hipertensi</li>
+                                <li>Penyakit jantung</li>
+                                <li>Riwayat keluarga dengan penyakit ginjal</li>
+                                <li>Obesitas</li>
+                                <li>Usia lanjut</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h5 class="mt-4">Stadium PGK</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Stadium</th>
+                                    <th>GFR (mL/min/1.73 m²)</th>
+                                    <th>Deskripsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>≥ 90</td>
+                                    <td>Kerusakan ginjal dengan GFR normal atau meningkat</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>60-89</td>
+                                    <td>Kerusakan ginjal dengan penurunan GFR ringan</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>30-59</td>
+                                    <td>Penurunan GFR sedang</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>15-29</td>
+                                    <td>Penurunan GFR berat</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>< 15 atau dialisis</td>
+                                    <td>Gagal ginjal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h5 class="mt-4">Pencegahan PGK</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="fas fa-heartbeat mr-2 text-danger"></i> Kontrol Tekanan Darah</h6>
+                                    <p class="card-text">Jaga tekanan darah di bawah 130/80 mmHg untuk mencegah kerusakan ginjal lebih lanjut.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="fas fa-cookie-bite mr-2 text-warning"></i> Kontrol Gula Darah</h6>
+                                    <p class="card-text">Bagi penderita diabetes, kontrol gula darah dengan ketat untuk mencegah komplikasi pada ginjal.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="fas fa-weight mr-2 text-success"></i> Jaga Berat Badan</h6>
+                                    <p class="card-text">Pertahankan berat badan ideal untuk mengurangi beban kerja ginjal.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="fas fa-tint mr-2 text-primary"></i> Minum Cukup Air</h6>
+                                    <p class="card-text">Konsumsi 2-3 liter air per hari untuk membantu ginjal dalam mengolah dan membuang limbah tubuh.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <a href="#" class="btn btn-primary">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contact modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel"><i class="fas fa-envelope mr-2"></i> Hubungi Kami</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="nameInput">Nama</label>
+                            <input type="text" class="form-control" id="nameInput" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Email</label>
+                            <input type="email" class="form-control" id="emailInput" placeholder="Masukkan email Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectInput">Subjek</label>
+                            <select class="form-control" id="subjectInput">
+                                <option>Pertanyaan Umum</option>
+                                <option>Bantuan Teknis</option>
+                                <option>Saran Perbaikan</option>
+                                <option>Kolaborasi</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="messageInput">Pesan</label>
+                            <textarea class="form-control" id="messageInput" rows="4" placeholder="Ketikkan pesan Anda di sini"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="sendMessageBtn">Kirim Pesan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification system -->
+    <div class="notification-container"></div>
+    
+    <!-- Notification system style -->
+    <style>
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 350px;
+        }
+        
+        .notification {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background-color: white;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 10px;
+            transform: translateX(120%);
+            transition: transform 0.4s ease-out;
+            max-width: 100%;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-icon {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+    </style>
+    
+    <!-- Notification system script -->
+    <script>
+        function showNotification(type, message, duration = 5000) {
+            const container = $('.notification-container');
+            let icon, color;
+            
+            switch(type) {
+                case 'success':
+                    icon = 'fa-check-circle';
+                    color = '#28a745';
+                    break;
+                case 'warning':
+                    icon = 'fa-exclamation-triangle';
+                    color = '#ffc107';
+                    break;
+                case 'error':
+                    icon = 'fa-times-circle';
+                    color = '#dc3545';
+                    break;
+                default:
+                    icon = 'fa-info-circle';
+                    color = '#17a2b8';
+            }
+            
+            const notification = $(`
+                <div class="notification" style="border-left-color: ${color}">
+                    <div class="notification-icon">
+                        <i class="fas ${icon}" style="color: ${color}"></i>
+                    </div>
+                    <div class="notification-content">
+                        ${message}
+                    </div>
+                    <div class="notification-close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            `);
+            
+            container.append(notification);
+            
+            // Show notification with animation
+            setTimeout(() => {
+                notification.addClass('show');
+            }, 10);
+            
+            // Auto-remove after duration
+            const timeout = setTimeout(() => {
+                removeNotification(notification);
+            }, duration);
+            
+            // Allow manual closing
+            notification.find('.notification-close').on('click', function() {
+                clearTimeout(timeout);
+                removeNotification(notification);
+            });
+        }
+        
+        function removeNotification(notification) {
+            notification.removeClass('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 400);
+        }
+        
+        // Test notification function
+        $(document).ready(function() {
+            // Connect FAB buttons to modals
+            $('.fab-item').on('click', function() {
+                const index = $(this).index();
+                if (index === 0) {
+                    $('#helpModal').modal('show');
+                } else if (index === 1) {
+                    $('#contactModal').modal('show');
+                } else if (index === 2) {
+                    $('#infoModal').modal('show');
+                }
+            });
+            
+            // Contact form submit handler
+            $('#sendMessageBtn').on('click', function() {
+                // Simulate form submission success
+                $('#contactModal').modal('hide');
+                setTimeout(() => {
+                    showNotification('success', 'Pesan Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.');
+                }, 500);
+            });
+        });
+    </script>
+    
+    <!-- Dark mode toggle -->
+    <div class="dark-mode-toggle">
+        <input type="checkbox" id="darkModeToggle" class="dark-mode-checkbox">
+        <label for="darkModeToggle" class="dark-mode-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <div class="dark-mode-ball"></div>
+        </label>
+    </div>
+    
+    <!-- Dark mode styles -->
+    <style>
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 998;
+        }
+        
+        .dark-mode-checkbox {
+            opacity: 0;
+            position: absolute;
+        }
+        
+        .dark-mode-label {
+            background-color: #111;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px;
+            position: relative;
+            height: 26px;
+            width: 50px;
+            transform: scale(1.2);
+        }
+        
+        .dark-mode-label .fa-moon {
+            color: #f1c40f;
+            margin-left: 5px;
+        }
+        
+        .dark-mode-label .fa-sun {
+            color: #f39c12;
+            margin-right: 5px;
+        }
+        
+        .dark-mode-ball {
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            height: 22px;
+            width: 22px;
+            transform: translateX(0px);
+            transition: transform 0.2s linear;
+        }
+        
+        .dark-mode-checkbox:checked + .dark-mode-label .dark-mode-ball {
+            transform: translateX(24px);
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background: linear-gradient(45deg, #121212, #1f1f1f);
+            color: #eee;
+        }
+        
+        body.dark-mode .card,
+        body.dark-mode .modal-content {
+            background-color: #2d2d2d;
+            color: #eee;
+            border-color: #444;
+        }
+        
+        body.dark-mode .card-header,
+        body.dark-mode .modal-header,
+        body.dark-mode .modal-footer {
+            background-color: #222;
+            border-color: #444;
+        }
+        
+        body.dark-mode .btn-light {
+            background-color: #333;
+            color: #eee;
+            border-color: #444;
+        }
+        
+        body.dark-mode .form-control,
+        body.dark-mode .custom-select {
+            background-color: #333;
+            color: #eee;
+            border-color: #555;
+        }
+        
+        body.dark-mode .form-control:focus,
+        body.dark-mode .custom-select:focus {
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+        
+        body.dark-mode .table {
+            color: #eee;
+        }
+        
+        body.dark-mode .table-bordered,
+        body.dark-mode .table-bordered td,
+        body.dark-mode .table-bordered th {
+            border-color: #444;
+        }
+        
+        body.dark-mode .thead-light th {
+            background-color: #3a3a3a;
+            color: #eee;
+            border-color: #444;
+        }
+        
+        body.dark-mode .text-dark {
+            color: #eee !important;
+        }
+        
+        body.dark-mode .notification {
+            background-color: #333;
+            color: #eee;
+        }
+        
+        body.dark-mode .text-muted {
+            color: #aaa !important;
+        }
+    </style>
+    
+    <!-- Dark mode script -->
+    <script>
+        $(document).ready(function() {
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                enableDarkMode();
+                $('#darkModeToggle').prop('checked', true);
+            }
+            
+            // Dark mode toggle handler
+            $('#darkModeToggle').change(function() {
+                if ($(this).is(':checked')) {
+                    enableDarkMode();
+                } else {
+                    disableDarkMode();
+                }
+            });
+            
+            function enableDarkMode() {
+                $('body').addClass('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+                
+                // Add animations for transition
+                $('.card, .modal-content, .form-control, .btn').css('transition', 'background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease');
+            }
+            
+            function disableDarkMode() {
+                $('body').removeClass('dark-mode');
+                localStorage.setItem('darkMode', null);
+            }
+        });
+    </script>
+    
+    <!-- Particle effect for background -->
+    <div class="particle-container" id="particles-js"></div>
+    
+    <!-- Particle.js script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize particles
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS("particles-js", {
+                    particles: {
+                        number: { value: 50, density: { enable: true, value_area: 800 } },
+                        color: { value: "#007bff" },
+                        shape: {
+                            type: "circle",
+                            stroke: { width: 0, color: "#000000" }
+                        },
+                        opacity: {
+                            value: 0.5,
+                            random: true,
+                            anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: { enable: true, speed: 4, size_min: 0.3, sync: false }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: "#007bff",
+                            opacity: 0.4,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "bounce",
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "grab" },
+                            onclick: { enable: true, mode: "push" },
+                            resize: true
+                        },
+                        modes: {
+                            grab: { distance: 140, line_linked: { opacity: 1 } },
+                            push: { particles_nb: 4 }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+        });
+    </script>
+    
+    <!-- Additional animations and cool effects -->
+    <style>
+        /* Animated gradient button */
+        .btn-gradient {
+            background-size: 200% auto;
+            background-image: linear-gradient(to right, #0062cc 0%, #007bff 30%, #28a745 100%);
+            transition: 0.5s;
+        }
+        
+        .btn-gradient:hover {
+            background-position: right center;
+        }
+        
+        /* Pulsing effect */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Neon text effect */
+        .neon-text {
+            color: #fff;
+            text-shadow: 
+                0 0 5px #007bff,
+                0 0 10px #007bff,
+                0 0 20px #007bff,
+                0 0 40px #007bff;
+        }
+        
+        /* Hover scale effect */
+        .hover-scale:not(.next-tab):not(.prev-tab):not(.main-fab){
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:not(.next-tab):not(.prev-tab):not(.main-fab):hover{
+            transform: scale(1.05);
+        }
+        
+        /* Shining effect */
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 3D card effect */
+        .card-3d {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .card-3d:hover {
+            transform: rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Glassmorphism effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .glass-effect {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+    
+    <!-- Custom animations for page elements -->
+    <script>
+        $(document).ready(function() {
+            // Add animation classes to elements
+            $('.card').addClass('hover-scale');
+            $('.main-title').addClass('neon-text');
+            $('.feature-bar').parent().addClass('shine');
+            $('.result-indicator').addClass('pulse');
+            
+            // Add glass effect to selected elements
+            $('.floating-action-btn, .notification, .dark-mode-toggle').addClass('glass-effect');
+            
+            // Function to show notifications - properly defined
+            function showNotification(type, message) {
+                const notification = $(`
+                    <div class="custom-notification ${type}">
+                        <div class="notification-icon">
+                            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i>
+                        </div>
+                        <div class="notification-content">${message}</div>
+                        <div class="notification-close"><i class="fas fa-times"></i></div>
+                    </div>
+                `);
+
+                $("body").append(notification);
+                
+                setTimeout(function() {
+                    notification.addClass('show');
+                }, 100);
+                
+                notification.find('.notification-close').click(function() {
+                    notification.removeClass('show');
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 300);
+                });
+                
+                setTimeout(function() {
+                    notification.removeClass('show');
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
+            }
+            
+            // Animated counter for statistics
+            function animateCounter(element, target, duration) {
+                if (!element || !element.length) return;
+                
+                let start = 0;
+                const increment = target / (duration / 16);
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= target) {
+                        clearInterval(timer);
+                        start = target;
+                    }
+                    element.text(Math.floor(start));
+                }, 16);
+            }
+            
+            // Animate elements when they come into view
+            function animateOnScroll() {
+                $('.animate-on-scroll').each(function() {
+                    if (!$(this).length) return;
+                    
+                    try {
+                        const elementTop = $(this).offset().top;
+                        const viewportBottom = $(window).scrollTop() + $(window).height();
+                        
+                        if (elementTop < viewportBottom - 100) {
+                            $(this).addClass('animated');
+                        }
+                    } catch (e) {
+                        console.error("Error in animateOnScroll:", e);
+                    }
+                });
+            }
+            
+            // Only add scroll event if animate-on-scroll elements exist
+            if ($('.animate-on-scroll').length > 0) {
+                $(window).on('scroll', animateOnScroll);
+                animateOnScroll(); 
+              } else {
+                console.warn('No .animate-on-scroll elements found');
+              }
+            
+            // Welcome notification after preloader
+            setTimeout(function() {
+                try {
+                    showNotification('info', 'Selamat datang di Sistem Prediksi Penyakit Ginjal Kronis. Gunakan menu bantuan untuk informasi lebih lanjut.');
+                } catch (e) {
+                    console.error("Error showing notification:", e);
+                }
+            }, 2000);
+            
+            // Only apply tilt if the library exists and elements are present
+            if ($('.card-3d').length > 0 && typeof $.fn.tilt !== 'undefined') {
+                try {
+                  $('.card-3d').tilt({
+                    glare: true,
+                    maxGlare: 0.3,
+                    scale: 1.05,
+                    maxTilt: 10
+                  });
+                } catch (e) {
+                  console.error('Tilt error:', e);
+                }
+              }
+            
+            // Handle contact form modal button if it exists
+            if ($('.fab-item').length >= 2) {
+                $('.fab-item').eq(1).on('click', function() {
+                    if ($('#contactModal').length) {
+                        try {
+                            $('#contactModal').modal('show');
+                        } catch (e) {
+                            console.error("Error showing modal:", e);
+                        }
+                    }
+                });
+            }
+            
+            // Add typing effect to titles
+            const titles = $('.typing-effect');
+            if (titles.length) {
+                titles.each(function() {
+                    const text = $(this).text();
+                    const $this = $(this); // Store reference to $(this)
+                    $this.html('');
+                    
+                    let i = 0;
+                    const speed = 50;
+                    
+                    function typeWriter() {
+                        if (i < text.length) {
+                            $this.html(`${text.substring(0, i + 1)}<span class="cursor">|</span>`);
+                            i++;
+                            setTimeout(typeWriter, speed);
+                        } else {
+                            $this.html(text);
+                        }
+                    }
+                    
+                    typeWriter();
+                });
+            }
+        });
+    </script>
+
+    <!-- Cool tooltip styles -->
+    <style>
+        [data-tooltip] {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        [data-tooltip]:before,
+        [data-tooltip]:after {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        [data-tooltip]:before {
+            position: absolute;
+            bottom: 150%;
+            left: 50%;
+            margin-bottom: 5px;
+            margin-left: -80px;
+            padding: 7px;
+            width: 160px;
+            border-radius: 3px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            content: attr(data-tooltip);
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.2;
+            z-index: 100;
+            transform: translateY(10px);
+        }
+        
+        [data-tooltip]:after {
+            position: absolute;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -5px;
+            width: 0;
+            border-top: 5px solid rgba(0, 0, 0, 0.8);
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+            content: " ";
+            font-size: 0;
+            line-height: 0;
+            transform: translateY(10px);
+        }
+        
+        [data-tooltip]:hover:before,
+        [data-tooltip]:hover:after {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    </style>
+    
+    <!-- Additional script for cooler interactions -->
+    <script>
+        // Add confetti effect for successful predictions
+        function showConfetti() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+            
+            (function frame() {
+                confetti({
+                    particleCount: 2,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#007bff', '#28a745', '#17a2b8']
+                });
+                
+                confetti({
+                    particleCount: 2,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#007bff', '#28a745', '#17a2b8']
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+        
+        // Add ripple effect to buttons
+        $(".btn:not(.next-tab):not(.main-fab)").click(function(e) {
+            if (e.type === 'click' && e.pageX && e.pageY) {
+                let posX = $(this).offset().left;
+                let posY = $(this).offset().top;
+                let buttonWidth = $(this).width();
+                let buttonHeight = $(this).height();
+                
+                let x = e.pageX - posX - buttonWidth / 2;
+                let y = e.pageY - posY - buttonHeight / 2;
+                
+                let $ripple = $("<span class='ripple'></span>");
+                $ripple.css({
+                    width: buttonWidth,
+                    height: buttonHeight,
+                    top: y + 'px',
+                    left: x + 'px'
+                });
+                
+                $(this).append($ripple);
+                
+                setTimeout(() => {
+                    $ripple.remove();
+                }, 500);
+            }
+        });
+    </script>
+    
+    <!-- Ripple effect style -->
+    <style>
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple-effect 0.5s linear;
+            z-index: 1;
+        }
+        
+        @keyframes ripple-effect {
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+    </style>
+     
+    <!-- Load Confetti JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.4.0/confetti.min.js"></script>
+    
+    <!-- Tilt.js for 3D card effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+    
+    <!-- Add custom audio effects -->
+    <audio id="clickSound" preload="auto">
+        <source src="data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABGADq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYBAAAAAAAAARjJ+IJnAAAA//tYwAAACcBrj0ACAAAFYGePQAIAA6AAAAMOKXsJJkQOBmxBFErIGK9CnGS8RZoM48IIHKPBQMSEYMzCwxXxCRgQIxqcMr4mEQimFrBYsXAgiJCgQQgiIhGIg0cBQcEPAQB/BAEAQdBAO//////////ngQdBAP/////////////+UHQQBjQICDAQA4Nd8SqQkdgMC4IpwUJYK3///////////////8JDyMKDQaQhEf/////////////7d9/3fM8z3ZmPd/HyGQyH8feQyGf4EAnGGSLQzAcDgQCQQGD/gQCcYZItDMBwOBAJBAYP8QELxcuL6bdvtS5cXlS5cXJScnFzUt//UuakpOT//8nNQAAAAAA=" type="audio/mp3">
+    </audio>
+    
+    <audio id="successSound" preload="auto">
+        <source src="data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABGADq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAaEAAAAAAAAARiQzhbLAAAA//tYwAAACdxvdUACAAAFVDe6oAQAAJZQAAMQALiG8WKxeHG4gcYrwmBkxK8XBaLxIsXhjlECwmMXhjaJIvFixYsXEywmIgcXEQOJBwmICAoKAgIQEBAQD/Gg0DA3+CAQEP/4ICAgP/gEBA3//+CBwQNvggdvggb///////////////+CCB///wQO3/xAQEDf///4ICAg7f//////////BA3/ggICBv////BAQEDdwQEBA3f//////////////////wXiRYtC0OL////////////wyFTGPe973ve97yGQyGQyHw+BAHYXC4nIZC4XA7C4XEAdhcLichmL/i4XAAdhcLichmL/i4XE5DM///8uLy4t3Ft3Fy5cX//ty5qKOWXVFHLLt24t////uDgAAAAAAA==" type="audio/mp3">
+    </audio>
+    
+    <!-- Script for audio effects -->
+    <script>
+        $(document).ready(function() {
+            // Play click sound on button press
+            $('.btn').on('click', function() {
+                const clickSound = $('#clickSound')[0];
+                clickSound.volume = 0.2;
+                clickSound.play();
+            });
+            
+            // Function to play success sound
+            function playSuccessSound() {
+                const successSound = $('#successSound')[0];
+                successSound.volume = 0.3;
+                successSound.play();
+            }
+            
+            // Use success sound when prediction is complete
+            $('#predictBtn').on('click', function() {
+                setTimeout(function() {
+                    playSuccessSound();
+                    showConfetti();
+                }, 1500);
+            });
+        });
+    </script>
+    
+    <!-- Additional responsive improvements -->
+    <style>
+        @media (max-width: 576px) {
+            .main-title {
+                font-size: 1.5rem;
+            }
+            
+            .floating-action-btn {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .main-fab {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .fab-item {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .dark-mode-toggle {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .dark-mode-label {
+                transform: scale(1);
+            }
+            
+            .notification {
+                max-width: 280px;
+            }
+        }
+    </style>
+</body>
+</html>

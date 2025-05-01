@@ -1,0 +1,299 @@
+2025-03-11 00:29:17,004 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-11 00:29:17,004 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-11 00:29:36,339 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:29:36] "GET / HTTP/1.1" 200 -
+2025-03-11 00:29:36,411 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:29:36] "[33mGET /static/logo_binus.png HTTP/1.1[0m" 404 -
+2025-03-11 00:32:39,389 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:32:39] "GET /?age=35&gender=1&bp_systolic=120&bp_diastolic=80&weight=65&height=175&bmi=21.2&sg=1.025&al=1&su=0&hemo=14.2&bgr=85&bu=30&sc=0.9&sod=142&pot=3.9&wbcc=7000&rbcc=5.1&rbc=0&pc=0&pcc=0&ba=0&htn=0 HTTP/1.1" 200 -
+2025-03-11 00:32:39,422 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:32:39] "[33mGET /static/logo_binus.png HTTP/1.1[0m" 404 -
+2025-03-11 00:34:21,200 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:34:21] "GET /?age=40&gender=1&bp_systolic=70&bp_diastolic=62&weight=80&height=170&bmi=27.6&sg=1.016&al=0&su=0&hemo=10.7&bgr=68&bu=30&sc=0.9&sod=145&pot=3.9&wbcc=7000&rbcc=6.5&rbc=0&pc=0&pcc=0&ba=0&htn=0 HTTP/1.1" 200 -
+2025-03-11 00:34:21,232 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:34:21] "[33mGET /static/logo_binus.png HTTP/1.1[0m" 404 -
+2025-03-11 00:52:15,849 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-11 00:52:15,850 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-11 00:52:23,559 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 00:52:23] "GET / HTTP/1.1" 200 -
+2025-03-11 01:34:26,384 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-11 01:34:26,385 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-11 01:34:39,851 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 01:34:39] "GET / HTTP/1.1" 200 -
+2025-03-11 02:31:59,787 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-11 02:31:59,787 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-11 02:32:11,571 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 02:32:11] "GET / HTTP/1.1" 200 -
+2025-03-11 02:32:11,591 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 02:32:11] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-11 02:33:19,172 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 02:33:19] "GET / HTTP/1.1" 200 -
+2025-03-11 02:33:19,214 - werkzeug - INFO - 127.0.0.1 - - [11/Mar/2025 02:33:19] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-12 13:20:44,394 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.20.156.19:5000
+2025-03-12 13:20:44,395 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 13:20:52,111 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2025 13:20:52] "GET / HTTP/1.1" 200 -
+2025-03-12 13:20:52,665 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2025 13:20:52] "GET / HTTP/1.1" 200 -
+2025-03-12 13:20:52,731 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2025 13:20:52] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-12 13:20:55,954 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2025 13:20:55] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-12 13:22:00,730 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2025 13:22:00] "GET / HTTP/1.1" 200 -
+2025-03-12 13:22:00,771 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2025 13:22:00] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-13 01:33:11,430 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-13 01:33:11,431 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 01:33:18,834 - werkzeug - INFO - 127.0.0.1 - - [13/Mar/2025 01:33:18] "GET / HTTP/1.1" 200 -
+2025-03-13 01:33:19,158 - werkzeug - INFO - 127.0.0.1 - - [13/Mar/2025 01:33:19] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-13 01:33:19,591 - werkzeug - INFO - 127.0.0.1 - - [13/Mar/2025 01:33:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-14 23:11:58,762 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:11:58,763 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:12:05,552 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:12:05] "GET / HTTP/1.1" 200 -
+2025-03-14 23:12:06,203 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:12:06] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:12:06,814 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:12:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-14 23:31:39,205 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:31:39] "GET / HTTP/1.1" 200 -
+2025-03-14 23:31:39,229 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:31:39] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:31:55,458 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:31:55,459 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:31:59,943 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:31:59] "GET / HTTP/1.1" 200 -
+2025-03-14 23:31:59,974 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:31:59] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:32:11,270 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:32:11] "GET / HTTP/1.1" 200 -
+2025-03-14 23:32:11,379 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:32:11] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:32:24,230 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:32:24,230 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:32:25,617 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:32:25] "GET / HTTP/1.1" 200 -
+2025-03-14 23:32:25,647 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:32:25] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:32:56,035 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:32:56,036 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:32:57,972 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:32:57] "GET / HTTP/1.1" 200 -
+2025-03-14 23:32:58,000 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:32:58] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:33:34,093 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:33:34,099 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:33:35,855 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:33:35] "GET / HTTP/1.1" 200 -
+2025-03-14 23:33:35,877 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:33:35] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:34:02,938 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:34:02,939 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:34:05,646 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:34:05] "GET / HTTP/1.1" 200 -
+2025-03-14 23:34:05,670 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:34:05] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:42:39,098 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:42:39,099 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:42:48,479 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:42:48] "GET / HTTP/1.1" 200 -
+2025-03-14 23:42:48,511 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:42:48] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-14 23:45:51,523 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-14 23:45:51,523 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-14 23:46:04,916 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:46:04] "GET / HTTP/1.1" 200 -
+2025-03-14 23:46:04,959 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2025 23:46:04] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 09:59:39,003 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 09:59:39,004 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 09:59:55,984 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 09:59:55] "GET / HTTP/1.1" 200 -
+2025-03-15 09:59:56,017 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 09:59:56] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 09:59:56,185 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 09:59:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-15 10:14:43,735 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 10:14:43,735 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 10:14:46,545 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:14:46] "GET / HTTP/1.1" 200 -
+2025-03-15 10:14:46,577 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:14:46] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 10:18:53,717 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 10:18:53,718 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 10:18:56,400 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:18:56] "GET / HTTP/1.1" 200 -
+2025-03-15 10:18:56,427 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:18:56] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 10:19:33,044 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:19:33] "GET / HTTP/1.1" 200 -
+2025-03-15 10:19:33,081 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:19:33] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 10:24:57,489 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 10:24:57,489 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 10:25:22,913 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:25:22] "GET / HTTP/1.1" 200 -
+2025-03-15 10:25:22,951 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:25:22] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 10:33:56,922 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 10:33:56,922 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 10:34:06,309 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:34:06] "GET / HTTP/1.1" 200 -
+2025-03-15 10:34:06,329 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:34:06] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 10:56:10,558 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 10:56:10,559 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 10:56:12,591 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:56:12] "GET / HTTP/1.1" 200 -
+2025-03-15 10:56:12,624 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 10:56:12] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:11:28,813 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 11:11:28,814 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 11:11:31,376 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:11:31] "GET / HTTP/1.1" 200 -
+2025-03-15 11:11:31,402 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:11:31] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:13:44,642 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 11:13:44,643 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 11:13:46,768 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:13:46] "GET / HTTP/1.1" 200 -
+2025-03-15 11:13:46,867 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:13:46] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:19:14,763 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 11:19:14,763 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 11:19:18,164 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:19:18] "GET / HTTP/1.1" 200 -
+2025-03-15 11:19:18,188 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:19:18] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:24:57,522 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 11:24:57,523 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 11:24:59,062 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:24:59] "GET / HTTP/1.1" 200 -
+2025-03-15 11:24:59,093 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:24:59] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:36:58,223 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 11:36:58,225 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 11:36:59,647 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:36:59] "GET / HTTP/1.1" 200 -
+2025-03-15 11:36:59,685 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:36:59] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:40:03,302 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:40:03] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 11:40:03,419 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:40:03] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 11:56:13,395 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 11:56:13,396 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 11:56:15,163 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:56:15] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 11:56:15,200 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 11:56:15] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 12:02:36,424 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 12:02:36,425 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 12:02:37,487 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 12:02:37] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 12:02:37,531 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 12:02:37] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 12:59:43,527 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 12:59:43,528 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 12:59:45,876 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 12:59:45] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 12:59:45,922 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 12:59:45] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 13:05:12,832 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 13:05:12,832 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 13:05:15,507 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 13:05:15] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 13:05:15,541 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 13:05:15] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 13:23:29,999 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 13:23:29,999 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 13:23:32,157 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 13:23:32] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 13:23:32,214 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 13:23:32] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 13:48:28,399 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 13:48:28,400 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 13:48:31,314 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 13:48:31] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 13:48:31,343 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 13:48:31] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 14:21:38,492 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 14:21:38,493 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 14:21:42,936 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:21:42] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 14:21:42,966 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:21:42] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 14:22:00,338 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:22:00] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 14:22:00,371 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:22:00] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 14:24:18,197 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:24:18] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 14:24:18,311 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:24:18] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 14:38:06,888 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 14:38:06,889 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 14:38:10,489 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:38:10] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 14:38:10,518 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:38:10] "[33mGET /api/placeholder/300/300 HTTP/1.1[0m" 404 -
+2025-03-15 14:44:22,266 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 14:44:22,266 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 14:44:29,487 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:44:29] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 14:44:29,705 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:44:29] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-03-15 14:45:41,185 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:45:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-15 14:45:49,291 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:45:49] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 14:45:49,347 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:45:49] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-03-15 14:46:13,097 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 14:46:13] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-03-15 15:13:03,767 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 15:13:03,768 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 15:13:07,709 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 15:13:07] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 15:13:07,761 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 15:13:07] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-03-15 16:17:06,892 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 16:17:06] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 16:17:06,922 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 16:17:06] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-03-15 16:39:52,314 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-03-15 16:39:52,314 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 16:39:55,618 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 16:39:55] "GET /?gender=male&age=70&weight=65&height=170&bmi=22.5&bp=81&appetite=good&htn=yes&dm=no&sc=1.5&bu=20.9&sg=1.015&al=2&su=1&rbc=normal&pc=normal&pcc=notpresent&ba=present&bgr=125&hemo=15.5&pcv=33&wc=7600&rc=4.4&cad=no&pe=no&ane=yes HTTP/1.1" 200 -
+2025-03-15 16:39:55,684 - werkzeug - INFO - 127.0.0.1 - - [15/Mar/2025 16:39:55] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-04-19 15:07:01,563 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-04-19 15:07:01,564 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-19 15:07:20,611 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 15:07:20] "GET / HTTP/1.1" 200 -
+2025-04-19 15:07:20,616 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 15:07:20] "GET / HTTP/1.1" 200 -
+2025-04-19 15:07:20,889 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 15:07:20] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-04-19 15:07:21,195 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 15:07:21] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-04-19 15:07:22,124 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 15:07:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-19 21:53:56,677 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-04-19 21:53:56,679 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-19 21:54:02,529 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 21:54:02] "GET / HTTP/1.1" 200 -
+2025-04-19 21:54:02,655 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 21:54:02] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-04-19 21:54:03,198 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 21:54:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
