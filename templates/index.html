@@ -32,6 +32,8 @@
             margin-bottom: 2rem;
             border-radius: 0 0 15px 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
         }
         
         .app-title {
@@ -586,6 +588,30 @@
             color: var(--secondary-color);
             font-weight: 600;
         }
+
+        #particles-js{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: auto;
+            background : lenear-gradient(45deg, #f3f4f6, #e2e8f0);
+        }
+        
+        .main-content {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 500px;
+            min-height: 100vh;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .main-content > * {
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body>
@@ -608,7 +634,9 @@
         </div>
     </header>
     
-    <div class="container">
+    <div id = "particles-js"></div>
+
+    <div class="container main-container">
         <!-- Progress Steps (Visible only on non-print) -->
         <div class="form-progress no-print">
             <div class="progress-step active" data-step="1">
@@ -629,7 +657,7 @@
             </div>
         </div>
         
-        <div class="row">
+        <div id="inputFormContainer" class="row"></div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -740,6 +768,7 @@
                                                 </div>
                                                 <small class="form-text text-muted">Rentang normal: <span class="range-normal">18.5-24.9 kg/m²</span></small>
                                                 <div class="invalid-feedback">BMI harus antara 15 dan 50 kg/m²</div>
+                                                <small id="bmi-status" class="form-text text-muted font-weight-bold text-info"></small>
                                             </div>
                                         </div>
                                     
@@ -1156,13 +1185,16 @@
             </div>
         </div>
         
-        <!-- Result Cards (initially hidden) -->
-        <div class="row result-card" id="resultSection" style="display: none;">
+    <!-- Results Container - This will be initially hidden, then shown when results are ready -->
+    <!-- Note that this is outside the main form container for clean separation -->
+    <div class="container" id="resultsContainer" style="display: none;">
+        <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card result-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0"><i class="fas fa-chart-pie text-primary mr-2"></i> Hasil Analisis</h5>
                         <div>
+                            <button class="btn btn-secondary" id="backToForm"><i class="fas fa-arrow-left"></i> Kembali ke Form Parameter</button>
                             <button class="btn btn-sm btn-outline-primary no-print" id="printReport"><i class="fas fa-print"></i> Cetak Laporan</button>
                             <button class="btn btn-sm btn-outline-secondary no-print ml-2" id="resetForm"><i class="fas fa-redo"></i> Analisis Baru</button>
                         </div>
@@ -1173,11 +1205,11 @@
                                 <div id="mainResult" class="mb-4">
                                     <!-- Will be filled by JS -->
                                 </div>
-                                
+
                                 <div id="resultExplanation">
                                     <!-- Will be filled by JS -->
                                 </div>
-                                
+
                                 <div class="ckd-stage-indicator mt-4">
                                     <div class="stage-header">
                                         Stadium Penyakit Ginjal Kronis
@@ -1206,19 +1238,18 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
                                         <h6 class="mb-0"><i class="fas fa-chart-bar"></i> Faktor Risiko Signifikan</h6>
                                     </div>
                                     <div class="card-body">
-                                        <!-- Add canvas for Chart.js -->
                                         <canvas id="featureImportanceChart" height="250" style="display: none;"></canvas>
                                         <div id="featureImportance"></div>
                                     </div>
                                 </div>
-                                
+
                                 <h5 class="mt-4">Detail Pasien</h5>
                                 <div class="table-responsive">
                                     <table class="table table-sm table-bordered">
@@ -1242,7 +1273,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                
+
                                 <h5 class="mt-4">Parameter Kritis</h5>
                                 <div class="table-responsive">
                                     <table class="table table-sm table-bordered">
@@ -1262,11 +1293,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="awareness-section mt-4">
                             <h5 class="awareness-title"><i class="fas fa-lightbulb mr-2"></i> Informasi Penyakit Ginjal Kronis</h5>
                             <p>Penyakit Ginjal Kronis (CKD) adalah kondisi penurunan fungsi ginjal secara perlahan yang dapat berlangsung selama beberapa bulan hingga tahun. Kondisi ini sering tidak menimbulkan gejala sampai stadium lanjut.</p>
-                            
+
                             <div class="row mt-4">
                                 <div class="col-md-6">
                                     <div class="awareness-indicator">
@@ -1284,7 +1315,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="awareness-indicator">
                                         <div class="indicator-icon">
@@ -1302,7 +1333,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row mt-3">
                                 <div class="col-md-6">
                                     <div class="awareness-indicator">
@@ -1321,7 +1352,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="awareness-indicator">
                                         <div class="indicator-icon">
@@ -1346,13 +1377,13 @@
             </div>
         </div>
 
-    <!-- Print Footer -->
-    <div class="print-footer">
-        <p>Laporan dibuat dengan Sistem Prediksi Penyakit Ginjal Kronis.</p>
-        <p>Catatan: Hasil prediksi ini hanya merupakan estimasi dan bukan pengganti diagnosis medis profesional. Konsultasikan dengan dokter untuk evaluasi lebih lanjut.</p>
+        <!-- Print Footer -->
+        <div class="print-footer">
+            <p>Laporan dibuat dengan Sistem Prediksi Penyakit Ginjal Kronis.</p>
+            <p>Catatan: Hasil prediksi ini hanya merupakan estimasi dan bukan pengganti diagnosis medis profesional. Konsultasikan dengan dokter untuk evaluasi lebih lanjut.</p>
+        </div>
     </div>
 
-    <!-- JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -1373,28 +1404,43 @@
             function calculateBMI() {
                 const weight = parseFloat($("#weight").val());
                 const height = parseFloat($("#height").val()) / 100; // Convert to meters
-                
+
                 if (weight && height) {
                     const bmi = weight / (height * height);
-                    $("#bmi").val(bmi.toFixed(1));
-                    
-                    // Highlight BMI status
-                    if (bmi < 18.5) {
-                        $("#bmi").removeClass("is-valid is-invalid").addClass("is-invalid");
-                    } else if (bmi >= 18.5 && bmi < 25) {
-                        $("#bmi").removeClass("is-valid is-invalid").addClass("is-valid");
-                    } else if (bmi >= 25) {
-                        $("#bmi").removeClass("is-valid is-invalid").addClass("is-invalid");
+                    const bmiRounded = bmi.toFixed(1);
+                    $("#bmi").val(bmiRounded);
+
+                    // Reset validation classes
+                    $("#bmi").removeClass("is-valid is-invalid");
+
+                    // Validasi nilai BMI secara teknis
+                    if (bmi < 15 || bmi > 50) {
+                        $("#bmi").addClass("is-invalid");
+                    } else {
+                        $("#bmi").addClass("is-valid");
                     }
+
+                    let category = "";
+                    if (bmi < 18.5) {
+                        category = "Underweight";
+                    } else if (bmi < 25) {
+                        category = "Normal";
+                    } else if (bmi < 30) {
+                        category = "Overweight";
+                    } else {
+                        category = "Obese";
+                    }
+
+                    $("#bmi-status").text(`Kategori: ${category}`);
                 } else {
                     $("#bmi").val("");
                     $("#bmi").removeClass("is-valid is-invalid");
+                    $("#bmi-status").text("");
                 }
             }
-            
+
             $("#weight, #height").on('input change', calculateBMI);
             
-            // Update gender-specific reference ranges
             function updateGenderRanges() {
                 const gender = $("input[name='gender']:checked").val();
                 
@@ -1770,8 +1816,49 @@
                         createFeatureImportanceChart(formData);
                     }, 2000); // Simulate 2 second processing time
                 }
+
+                setTimeout(() => {
+                    // Update progress ke step 4 dengan status completed
+                    updateProgressSteps(4);
+                    $('.progress-step[data-step="4"]').addClass('completed');
+                    
+                    // Sembunyikan form dan tampilkan hasil
+                    $('.card:has(form)').hide();
+                    $('#resultSection').addClass('show').fadeIn();
+                    
+                    // Scroll ke atas halaman
+                    window.scrollTo(0, 0);
+                }, 1000);
+
+                // Tambahkan fungsi untuk tombol kembali
+                $('#resultSection').on('click', '#backToForm', function() {
+                    $('#resultSection').removeClass('show').fadeOut();
+                    $('.card:has(form)').show();
+                    updateProgressSteps(3);
+                    $('.progress-step[data-step="4"]').removeClass('completed');
+                });
             }
 
+            function getFormData() {
+                const formData = {};
+                $('#predictionForm').find('input, select').each(function() {
+                    const name = $(this).attr('name');
+                    let value = $(this).val();
+                    
+                    if (name && !$(this).is(':disabled')) {
+                        if ($(this).attr('type') === 'number') {
+                            value = parseFloat(value) || 0;
+                        } else if ($(this).is('select')) {
+                            value = value || null;
+                        } else {
+                            value = value.trim();
+                        }
+                        formData[name] = value;
+                    }
+                });
+                return formData;
+            }
+            
             // Simulate prediction based on key risk factors
             function simulatePrediction(data) {
                 // Pre-calculate all factors at once to improve performance
@@ -2498,25 +2585,6 @@
             setTimeout(showRandomTip, 30000); // Show first tip after 30 seconds
             setInterval(showRandomTip, 120000); // Show tips every 2 minutes
             
-            // Add cool particle background effect
-            function createParticles() {
-                const particleContainer = $('<div class="particle-container"></div>');
-                $('body').prepend(particleContainer);
-                
-                for (let i = 0; i < 50; i++) {
-                    const particle = $('<div class="particle"></div>');
-                    particle.css({
-                        left: Math.random() * 100 + '%',
-                        top: Math.random() * 100 + '%',
-                        animationDelay: Math.random() * 5 + 's',
-                        animationDuration: Math.random() * 10 + 5 + 's'
-                    });
-                    particleContainer.append(particle);
-                }
-            }
-            
-            createParticles();
-            
             // Add CSS for all the cool effects
             $("<style>")
             .prop("type", "text/css")
@@ -2857,7 +2925,7 @@
     
     <!-- Add floating action button for quick actions -->
     <div class="floating-action-btn">
-        <button class="btn btn-primary main-fab"><i class="fas fa-plus"></i></button>
+        <button id="fabToggle" class="btn btn-primary main-fab"><i class="fas fa-plus"></i></button>
         <div class="fab-options">
             <button class="btn btn-info fab-item" data-toggle="tooltip" title="Bantuan"><i class="fas fa-question"></i></button>
             <button class="btn btn-success fab-item" data-toggle="tooltip" title="Kontak"><i class="fas fa-envelope"></i></button>
@@ -2872,75 +2940,68 @@
             bottom: 30px;
             right: 30px;
             z-index: 999;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-end;
         }
-        
+
         .main-fab {
             width: 60px;
             height: 60px;
             border-radius: 50%;
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
-            transform: none !important; 
-            transition: none !important;
-            animation: none !important;
-        }
-
-        .floating-action-btn .main-fab {
             background: var(--secondary-color) !important;
             border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
         }
 
         .fab-options {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: none !important;
-            transform: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
         }
-        
-        .fab-item {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            transform: scale(0);
-            margin-bottom: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--primary-color) !important;
-            color: white !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        
-        .floating-action-btn:hover .fab-options {
+
+        .fab-options.active {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
         }
-        
-        .floating-action-btn:hover .fab-item {
-            transform: scale(1);
+
+        .fab-item {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            transform: scale(0);
         }
-        
-        .floating-action-btn:hover .main-fab {
-            transform: none !important;
+
+        .fab-options.active .fab-item {
+            transform: scale(1);
         }
     </style>
     
+    <script>
+        document.getElementById('fabToggle').addEventListener('click', function () {
+            document.querySelector('.fab-options').classList.toggle('active');
+        });
+    </script>
+
     <!-- Quick help modal -->
     <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -3194,6 +3255,7 @@
             right: 20px;
             z-index: 9999;
             max-width: 350px;
+            pointer-events: auto;
         }
         
         .notification {
@@ -3475,65 +3537,106 @@
         });
     </script>
     
-    <!-- Particle effect for background -->
-    <div class="particle-container" id="particles-js"></div>
-    
-    <!-- Particle.js script -->
+    <div id="particles-js"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Initialize particles
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS("particles-js", {
-                    particles: {
-                        number: { value: 50, density: { enable: true, value_area: 800 } },
-                        color: { value: "#007bff" },
-                        shape: {
-                            type: "circle",
-                            stroke: { width: 0, color: "#000000" }
-                        },
-                        opacity: {
-                            value: 0.5,
-                            random: true,
-                            anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
-                        },
-                        size: {
-                            value: 3,
-                            random: true,
-                            anim: { enable: true, speed: 4, size_min: 0.3, sync: false }
-                        },
-                        line_linked: {
+        $(document).ready(function () {
+            particlesJS("particles-js", {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
                             enable: true,
-                            distance: 150,
-                            color: "#007bff",
-                            opacity: 0.4,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 2,
-                            direction: "none",
-                            random: true,
-                            straight: false,
-                            out_mode: "bounce",
-                            bounce: false
+                            value_area: 800
                         }
                     },
-                    interactivity: {
-                        detect_on: "canvas",
-                        events: {
-                            onhover: { enable: true, mode: "grab" },
-                            onclick: { enable: true, mode: "push" },
-                            resize: true
-                        },
-                        modes: {
-                            grab: { distance: 140, line_linked: { opacity: 1 } },
-                            push: { particles_nb: 4 }
+                    color: { value: "#007bff" },
+                    shape: {
+                        type: "circle",
+                        stroke: { width: 0, color: "#000000" }
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
                         }
                     },
-                    retina_detect: true
-                });
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 4,
+                            size_min: 0.3,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#007bff",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "bounce",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "window",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        push: {
+                            particles_nb: 5,
+                            quantity: 3
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+
+            const maxParticles = 100;
+
+            function limitParticles() {
+                const pJS = window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS;
+                if (pJS && pJS.particles && pJS.particles.array) {
+                    const particlesArray = pJS.particles.array;
+                    if (particlesArray.length > maxParticles) {
+                        // hapus partikel paling awal
+                        const excess = particlesArray.length - maxParticles;
+                        particlesArray.splice(0, excess);
+                    }
+                }
             }
+
+            setInterval(limitParticles, 1000);
         });
     </script>
     
@@ -3625,7 +3728,7 @@
         }
         
         /* Glassmorphism effect */
-        .glass-effect {
+        /* .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -3636,7 +3739,7 @@
         body.dark-mode .glass-effect {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        } */
     </style>
     
     <!-- Custom animations for page elements -->

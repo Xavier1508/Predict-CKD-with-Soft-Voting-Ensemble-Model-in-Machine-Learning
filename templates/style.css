@@ -1,0 +1,604 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Print Header and Footer */
+.print-header, .print-footer {
+    display: none;
+}
+
+@media print {
+    .print-header, .print-footer {
+        display: block;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .print-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .print-footer p {
+        font-size: 0.9rem;
+        color: #6c757d;
+        text-align: center;
+        margin-top: 1rem;
+    }
+}
+
+/* App Header */
+.app-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress Indicator */
+.form-progress {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 2rem 0 3rem;
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #e9ecef;
+    z-index: 1;
+}
+
+.progress-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+    border: 3px solid #e9ecef;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin: 0 auto 10px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-step.completed .step-number {
+    border-color: #28a745;
+    background: #28a745;
+    color: white;
+    transform: scale(0.9);
+}
+
+.progress-step.active .step-number {
+    border-color: #007bff;
+    background: #007bff;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2);
+    animation: progress-pulse 1.5s infinite;
+}
+
+.step-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.progress-step.completed .step-title {
+    color: #28a745;
+}
+
+.progress-step.active .step-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+@keyframes progress-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(0, 123, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 1.5rem;
+}
+
+.nav-pills .nav-link {
+    border-radius: 50rem;
+    padding: 0.5rem 1.25rem;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Form Styles */
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    font-size: 0.85rem;
+    color: #dc3545;
+}
+
+.gender-toggle {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.gender-toggle input {
+    display: none;
+}
+
+.gender-toggle label {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gender-toggle input:checked + label {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.gender-icon {
+    margin-right: 0.5rem;
+}
+
+.param-info {
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.2s ease;
+}
+
+.param-info:hover {
+    color: #007bff;
+}
+
+.input-group-text {
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+/* Result Section */
+.result-card {
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.result-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-indicator {
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.result-indicator.high-risk {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.result-indicator.low-risk {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.confidence-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* CKD Stage Indicator */
+.ckd-stage-indicator {
+    margin-top: 2rem;
+}
+
+.stage-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.stage-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.stage-item {
+    flex: 1;
+    min-width: 120px;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stage-item.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.stage-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stage-value {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.stage-item.active .stage-value {
+    color: #e9ecef;
+}
+
+/* Feature Importance */
+#featureImportance table {
+    font-size: 0.9rem;
+}
+
+.progress {
+    height: 0.75rem;
+    border-radius: 10px;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Awareness Section */
+.awareness-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.awareness-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.awareness-indicator {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.indicator-icon {
+    font-size: 1.5rem;
+    color: #007bff;
+    padding: 0.5rem;
+    background-color: #e9ecef;
+    border-radius: 50%;
+}
+
+.risk-factor-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    margin: 0.2rem;
+    background-color: #e9ecef;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+.dark-mode .form-control {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.dark-mode .form-progress::before {
+    background-color: #37474f;
+}
+
+.dark-mode .step-number {
+    background: #2d2d2d;
+    border-color: #37474f;
+}
+
+.dark-mode .app-header {
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+}
+
+.dark-mode .result-indicator.high-risk {
+    background-color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.dark-mode .result-indicator.low-risk {
+    background-color: #155724;
+    border-color: #c3e6cb;
+}
+
+.dark-mode .awareness-section {
+    background-color: #2a2a2a;
+}
+
+.dark-mode .risk-factor-badge {
+    background-color: #444;
+    color: #e0e0e0;
+}
+
+/* Preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.dark-mode #preloader {
+    background-color: #121212;
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loader-circle {
+    fill: none;
+    stroke: #007bff;
+    stroke-width: 5;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: dash 2s linear infinite;
+}
+
+@keyframes dash {
+    0% { stroke-dashoffset: 200; }
+    50% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -200; }
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #007bff;
+    position: relative;
+}
+
+.loading-text:after {
+    content: '';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+    100% { content: ''; }
+}
+
+/* Floating Action Button */
+.floating-action-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+}
+
+.main-fab {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+    background: #6c757d !important;
+    border: none;
+}
+
+.fab-options {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.fab-item {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #007bff !important;
+    color: white !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.floating-action-btn:hover .fab-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+.floating-action-btn:hover .fab-item {
+    transform: scale(1);
+}
+
+/* Button Overrides */
+.next-tab, .prev-tab {
+    transform: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+}
+
+.next-tab:hover, .prev-tab:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .form-progress {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .form-progress::before {
+        display: none;
+    }
+
+    .progress-step {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+    }
+
+    .step-number {
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .app-title {
+        font-size: 1.8rem;
+    }
+
+    .floating-action-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .main-fab {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .fab-item {
+        width: 40px;
+        height: 40px;
+    }
+}

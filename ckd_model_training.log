@@ -845,3 +845,551 @@ KeyError: "None of [Index([2513, 1479, 1219,  770,  327, 3188, 3022,  308, 1863,
 2025-03-10 21:15:33,124 - INFO - Model saved to C:\Users\ASUS\Documents\File Project VS Code. c\CKD_Prediction_WebApp\models\stackingensemble.pkl
 2025-03-10 21:15:33,128 - INFO - Pipeline completed successfully. Best model: StackingEnsemble
 2025-03-10 21:15:33,144 - INFO - CKD analysis completed successfully
+2025-05-22 21:51:54,690 - INFO - Starting CKD analysis pipeline
+2025-05-22 21:51:54,725 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-22 21:51:54,730 - WARNING - Missing features in dataset: ['appetite']
+2025-05-22 21:51:54,744 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-22 21:51:54,744 - INFO - Using knn imputation strategy
+2025-05-22 21:53:59,347 - INFO - Starting CKD analysis pipeline
+2025-05-22 21:53:59,367 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-22 21:53:59,377 - WARNING - Missing features in dataset: ['appetite']
+2025-05-22 21:53:59,380 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-22 21:53:59,380 - INFO - Using knn imputation strategy
+2025-05-22 21:54:29,959 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-22 21:54:29,983 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-22 21:54:29,987 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-22 21:54:30,031 - WARNING - Target variable not available for polynomial feature selection
+2025-05-22 21:54:32,073 - INFO - Added 111 polynomial features after filtering
+2025-05-22 21:54:32,090 - INFO - Added 111 polynomial features
+2025-05-22 21:54:32,160 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-22 21:54:32,243 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-22 21:54:32,293 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-22 21:54:32,303 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-22 21:54:33,106 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-22 21:54:33,112 - INFO - Starting model training
+2025-05-22 21:54:33,156 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-22 21:54:35,996 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-22 21:54:35,996 - INFO - Performing feature selection using select_k_best
+2025-05-22 21:55:03,840 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-22 21:55:03,840 - INFO - Training Random Forest...
+2025-05-22 22:20:06,924 - INFO - Nested CV F1 scores: [0.9293000291899363, 0.935913362948922, 0.9406259157085513, 0.9371998868851054, 0.9384006859638288]
+2025-05-22 22:20:06,926 - INFO - Nested CV G-mean scores: [np.float64(0.8915163161903393), np.float64(0.9111730386031778), np.float64(0.915797251485744), np.float64(0.9096980062438191), np.float64(0.9128007231383163)]
+2025-05-22 22:20:06,928 - INFO - Mean nested CV F1 score: 0.9363 (±0.0038)
+2025-05-22 22:20:06,928 - INFO - Mean nested CV G-mean score: 0.9082 (±0.0086)
+2025-05-22 22:26:34,397 - INFO - Random Forest best params: {'max_depth': 14, 'max_features': 'log2', 'min_samples_leaf': 3, 'min_samples_split': 2, 'n_estimators': 276}
+2025-05-22 22:26:34,690 - INFO - Optimal threshold (Youden's J): 0.48, F1-optimal: 0.24
+2025-05-22 22:26:40,906 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.pdf
+2025-05-22 22:26:40,915 - ERROR - Error calculating additional metrics: got an unexpected keyword argument 'eps'
+2025-05-22 22:26:40,915 - ERROR - Error training Random Forest: too many values to unpack (expected 2)
+2025-05-22 22:26:40,918 - INFO - Training XGBoost...
+2025-05-22 22:28:04,771 - INFO - Nested CV F1 scores: [0.9245240385120719, 0.932956161637921, 0.9324685853345289, 0.9383127534200676, 0.933297747614909]
+2025-05-22 22:28:04,772 - INFO - Nested CV G-mean scores: [np.float64(0.8907099765226412), np.float64(0.9130654164928012), np.float64(0.9104424370088838), np.float64(0.9111971742779882), np.float64(0.9071431085936199)]
+2025-05-22 22:28:04,774 - INFO - Mean nested CV F1 score: 0.9323 (±0.0044)
+2025-05-22 22:28:04,775 - INFO - Mean nested CV G-mean score: 0.9065 (±0.0081)
+2025-05-22 22:28:28,596 - INFO - XGBoost best params: {'colsample_bytree': np.float64(0.7941119497105262), 'gamma': np.float64(0.18634343354702465), 'learning_rate': np.float64(0.12840744004284166), 'max_depth': 7, 'min_child_weight': 3, 'subsample': np.float64(0.828024468035746)}
+2025-05-22 22:28:28,646 - INFO - Optimal threshold (Youden's J): 0.47, F1-optimal: 0.16
+2025-05-22 22:28:36,476 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.pdf
+2025-05-22 22:28:36,483 - ERROR - Error calculating additional metrics: got an unexpected keyword argument 'eps'
+2025-05-22 22:28:36,485 - ERROR - Error training XGBoost: too many values to unpack (expected 2)
+2025-05-22 22:28:36,487 - INFO - Training LightGBM...
+2025-05-22 22:31:49,731 - INFO - Nested CV F1 scores: [0.9231754839352434, 0.936268085558853, 0.936268085558853, 0.9364432590162514, 0.9317182362826905]
+2025-05-22 22:31:49,733 - INFO - Nested CV G-mean scores: [np.float64(0.89059070944677), np.float64(0.9114056304146189), np.float64(0.9114056304146189), np.float64(0.9084307522060002), np.float64(0.9091785891572315)]
+2025-05-22 22:31:49,733 - INFO - Mean nested CV F1 score: 0.9328 (±0.0051)
+2025-05-22 22:31:49,735 - INFO - Mean nested CV G-mean score: 0.9062 (±0.0079)
+2025-05-22 22:32:23,482 - INFO - LightGBM best params: {'colsample_bytree': np.float64(0.6831766651472755), 'learning_rate': np.float64(0.1235400655639983), 'max_depth': 7, 'min_child_samples': 27, 'num_leaves': 63, 'reg_alpha': np.float64(0.9394989415641891), 'reg_lambda': np.float64(0.8948273504276488), 'subsample': np.float64(0.8391599915244341)}
+2025-05-22 22:32:23,549 - INFO - Optimal threshold (Youden's J): 0.53, F1-optimal: 0.20
+2025-05-22 22:32:29,198 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.pdf
+2025-05-22 22:32:29,210 - ERROR - Error calculating additional metrics: got an unexpected keyword argument 'eps'
+2025-05-22 22:32:29,212 - ERROR - Error training LightGBM: too many values to unpack (expected 2)
+2025-05-22 22:32:29,216 - INFO - Training Gradient Boosting...
+2025-05-22 23:12:16,795 - INFO - Starting CKD analysis pipeline
+2025-05-22 23:12:16,821 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-22 23:12:16,826 - WARNING - Missing features in dataset: ['appetite']
+2025-05-22 23:12:16,839 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-22 23:12:16,839 - INFO - Using knn imputation strategy
+2025-05-22 23:12:44,861 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-22 23:12:44,875 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-22 23:12:44,877 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-22 23:12:44,908 - WARNING - Target variable not available for polynomial feature selection
+2025-05-22 23:12:46,827 - INFO - Added 111 polynomial features after filtering
+2025-05-22 23:12:46,854 - INFO - Added 111 polynomial features
+2025-05-22 23:12:46,894 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-22 23:12:46,952 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-22 23:12:47,001 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-22 23:12:47,019 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-22 23:12:47,747 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-22 23:12:47,763 - INFO - Starting model training
+2025-05-22 23:12:47,779 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-22 23:12:49,826 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-22 23:12:49,826 - INFO - Performing feature selection using select_k_best
+2025-05-22 23:13:18,810 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-22 23:13:18,811 - INFO - Training Random Forest...
+2025-05-22 23:30:50,397 - INFO - Starting CKD analysis pipeline
+2025-05-22 23:30:50,435 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-22 23:30:50,443 - WARNING - Missing features in dataset: ['appetite']
+2025-05-22 23:30:50,449 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-22 23:30:50,449 - INFO - Using knn imputation strategy
+2025-05-22 23:31:22,904 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-22 23:31:22,918 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-22 23:31:22,922 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-22 23:31:22,956 - WARNING - Target variable not available for polynomial feature selection
+2025-05-22 23:31:25,022 - INFO - Added 111 polynomial features after filtering
+2025-05-22 23:31:25,037 - INFO - Added 111 polynomial features
+2025-05-22 23:31:25,077 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-22 23:31:25,139 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-22 23:31:25,188 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-22 23:31:25,200 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-22 23:31:25,913 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-22 23:31:25,914 - INFO - Starting model training
+2025-05-22 23:31:25,938 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-22 23:31:28,117 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-22 23:31:28,118 - INFO - Performing feature selection using select_k_best
+2025-05-22 23:31:56,169 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-22 23:31:56,170 - INFO - Training Random Forest...
+2025-05-22 23:57:28,796 - INFO - Nested CV F1 scores: [0.9359030883406817, 0.9384876419741693, 0.9399123255720784, 0.9397398131829279, 0.9348503948558259]
+2025-05-22 23:57:28,798 - INFO - Nested CV G-mean scores: [np.float64(0.8989061047167958), np.float64(0.9144014599241822), np.float64(0.9153320747378432), np.float64(0.9121258122751648), np.float64(0.9104751319359248)]
+2025-05-22 23:57:28,798 - INFO - Mean nested CV F1 score: 0.9378 (±0.0020)
+2025-05-22 23:57:28,798 - INFO - Mean nested CV G-mean score: 0.9102 (±0.0059)
+2025-05-23 00:03:50,608 - INFO - Random Forest best params: {'max_depth': 14, 'max_features': 'log2', 'min_samples_leaf': 3, 'min_samples_split': 2, 'n_estimators': 276}
+2025-05-23 00:03:50,869 - INFO - Optimal threshold (Youden's J): 0.57, F1-optimal: 0.27
+2025-05-23 00:03:53,667 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.pdf
+2025-05-23 00:03:53,670 - ERROR - Evaluation failed for Random Forest: cannot access local variable 'curve_data' where it is not associated with a value
+2025-05-23 00:03:53,670 - ERROR - Error training Random Forest: not enough values to unpack (expected 3, got 2)
+2025-05-23 00:03:53,670 - INFO - Training XGBoost...
+2025-05-23 00:04:56,239 - INFO - Nested CV F1 scores: [0.9289523144328817, 0.9378630933596028, 0.9371998868851054, 0.9392947135180457, 0.9353314113768298]
+2025-05-23 00:04:56,239 - INFO - Nested CV G-mean scores: [np.float64(0.896708121372976), np.float64(0.9155334667734303), np.float64(0.9096980062438191), np.float64(0.9102865672772774), np.float64(0.9069312039586235)]
+2025-05-23 00:04:56,241 - INFO - Mean nested CV F1 score: 0.9357 (±0.0036)
+2025-05-23 00:04:56,241 - INFO - Mean nested CV G-mean score: 0.9078 (±0.0062)
+2025-05-23 00:05:10,909 - INFO - XGBoost best params: {'colsample_bytree': np.float64(0.7693605922825478), 'gamma': np.float64(0.19744075908778486), 'learning_rate': np.float64(0.09804645241541143), 'max_depth': 8, 'min_child_weight': 3, 'subsample': np.float64(0.8827429375390468)}
+2025-05-23 00:05:10,949 - INFO - Optimal threshold (Youden's J): 0.46, F1-optimal: 0.16
+2025-05-23 00:05:13,600 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.pdf
+2025-05-23 00:05:13,606 - ERROR - Evaluation failed for XGBoost: cannot access local variable 'curve_data' where it is not associated with a value
+2025-05-23 00:05:13,609 - ERROR - Error training XGBoost: not enough values to unpack (expected 3, got 2)
+2025-05-23 00:05:13,610 - INFO - Training LightGBM...
+2025-05-23 00:24:30,200 - INFO - Starting CKD analysis pipeline
+2025-05-23 00:24:30,229 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-23 00:24:30,235 - WARNING - Missing features in dataset: ['appetite']
+2025-05-23 00:24:30,239 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-23 00:24:30,239 - INFO - Using knn imputation strategy
+2025-05-23 00:25:02,062 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-23 00:25:02,074 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-23 00:25:02,075 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-23 00:25:02,103 - WARNING - Target variable not available for polynomial feature selection
+2025-05-23 00:25:04,074 - INFO - Added 111 polynomial features after filtering
+2025-05-23 00:25:04,088 - INFO - Added 111 polynomial features
+2025-05-23 00:25:04,121 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-23 00:25:04,169 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-23 00:25:04,211 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 00:25:04,221 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 00:25:04,926 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-23 00:25:04,927 - INFO - Starting model training
+2025-05-23 00:25:04,947 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-23 00:25:07,078 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-23 00:25:07,080 - INFO - Performing feature selection using select_k_best
+2025-05-23 00:25:40,327 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-23 00:25:40,327 - INFO - Training Random Forest...
+2025-05-23 00:52:21,646 - INFO - Nested CV F1 scores: [0.9293000291899363, 0.935913362948922, 0.9406259157085513, 0.9371998868851054, 0.9384006859638288]
+2025-05-23 00:52:21,647 - INFO - Nested CV G-mean scores: [np.float64(0.8915163161903393), np.float64(0.9111730386031778), np.float64(0.915797251485744), np.float64(0.9096980062438191), np.float64(0.9128007231383163)]
+2025-05-23 00:52:21,649 - INFO - Mean nested CV F1 score: 0.9363 (±0.0038)
+2025-05-23 00:52:21,650 - INFO - Mean nested CV G-mean score: 0.9082 (±0.0086)
+2025-05-23 00:58:53,343 - INFO - Random Forest best params: {'max_depth': 14, 'max_features': 'log2', 'min_samples_leaf': 3, 'min_samples_split': 2, 'n_estimators': 276}
+2025-05-23 00:58:53,651 - INFO - Optimal threshold (Youden's J): 0.48, F1-optimal: 0.24
+2025-05-23 00:58:57,898 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.pdf
+2025-05-23 00:58:57,906 - ERROR - Evaluation failed for Random Forest: cannot access local variable 'curve_data' where it is not associated with a value
+2025-05-23 00:58:57,908 - ERROR - Error training Random Forest: not enough values to unpack (expected 3, got 2)
+2025-05-23 00:58:57,909 - INFO - Training XGBoost...
+2025-05-23 01:00:00,072 - INFO - Nested CV F1 scores: [0.9245240385120719, 0.932956161637921, 0.9324685853345289, 0.9383127534200676, 0.933297747614909]
+2025-05-23 01:00:00,072 - INFO - Nested CV G-mean scores: [np.float64(0.8907099765226412), np.float64(0.9130654164928012), np.float64(0.9104424370088838), np.float64(0.9111971742779882), np.float64(0.9071431085936199)]
+2025-05-23 01:00:00,073 - INFO - Mean nested CV F1 score: 0.9323 (±0.0044)
+2025-05-23 01:00:00,074 - INFO - Mean nested CV G-mean score: 0.9065 (±0.0081)
+2025-05-23 01:00:14,923 - INFO - XGBoost best params: {'colsample_bytree': np.float64(0.7941119497105262), 'gamma': np.float64(0.18634343354702465), 'learning_rate': np.float64(0.12840744004284166), 'max_depth': 7, 'min_child_weight': 3, 'subsample': np.float64(0.828024468035746)}
+2025-05-23 01:00:14,963 - INFO - Optimal threshold (Youden's J): 0.47, F1-optimal: 0.16
+2025-05-23 01:00:18,154 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.pdf
+2025-05-23 01:00:18,159 - ERROR - Evaluation failed for XGBoost: cannot access local variable 'curve_data' where it is not associated with a value
+2025-05-23 01:00:18,162 - ERROR - Error training XGBoost: not enough values to unpack (expected 3, got 2)
+2025-05-23 01:00:18,163 - INFO - Training LightGBM...
+2025-05-23 01:02:17,307 - INFO - Nested CV F1 scores: [0.9231754839352434, 0.9342777820183964, 0.936268085558853, 0.9388930088078719, 0.9317182362826905]
+2025-05-23 01:02:17,308 - INFO - Nested CV G-mean scores: [np.float64(0.89059070944677), np.float64(0.9124053481291416), np.float64(0.9114056304146189), np.float64(0.9092501656607614), np.float64(0.9091785891572315)]
+2025-05-23 01:02:17,309 - INFO - Mean nested CV F1 score: 0.9329 (±0.0054)
+2025-05-23 01:02:17,309 - INFO - Mean nested CV G-mean score: 0.9066 (±0.0081)
+2025-05-23 01:02:48,012 - INFO - LightGBM best params: {'colsample_bytree': np.float64(0.6831766651472755), 'learning_rate': np.float64(0.1235400655639983), 'max_depth': 7, 'min_child_samples': 27, 'num_leaves': 63, 'reg_alpha': np.float64(0.9394989415641891), 'reg_lambda': np.float64(0.8948273504276488), 'subsample': np.float64(0.8391599915244341)}
+2025-05-23 01:02:48,067 - INFO - Optimal threshold (Youden's J): 0.53, F1-optimal: 0.20
+2025-05-23 01:02:50,677 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.pdf
+2025-05-23 01:03:29,317 - ERROR - Evaluation failed for LightGBM: cannot access local variable 'curve_data' where it is not associated with a value
+2025-05-23 01:03:29,320 - ERROR - Error training LightGBM: not enough values to unpack (expected 3, got 2)
+2025-05-23 01:03:29,322 - INFO - Training Gradient Boosting...
+2025-05-23 01:45:11,827 - INFO - Starting CKD analysis pipeline
+2025-05-23 01:45:11,865 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-23 01:45:11,871 - WARNING - Missing features in dataset: ['appetite']
+2025-05-23 01:45:11,877 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-23 01:45:11,878 - INFO - Using knn imputation strategy
+2025-05-23 01:45:46,491 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-23 01:45:46,512 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-23 01:45:46,515 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-23 01:45:46,556 - WARNING - Target variable not available for polynomial feature selection
+2025-05-23 01:45:48,697 - INFO - Added 111 polynomial features after filtering
+2025-05-23 01:45:48,710 - INFO - Added 111 polynomial features
+2025-05-23 01:45:48,746 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-23 01:45:48,799 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-23 01:45:48,842 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 01:45:48,853 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 01:45:49,580 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-23 01:45:49,581 - INFO - Starting model training
+2025-05-23 01:45:49,600 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-23 01:45:51,807 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-23 01:45:51,809 - INFO - Performing feature selection using select_k_best
+2025-05-23 01:46:24,801 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-23 01:46:24,802 - INFO - Training Random Forest...
+2025-05-23 02:12:41,528 - INFO - Nested CV F1 scores: [0.9293000291899363, 0.935913362948922, 0.9406259157085513, 0.9371998868851054, 0.9384006859638288]
+2025-05-23 02:12:41,530 - INFO - Nested CV G-mean scores: [np.float64(0.8915163161903393), np.float64(0.9111730386031778), np.float64(0.915797251485744), np.float64(0.9096980062438191), np.float64(0.9128007231383163)]
+2025-05-23 02:12:41,531 - INFO - Mean nested CV F1 score: 0.9363 (±0.0038)
+2025-05-23 02:12:41,531 - INFO - Mean nested CV G-mean score: 0.9082 (±0.0086)
+2025-05-23 02:19:03,377 - INFO - Random Forest best params: {'max_depth': 14, 'max_features': 'log2', 'min_samples_leaf': 3, 'min_samples_split': 2, 'n_estimators': 276}
+2025-05-23 02:19:03,694 - INFO - Optimal threshold (Youden's J): 0.48, F1-optimal: 0.24
+2025-05-23 02:19:07,090 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.pdf
+2025-05-23 02:19:07,090 - INFO - Random Forest training completed in 1962.29s
+2025-05-23 02:19:07,090 - INFO - Random Forest F1 score: 0.9635
+2025-05-23 02:19:07,090 - INFO - Random Forest G-mean score: 0.9235
+2025-05-23 02:19:07,090 - INFO - Training XGBoost...
+2025-05-23 02:20:08,175 - INFO - Nested CV F1 scores: [0.9245240385120719, 0.932956161637921, 0.9324685853345289, 0.9383127534200676, 0.933297747614909]
+2025-05-23 02:20:08,175 - INFO - Nested CV G-mean scores: [np.float64(0.8907099765226412), np.float64(0.9130654164928012), np.float64(0.9104424370088838), np.float64(0.9111971742779882), np.float64(0.9071431085936199)]
+2025-05-23 02:20:08,176 - INFO - Mean nested CV F1 score: 0.9323 (±0.0044)
+2025-05-23 02:20:08,177 - INFO - Mean nested CV G-mean score: 0.9065 (±0.0081)
+2025-05-23 02:20:22,246 - INFO - XGBoost best params: {'colsample_bytree': np.float64(0.7941119497105262), 'gamma': np.float64(0.18634343354702465), 'learning_rate': np.float64(0.12840744004284166), 'max_depth': 7, 'min_child_weight': 3, 'subsample': np.float64(0.828024468035746)}
+2025-05-23 02:20:22,288 - INFO - Optimal threshold (Youden's J): 0.47, F1-optimal: 0.16
+2025-05-23 02:20:24,916 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.pdf
+2025-05-23 02:20:24,923 - INFO - XGBoost training completed in 77.83s
+2025-05-23 02:20:24,923 - INFO - XGBoost F1 score: 0.9641
+2025-05-23 02:20:24,924 - INFO - XGBoost G-mean score: 0.9234
+2025-05-23 02:20:24,924 - INFO - Training LightGBM...
+2025-05-23 02:23:12,710 - INFO - Nested CV F1 scores: [0.9231754839352434, 0.9342777820183964, 0.936268085558853, 0.9388930088078719, 0.9317182362826905]
+2025-05-23 02:23:12,710 - INFO - Nested CV G-mean scores: [np.float64(0.89059070944677), np.float64(0.9124053481291416), np.float64(0.9114056304146189), np.float64(0.9092501656607614), np.float64(0.9091785891572315)]
+2025-05-23 02:23:12,710 - INFO - Mean nested CV F1 score: 0.9329 (±0.0054)
+2025-05-23 02:23:12,712 - INFO - Mean nested CV G-mean score: 0.9066 (±0.0081)
+2025-05-23 02:24:03,418 - INFO - LightGBM best params: {'colsample_bytree': np.float64(0.6831766651472755), 'learning_rate': np.float64(0.1235400655639983), 'max_depth': 7, 'min_child_samples': 27, 'num_leaves': 63, 'reg_alpha': np.float64(0.9394989415641891), 'reg_lambda': np.float64(0.8948273504276488), 'subsample': np.float64(0.8391599915244341)}
+2025-05-23 02:24:03,479 - INFO - Optimal threshold (Youden's J): 0.53, F1-optimal: 0.20
+2025-05-23 02:24:06,210 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.pdf
+2025-05-23 02:24:06,231 - INFO - LightGBM training completed in 221.31s
+2025-05-23 02:24:06,231 - INFO - LightGBM F1 score: 0.9619
+2025-05-23 02:24:06,231 - INFO - LightGBM G-mean score: 0.9208
+2025-05-23 02:24:06,232 - INFO - Training Gradient Boosting...
+2025-05-23 03:04:56,678 - INFO - Nested CV F1 scores: [0.9205953672769192, 0.9342777820183964, 0.939512927404217, 0.9364432590162514, 0.9347596378797726]
+2025-05-23 03:04:56,678 - INFO - Nested CV G-mean scores: [np.float64(0.8919499197069405), np.float64(0.9124053481291416), np.float64(0.9142990653679206), np.float64(0.9084307522060002), np.float64(0.9088740610126134)]
+2025-05-23 03:04:56,678 - INFO - Mean nested CV F1 score: 0.9331 (±0.0065)
+2025-05-23 03:04:56,678 - INFO - Mean nested CV G-mean score: 0.9072 (±0.0079)
+2025-05-23 03:15:02,551 - INFO - Gradient Boosting best params: {'learning_rate': np.float64(0.02906750508580709), 'max_depth': 8, 'min_samples_split': 6, 'n_estimators': 148, 'subsample': np.float64(0.8365191150830908)}
+2025-05-23 03:15:02,599 - INFO - Optimal threshold (Youden's J): 0.51, F1-optimal: 0.16
+2025-05-23 03:15:05,087 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\gradient_boosting_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\gradient_boosting_evaluation.pdf
+2025-05-23 03:15:05,087 - INFO - Gradient Boosting training completed in 3058.85s
+2025-05-23 03:15:05,087 - INFO - Gradient Boosting F1 score: 0.9621
+2025-05-23 03:15:05,087 - INFO - Gradient Boosting G-mean score: 0.9216
+2025-05-23 03:15:05,087 - INFO - Training Logistic Regression...
+2025-05-23 03:16:48,270 - INFO - Nested CV F1 scores: [0.8035546935410425, 0.7986041090848606, 0.8171984149342818, 0.7973336126357174, 0.795566326792308]
+2025-05-23 03:16:48,271 - INFO - Nested CV G-mean scores: [np.float64(0.8097916858393496), np.float64(0.8167372493799216), np.float64(0.830598031014434), np.float64(0.816501415493108), np.float64(0.8065990672366105)]
+2025-05-23 03:16:48,272 - INFO - Mean nested CV F1 score: 0.8025 (±0.0078)
+2025-05-23 03:16:48,272 - INFO - Mean nested CV G-mean score: 0.8160 (±0.0083)
+2025-05-23 03:17:08,935 - INFO - Logistic Regression best params: {'C': np.float64(59.86684841970366), 'l1_ratio': np.float64(0.15601864044243652), 'penalty': 'elasticnet', 'solver': 'saga'}
+2025-05-23 03:17:08,956 - INFO - Optimal threshold (Youden's J): 0.41, F1-optimal: 0.23
+2025-05-23 03:17:11,643 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\logistic_regression_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\logistic_regression_evaluation.pdf
+2025-05-23 03:17:11,651 - INFO - Logistic Regression training completed in 126.56s
+2025-05-23 03:17:11,652 - INFO - Logistic Regression F1 score: 0.8506
+2025-05-23 03:17:11,652 - INFO - Logistic Regression G-mean score: 0.8229
+2025-05-23 03:17:11,652 - INFO - Training SVM...
+2025-05-23 03:33:20,970 - INFO - Nested CV F1 scores: [0.28878760283467336, 0.5538164633912778, 0.32922701342688243, 0.5928193972831907, 0.6032181855133213]
+2025-05-23 03:33:20,972 - INFO - Nested CV G-mean scores: [np.float64(0.3071896073015333), np.float64(0.40371107851044635), np.float64(0.37607939121823414), np.float64(0.6464132083459997), np.float64(0.3962938629188414)]
+2025-05-23 03:33:20,972 - INFO - Mean nested CV F1 score: 0.4736 (±0.1360)
+2025-05-23 03:33:20,972 - INFO - Mean nested CV G-mean score: 0.4259 (±0.1154)
+2025-05-23 03:37:43,441 - INFO - SVM best params: {'C': np.float64(9.18022549267169), 'cache_size': 2000, 'gamma': 'auto', 'kernel': 'rbf', 'shrinking': True, 'tol': 0.0001}
+2025-05-23 03:37:44,343 - INFO - Optimal threshold (Youden's J): 0.83, F1-optimal: 0.42
+2025-05-23 03:37:44,403 - ERROR - Error calculating feature importance: No direct feature importance found in pipeline classifier
+2025-05-23 03:37:46,805 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\svm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\svm_evaluation.pdf
+2025-05-23 03:37:46,813 - INFO - SVM training completed in 1235.16s
+2025-05-23 03:37:46,813 - INFO - SVM F1 score: 0.8704
+2025-05-23 03:37:46,813 - INFO - SVM G-mean score: 0.3252
+2025-05-23 03:37:46,813 - INFO - Training Stacking...
+2025-05-23 03:37:46,813 - WARNING - No parameters found for Stacking with search_type=random, skipping tuning
+2025-05-23 03:37:55,821 - INFO - Optimal threshold (Youden's J): 0.46, F1-optimal: 0.09
+2025-05-23 03:37:55,898 - ERROR - Error calculating feature importance: No direct feature importance found in pipeline classifier
+2025-05-23 03:37:58,240 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stacking_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stacking_evaluation.pdf
+2025-05-23 03:37:58,244 - INFO - Stacking training completed in 11.43s
+2025-05-23 03:37:58,245 - INFO - Stacking F1 score: 0.9649
+2025-05-23 03:37:58,245 - INFO - Stacking G-mean score: 0.9235
+2025-05-23 03:37:58,245 - INFO - Training ensemble models...
+2025-05-23 03:38:24,217 - INFO - Optimal threshold (Youden's J): 0.49, F1-optimal: 0.24
+2025-05-23 03:38:26,732 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\votingensemble_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\votingensemble_evaluation.pdf
+2025-05-23 03:38:26,738 - INFO - Voting Ensemble G-mean score: 0.9245
+2025-05-23 03:38:26,739 - INFO - Training stacking ensemble...
+2025-05-23 03:39:40,825 - INFO - Optimal threshold (Youden's J): 0.41, F1-optimal: 0.11
+2025-05-23 03:39:43,360 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stackingensemble_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stackingensemble_evaluation.pdf
+2025-05-23 03:39:43,360 - INFO - Stacking Ensemble G-mean score: 0.9209
+2025-05-23 03:39:43,398 - ERROR - ❌ Comprehensive visualization failed: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-05-23 03:39:43,400 - ERROR - 📍 Traceback: Traceback (most recent call last):
+  File "C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\preprocessing.py", line 2551, in plot_combined_curves
+    if f1_scores:
+       ^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+2025-05-23 03:39:43,418 - INFO - 🔄 Attempting fallback to basic combined curves...
+2025-05-23 03:39:44,140 - INFO - ✅ Basic combined curves saved successfully
+2025-05-23 03:39:45,576 - INFO - Hyperparameter Performance Summary:
+2025-05-23 03:39:45,577 - INFO -   Random Forest: 0.908 ± 0.009
+2025-05-23 03:39:45,578 - INFO -   Gradient Boosting: 0.907 ± 0.008
+2025-05-23 03:39:45,578 - INFO -   LightGBM: 0.907 ± 0.008
+2025-05-23 03:39:45,578 - INFO -   XGBoost: 0.907 ± 0.008
+2025-05-23 03:39:45,578 - INFO -   Logistic Regression: 0.816 ± 0.008
+2025-05-23 03:39:45,578 - INFO -   SVM: 0.426 ± 0.115
+2025-05-23 03:39:45,578 - INFO - Enhanced hyperparameter performance visualization completed
+2025-05-23 03:39:45,578 - INFO - Best model: StackingEnsemble with G-mean score: 0.9209
+2025-05-23 03:39:45,745 - INFO - Model saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\models\stackingensemble.pkl
+2025-05-23 03:39:45,747 - INFO - Pipeline completed successfully. Best model: StackingEnsemble
+2025-05-23 03:39:45,769 - INFO - CKD analysis completed successfully
+2025-05-23 12:32:49,839 - INFO - Starting CKD analysis pipeline
+2025-05-23 12:32:49,897 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-23 12:32:49,909 - WARNING - Missing features in dataset: ['appetite']
+2025-05-23 12:32:49,920 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-23 12:32:49,920 - INFO - Using knn imputation strategy
+2025-05-23 12:33:23,949 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-23 12:33:23,967 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-23 12:33:23,970 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-23 12:33:24,004 - WARNING - Target variable not available for polynomial feature selection
+2025-05-23 12:33:26,523 - INFO - Added 111 polynomial features after filtering
+2025-05-23 12:33:26,539 - INFO - Added 111 polynomial features
+2025-05-23 12:33:26,581 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-23 12:33:26,652 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-23 12:33:26,713 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 12:33:26,726 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 12:33:27,604 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-23 12:33:27,606 - INFO - Starting model training
+2025-05-23 12:33:27,631 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-23 12:33:30,054 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-23 12:33:30,055 - INFO - Performing feature selection using select_k_best
+2025-05-23 12:34:03,220 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-23 12:34:03,221 - INFO - Training Random Forest...
+2025-05-23 12:58:38,060 - INFO - Nested CV F1 scores: [0.9298515300921546, 0.9400392047565539, 0.9404978029542118, 0.9398767586161161, 0.934895394359275]
+2025-05-23 12:58:38,060 - INFO - Nested CV G-mean scores: [np.float64(0.8895420973551308), np.float64(0.9177294205062984), np.float64(0.9133928699156035), np.float64(0.9083335523907418), np.float64(0.9112746125179991)]
+2025-05-23 12:58:38,062 - INFO - Mean nested CV F1 score: 0.9370 (±0.0041)
+2025-05-23 12:58:38,062 - INFO - Mean nested CV G-mean score: 0.9081 (±0.0097)
+2025-05-23 13:04:38,306 - INFO - Random Forest best params: {'max_depth': 14, 'max_features': 'log2', 'min_samples_leaf': 3, 'min_samples_split': 2, 'n_estimators': 276}
+2025-05-23 13:04:38,594 - INFO - Optimal threshold (Youden's J): 0.50, F1-optimal: 0.20
+2025-05-23 13:04:43,986 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.pdf
+2025-05-23 13:04:43,998 - INFO - Random Forest training completed in 1840.78s
+2025-05-23 13:04:43,998 - INFO - Random Forest F1 score: 0.9648
+2025-05-23 13:04:43,998 - INFO - Random Forest G-mean score: 0.9261
+2025-05-23 13:04:44,000 - INFO - Training XGBoost...
+2025-05-23 13:05:41,830 - INFO - Nested CV F1 scores: [0.9291529683371159, 0.9399548550575071, 0.939512927404217, 0.9384003427375939, 0.9279498613533079]
+2025-05-23 13:05:41,830 - INFO - Nested CV G-mean scores: [np.float64(0.8945208768032902), np.float64(0.9161318870393053), np.float64(0.9142990653679206), np.float64(0.9066009549757514), np.float64(0.908206232582194)]
+2025-05-23 13:05:41,832 - INFO - Mean nested CV F1 score: 0.9350 (±0.0053)
+2025-05-23 13:05:41,832 - INFO - Mean nested CV G-mean score: 0.9080 (±0.0076)
+2025-05-23 13:05:54,780 - INFO - XGBoost best params: {'colsample_bytree': np.float64(0.8253102287905535), 'gamma': np.float64(0.34775804321306375), 'learning_rate': np.float64(0.051799436321762704), 'max_depth': 8, 'min_child_weight': 4, 'subsample': np.float64(0.9771414282231924)}
+2025-05-23 13:05:54,823 - INFO - Optimal threshold (Youden's J): 0.40, F1-optimal: 0.19
+2025-05-23 13:05:57,429 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.pdf
+2025-05-23 13:05:57,429 - INFO - XGBoost training completed in 73.43s
+2025-05-23 13:05:57,429 - INFO - XGBoost F1 score: 0.9607
+2025-05-23 13:05:57,429 - INFO - XGBoost G-mean score: 0.9223
+2025-05-23 13:05:57,445 - INFO - Training LightGBM...
+2025-05-23 13:07:45,868 - INFO - Nested CV F1 scores: [0.9281861707706127, 0.9346678611631994, 0.9372446621818751, 0.9389788020714711, 0.9267583068771719]
+2025-05-23 13:07:45,870 - INFO - Nested CV G-mean scores: [np.float64(0.890014422470794), np.float64(0.9072701646639658), np.float64(0.910500468445888), np.float64(0.9046391709689362), np.float64(0.9051179289724214)]
+2025-05-23 13:07:45,870 - INFO - Mean nested CV F1 score: 0.9332 (±0.0049)
+2025-05-23 13:07:45,870 - INFO - Mean nested CV G-mean score: 0.9035 (±0.0071)
+2025-05-23 13:08:10,195 - INFO - LightGBM best params: {'colsample_bytree': np.float64(0.9238004184558861), 'learning_rate': np.float64(0.07973319745834587), 'max_depth': 9, 'min_child_samples': 42, 'num_leaves': 59, 'reg_alpha': np.float64(0.3867353463005374), 'reg_lambda': np.float64(0.9367299887367345), 'subsample': np.float64(0.6550083776583973)}
+2025-05-23 13:08:10,252 - INFO - Optimal threshold (Youden's J): 0.42, F1-optimal: 0.21
+2025-05-23 13:08:12,783 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.pdf
+2025-05-23 13:08:12,799 - INFO - LightGBM training completed in 135.35s
+2025-05-23 13:08:12,799 - INFO - LightGBM F1 score: 0.9597
+2025-05-23 13:08:12,799 - INFO - LightGBM G-mean score: 0.9201
+2025-05-23 13:08:12,799 - INFO - Training Gradient Boosting...
+2025-05-23 13:46:45,024 - INFO - Nested CV F1 scores: [0.9238758328381012, 0.9327297742366069, 0.936268085558853, 0.9376398531417617, 0.9342330195050625]
+2025-05-23 13:46:45,024 - INFO - Nested CV G-mean scores: [np.float64(0.8910534056096052), np.float64(0.9090787265418309), np.float64(0.9114056304146189), np.float64(0.9053310457459328), np.float64(0.9116075153344868)]
+2025-05-23 13:46:45,024 - INFO - Mean nested CV F1 score: 0.9329 (±0.0048)
+2025-05-23 13:46:45,024 - INFO - Mean nested CV G-mean score: 0.9057 (±0.0077)
+2025-05-23 13:56:18,051 - INFO - Gradient Boosting best params: {'learning_rate': np.float64(0.017625738023228556), 'max_depth': 6, 'min_samples_split': 8, 'n_estimators': 290, 'subsample': np.float64(0.7257423924305306)}
+2025-05-23 13:56:18,114 - INFO - Optimal threshold (Youden's J): 0.43, F1-optimal: 0.15
+2025-05-23 13:56:20,586 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\gradient_boosting_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\gradient_boosting_evaluation.pdf
+2025-05-23 13:56:20,586 - INFO - Gradient Boosting training completed in 2887.79s
+2025-05-23 13:56:20,602 - INFO - Gradient Boosting F1 score: 0.9600
+2025-05-23 13:56:20,603 - INFO - Gradient Boosting G-mean score: 0.9230
+2025-05-23 13:56:20,604 - INFO - Training Logistic Regression...
+2025-05-23 13:57:37,685 - INFO - Nested CV F1 scores: [0.8099098307257859, 0.8052520695849263, 0.8108758261170873, 0.8005387378864293, 0.7979189164483258]
+2025-05-23 13:57:37,685 - INFO - Nested CV G-mean scores: [np.float64(0.7793943311537868), np.float64(0.7853980020839016), np.float64(0.770135121484604), np.float64(0.7715673421723518), np.float64(0.7689022999523643)]
+2025-05-23 13:57:37,685 - INFO - Mean nested CV F1 score: 0.8049 (±0.0051)
+2025-05-23 13:57:37,685 - INFO - Mean nested CV G-mean score: 0.7751 (±0.0063)
+2025-05-23 13:57:56,109 - INFO - Logistic Regression best params: {'C': np.float64(0.7076305219717406), 'l1_ratio': np.float64(0.023062425041415757), 'penalty': 'elasticnet', 'solver': 'saga'}
+2025-05-23 13:57:56,125 - INFO - Optimal threshold (Youden's J): 0.51, F1-optimal: 0.13
+2025-05-23 13:57:58,542 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\logistic_regression_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\logistic_regression_evaluation.pdf
+2025-05-23 13:57:58,542 - INFO - Logistic Regression training completed in 97.94s
+2025-05-23 13:57:58,542 - INFO - Logistic Regression F1 score: 0.8636
+2025-05-23 13:57:58,542 - INFO - Logistic Regression G-mean score: 0.7970
+2025-05-23 13:57:58,542 - INFO - Training SVM...
+2025-05-23 14:13:53,341 - INFO - Nested CV F1 scores: [0.7424785900593923, 0.8409839506389629, 0.580207386994563, 0.2788274544818437, 0.6384718058326989]
+2025-05-23 14:13:53,341 - INFO - Nested CV G-mean scores: [np.float64(0.5412473856375819), np.float64(0.77719700474107), np.float64(0.6016882156511663), np.float64(0.38770306898449863), np.float64(0.5762417835507044)]
+2025-05-23 14:13:53,341 - INFO - Mean nested CV F1 score: 0.6162 (±0.1908)
+2025-05-23 14:13:53,341 - INFO - Mean nested CV G-mean score: 0.5768 (±0.1247)
+2025-05-23 14:18:11,172 - INFO - SVM best params: {'C': np.float64(48.48923138822793), 'cache_size': 2000, 'gamma': 'auto', 'kernel': 'rbf', 'shrinking': True, 'tol': 0.0001}
+2025-05-23 14:18:11,998 - INFO - Optimal threshold (Youden's J): 0.61, F1-optimal: 0.36
+2025-05-23 14:18:12,062 - ERROR - Error calculating feature importance: No direct feature importance found in pipeline classifier
+2025-05-23 14:18:14,443 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\svm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\svm_evaluation.pdf
+2025-05-23 14:18:14,447 - INFO - SVM training completed in 1215.91s
+2025-05-23 14:18:14,447 - INFO - SVM F1 score: 0.9244
+2025-05-23 14:18:14,447 - INFO - SVM G-mean score: 0.7612
+2025-05-23 14:18:14,447 - INFO - Training Stacking...
+2025-05-23 14:18:14,447 - WARNING - No parameters found for Stacking with search_type=random, skipping tuning
+2025-05-23 14:18:22,843 - INFO - Optimal threshold (Youden's J): 0.53, F1-optimal: 0.09
+2025-05-23 14:18:22,934 - ERROR - Error calculating feature importance: No direct feature importance found in pipeline classifier
+2025-05-23 14:18:25,264 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stacking_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stacking_evaluation.pdf
+2025-05-23 14:18:25,264 - INFO - Stacking training completed in 10.82s
+2025-05-23 14:18:25,264 - INFO - Stacking F1 score: 0.9625
+2025-05-23 14:18:25,264 - INFO - Stacking G-mean score: 0.9226
+2025-05-23 14:18:25,264 - INFO - Training ensemble models...
+2025-05-23 14:18:52,231 - INFO - Optimal threshold (Youden's J): 0.51, F1-optimal: 0.17
+2025-05-23 14:18:54,635 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\votingensemble_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\votingensemble_evaluation.pdf
+2025-05-23 14:18:54,635 - INFO - Voting Ensemble G-mean score: 0.9256
+2025-05-23 14:18:54,635 - INFO - Training stacking ensemble...
+2025-05-23 14:20:29,358 - INFO - Optimal threshold (Youden's J): 0.35, F1-optimal: 0.07
+2025-05-23 14:20:31,890 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stackingensemble_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stackingensemble_evaluation.pdf
+2025-05-23 14:20:31,903 - INFO - Stacking Ensemble G-mean score: 0.9258
+2025-05-23 14:20:31,934 - ERROR - ❌ Comprehensive visualization failed: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-05-23 14:20:31,943 - ERROR - 📍 Traceback: Traceback (most recent call last):
+  File "C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\preprocessing.py", line 2565, in plot_combined_curves
+    if f1_scores:
+       ^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+2025-05-23 14:20:31,951 - INFO - 🔄 Attempting fallback to basic combined curves...
+2025-05-23 14:20:32,740 - INFO - ✅ Basic combined curves saved successfully
+2025-05-23 14:20:34,192 - INFO - Hyperparameter Performance Summary:
+2025-05-23 14:20:34,192 - INFO -   Random Forest: 0.908 ± 0.010
+2025-05-23 14:20:34,192 - INFO -   XGBoost: 0.908 ± 0.008
+2025-05-23 14:20:34,192 - INFO -   Gradient Boosting: 0.906 ± 0.008
+2025-05-23 14:20:34,192 - INFO -   LightGBM: 0.904 ± 0.007
+2025-05-23 14:20:34,192 - INFO -   Logistic Regression: 0.775 ± 0.006
+2025-05-23 14:20:34,192 - INFO -   SVM: 0.577 ± 0.125
+2025-05-23 14:20:34,192 - INFO - Enhanced hyperparameter performance visualization completed
+2025-05-23 14:20:34,192 - INFO - Best model: StackingEnsemble with G-mean score: 0.9258
+2025-05-23 14:20:34,378 - INFO - Model saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\models\stackingensemble.pkl
+2025-05-23 14:20:34,382 - INFO - Pipeline completed successfully. Best model: StackingEnsemble
+2025-05-23 14:20:34,402 - INFO - CKD analysis completed successfully
+2025-05-23 15:34:42,289 - INFO - Starting CKD analysis pipeline
+2025-05-23 15:34:42,328 - INFO - Loaded dataset with shape: (16302, 26)
+2025-05-23 15:34:42,335 - WARNING - Missing features in dataset: ['appetite']
+2025-05-23 15:34:42,340 - INFO - Features with missing values: ['wc', 'su', 'pc', 'pcc', 'ba', 'sod', 'pot', 'pcv', 'rc', 'rbc']
+2025-05-23 15:34:42,341 - INFO - Using knn imputation strategy
+2025-05-23 15:35:20,151 - INFO - Applied KNN imputation to 21 numeric features
+2025-05-23 15:35:20,165 - INFO - Capped 0 high and 406 low extreme values in BUN-to-creatinine ratio
+2025-05-23 15:35:20,172 - INFO - Added BUN-to-creatinine ratio feature
+2025-05-23 15:35:20,199 - WARNING - Target variable not available for polynomial feature selection
+2025-05-23 15:35:22,213 - INFO - Added 111 polynomial features after filtering
+2025-05-23 15:35:22,228 - INFO - Added 111 polynomial features
+2025-05-23 15:35:22,270 - WARNING - Detected 111 duplicate column names. Removing duplicates.
+2025-05-23 15:35:22,317 - INFO - Identified 0 categorical and 133 numerical features
+2025-05-23 15:35:22,380 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 15:35:22,391 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-05-23 15:35:23,151 - INFO - Data preprocessing complete. Final dataset shape: (16302, 133)
+2025-05-23 15:35:23,157 - INFO - Starting model training
+2025-05-23 15:35:23,181 - INFO - Train set: (13041, 133), Test set: (3261, 133)
+2025-05-23 15:35:25,338 - WARNING - Potential data leakage: 39 identical rows found in both train and test sets
+2025-05-23 15:35:25,345 - INFO - Performing feature selection using select_k_best
+2025-05-23 15:35:54,400 - INFO - Data visualization complete. Plots saved to plots directory.
+2025-05-23 15:35:54,400 - INFO - Training Random Forest...
+2025-05-23 16:02:21,067 - INFO - Nested CV F1 scores: [0.9293000291899363, 0.935913362948922, 0.9406259157085513, 0.9371998868851054, 0.9384006859638288]
+2025-05-23 16:02:21,068 - INFO - Nested CV G-mean scores: [np.float64(0.8915163161903393), np.float64(0.9111730386031778), np.float64(0.915797251485744), np.float64(0.9096980062438191), np.float64(0.9128007231383163)]
+2025-05-23 16:02:21,070 - INFO - Mean nested CV F1 score: 0.9363 (±0.0038)
+2025-05-23 16:02:21,070 - INFO - Mean nested CV G-mean score: 0.9082 (±0.0086)
+2025-05-23 16:08:40,997 - INFO - Random Forest best params: {'max_depth': 14, 'max_features': 'log2', 'min_samples_leaf': 3, 'min_samples_split': 2, 'n_estimators': 276}
+2025-05-23 16:08:41,265 - INFO - Optimal threshold (Youden's J): 0.48, F1-optimal: 0.24
+2025-05-23 16:08:44,976 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\random_forest_evaluation.pdf
+2025-05-23 16:08:44,992 - INFO - Random Forest training completed in 1970.59s
+2025-05-23 16:08:44,992 - INFO - Random Forest F1 score: 0.9635
+2025-05-23 16:08:44,992 - INFO - Random Forest G-mean score: 0.9235
+2025-05-23 16:08:44,992 - INFO - Training XGBoost...
+2025-05-23 16:09:44,204 - INFO - Nested CV F1 scores: [0.9245240385120719, 0.932956161637921, 0.9324685853345289, 0.9383127534200676, 0.933297747614909]
+2025-05-23 16:09:44,206 - INFO - Nested CV G-mean scores: [np.float64(0.8907099765226412), np.float64(0.9130654164928012), np.float64(0.9104424370088838), np.float64(0.9111971742779882), np.float64(0.9071431085936199)]
+2025-05-23 16:09:44,206 - INFO - Mean nested CV F1 score: 0.9323 (±0.0044)
+2025-05-23 16:09:44,206 - INFO - Mean nested CV G-mean score: 0.9065 (±0.0081)
+2025-05-23 16:09:58,165 - INFO - XGBoost best params: {'colsample_bytree': np.float64(0.7941119497105262), 'gamma': np.float64(0.18634343354702465), 'learning_rate': np.float64(0.12840744004284166), 'max_depth': 7, 'min_child_weight': 3, 'subsample': np.float64(0.828024468035746)}
+2025-05-23 16:09:58,203 - INFO - Optimal threshold (Youden's J): 0.47, F1-optimal: 0.16
+2025-05-23 16:10:00,785 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\xgboost_evaluation.pdf
+2025-05-23 16:10:00,792 - INFO - XGBoost training completed in 75.80s
+2025-05-23 16:10:00,792 - INFO - XGBoost F1 score: 0.9641
+2025-05-23 16:10:00,792 - INFO - XGBoost G-mean score: 0.9234
+2025-05-23 16:10:00,792 - INFO - Training LightGBM...
+2025-05-23 16:11:58,144 - INFO - Nested CV F1 scores: [0.9231754839352434, 0.9342777820183964, 0.936268085558853, 0.9388930088078719, 0.9317182362826905]
+2025-05-23 16:11:58,146 - INFO - Nested CV G-mean scores: [np.float64(0.89059070944677), np.float64(0.9124053481291416), np.float64(0.9114056304146189), np.float64(0.9092501656607614), np.float64(0.9091785891572315)]
+2025-05-23 16:11:58,146 - INFO - Mean nested CV F1 score: 0.9329 (±0.0054)
+2025-05-23 16:11:58,146 - INFO - Mean nested CV G-mean score: 0.9066 (±0.0081)
+2025-05-23 16:12:23,789 - INFO - LightGBM best params: {'colsample_bytree': np.float64(0.6831766651472755), 'learning_rate': np.float64(0.1235400655639983), 'max_depth': 7, 'min_child_samples': 27, 'num_leaves': 63, 'reg_alpha': np.float64(0.9394989415641891), 'reg_lambda': np.float64(0.8948273504276488), 'subsample': np.float64(0.8391599915244341)}
+2025-05-23 16:12:23,842 - INFO - Optimal threshold (Youden's J): 0.53, F1-optimal: 0.20
+2025-05-23 16:12:26,272 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\lightgbm_evaluation.pdf
+2025-05-23 16:12:26,289 - INFO - LightGBM training completed in 145.50s
+2025-05-23 16:12:26,289 - INFO - LightGBM F1 score: 0.9619
+2025-05-23 16:12:26,289 - INFO - LightGBM G-mean score: 0.9208
+2025-05-23 16:12:26,289 - INFO - Training Gradient Boosting...
+2025-05-23 16:52:38,485 - INFO - Nested CV F1 scores: [0.9205953672769192, 0.9342777820183964, 0.939512927404217, 0.9364432590162514, 0.9347596378797726]
+2025-05-23 16:52:38,485 - INFO - Nested CV G-mean scores: [np.float64(0.8919499197069405), np.float64(0.9124053481291416), np.float64(0.9142990653679206), np.float64(0.9084307522060002), np.float64(0.9088740610126134)]
+2025-05-23 16:52:38,485 - INFO - Mean nested CV F1 score: 0.9331 (±0.0065)
+2025-05-23 16:52:38,485 - INFO - Mean nested CV G-mean score: 0.9072 (±0.0079)
+2025-05-23 17:02:46,834 - INFO - Gradient Boosting best params: {'learning_rate': np.float64(0.02906750508580709), 'max_depth': 8, 'min_samples_split': 6, 'n_estimators': 148, 'subsample': np.float64(0.8365191150830908)}
+2025-05-23 17:02:46,882 - INFO - Optimal threshold (Youden's J): 0.51, F1-optimal: 0.16
+2025-05-23 17:02:49,327 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\gradient_boosting_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\gradient_boosting_evaluation.pdf
+2025-05-23 17:02:49,344 - INFO - Gradient Boosting training completed in 3023.06s
+2025-05-23 17:02:49,344 - INFO - Gradient Boosting F1 score: 0.9621
+2025-05-23 17:02:49,347 - INFO - Gradient Boosting G-mean score: 0.9216
+2025-05-23 17:02:49,348 - INFO - Training Logistic Regression...
+2025-05-23 17:07:00,176 - INFO - Nested CV F1 scores: [0.8042041669282176, 0.7986041090848606, 0.8175242715102665, 0.7973336126357174, 0.795566326792308]
+2025-05-23 17:07:00,176 - INFO - Nested CV G-mean scores: [np.float64(0.8102743534799466), np.float64(0.8167372493799216), np.float64(0.8308403318432854), np.float64(0.816501415493108), np.float64(0.8065990672366105)]
+2025-05-23 17:07:00,176 - INFO - Mean nested CV F1 score: 0.8026 (±0.0080)
+2025-05-23 17:07:00,176 - INFO - Mean nested CV G-mean score: 0.8162 (±0.0083)
+2025-05-23 17:07:18,203 - INFO - Logistic Regression best params: {'C': np.float64(1.564640674119393), 'penalty': 'l1', 'solver': 'liblinear'}
+2025-05-23 17:07:18,222 - INFO - Optimal threshold (Youden's J): 0.42, F1-optimal: 0.23
+2025-05-23 17:07:20,780 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\logistic_regression_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\logistic_regression_evaluation.pdf
+2025-05-23 17:07:20,780 - INFO - Logistic Regression training completed in 271.43s
+2025-05-23 17:07:20,780 - INFO - Logistic Regression F1 score: 0.8506
+2025-05-23 17:07:20,780 - INFO - Logistic Regression G-mean score: 0.8229
+2025-05-23 17:07:20,780 - INFO - Training SVM...
+2025-05-23 17:22:58,290 - INFO - Nested CV F1 scores: [0.28878760283467336, 0.5538164633912778, 0.32922701342688243, 0.5928193972831907, 0.6032181855133213]
+2025-05-23 17:22:58,290 - INFO - Nested CV G-mean scores: [np.float64(0.3071896073015333), np.float64(0.40371107851044635), np.float64(0.37607939121823414), np.float64(0.6464132083459997), np.float64(0.3962938629188414)]
+2025-05-23 17:22:58,290 - INFO - Mean nested CV F1 score: 0.4736 (±0.1360)
+2025-05-23 17:22:58,290 - INFO - Mean nested CV G-mean score: 0.4259 (±0.1154)
+2025-05-23 17:27:18,497 - INFO - SVM best params: {'C': np.float64(9.18022549267169), 'cache_size': 2000, 'gamma': 'auto', 'kernel': 'rbf', 'shrinking': True, 'tol': 0.0001}
+2025-05-23 17:27:19,474 - INFO - Optimal threshold (Youden's J): 0.83, F1-optimal: 0.42
+2025-05-23 17:27:19,536 - ERROR - Error calculating feature importance: No direct feature importance found in pipeline classifier
+2025-05-23 17:27:21,754 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\svm_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\svm_evaluation.pdf
+2025-05-23 17:27:21,774 - INFO - SVM training completed in 1200.99s
+2025-05-23 17:27:21,774 - INFO - SVM F1 score: 0.8704
+2025-05-23 17:27:21,775 - INFO - SVM G-mean score: 0.3252
+2025-05-23 17:27:21,775 - INFO - Training Stacking...
+2025-05-23 17:27:21,776 - WARNING - No parameters found for Stacking with search_type=random, skipping tuning
+2025-05-23 17:27:30,660 - INFO - Optimal threshold (Youden's J): 0.46, F1-optimal: 0.09
+2025-05-23 17:27:30,755 - ERROR - Error calculating feature importance: No direct feature importance found in pipeline classifier
+2025-05-23 17:27:33,152 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stacking_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stacking_evaluation.pdf
+2025-05-23 17:27:33,152 - INFO - Stacking training completed in 11.38s
+2025-05-23 17:27:33,152 - INFO - Stacking F1 score: 0.9649
+2025-05-23 17:27:33,152 - INFO - Stacking G-mean score: 0.9235
+2025-05-23 17:27:33,152 - INFO - Training ensemble models...
+2025-05-23 17:27:58,742 - INFO - Optimal threshold (Youden's J): 0.49, F1-optimal: 0.24
+2025-05-23 17:28:01,133 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\votingensemble_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\votingensemble_evaluation.pdf
+2025-05-23 17:28:01,146 - INFO - Voting Ensemble G-mean score: 0.9245
+2025-05-23 17:28:01,146 - INFO - Training stacking ensemble...
+2025-05-23 17:29:15,322 - INFO - Optimal threshold (Youden's J): 0.41, F1-optimal: 0.11
+2025-05-23 17:29:17,912 - INFO - Evaluation plots saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stackingensemble_evaluation.png and C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\plots\stackingensemble_evaluation.pdf
+2025-05-23 17:29:17,917 - INFO - Stacking Ensemble G-mean score: 0.9209
+2025-05-23 17:29:17,934 - ERROR - ❌ Comprehensive visualization failed: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-05-23 17:29:17,949 - ERROR - 📍 Traceback: Traceback (most recent call last):
+  File "C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\preprocessing.py", line 2585, in plot_combined_curves
+    if youden_j:
+       ^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+2025-05-23 17:29:17,949 - INFO - 🔄 Attempting fallback to basic combined curves...
+2025-05-23 17:29:18,683 - INFO - ✅ Basic combined curves saved successfully
+2025-05-23 17:29:20,004 - INFO - Hyperparameter Performance Summary:
+2025-05-23 17:29:20,004 - INFO -   Random Forest: 0.908 ± 0.009
+2025-05-23 17:29:20,004 - INFO -   Gradient Boosting: 0.907 ± 0.008
+2025-05-23 17:29:20,004 - INFO -   LightGBM: 0.907 ± 0.008
+2025-05-23 17:29:20,004 - INFO -   XGBoost: 0.907 ± 0.008
+2025-05-23 17:29:20,004 - INFO -   Logistic Regression: 0.816 ± 0.008
+2025-05-23 17:29:20,004 - INFO -   SVM: 0.426 ± 0.115
+2025-05-23 17:29:20,004 - INFO - Enhanced hyperparameter performance visualization completed
+2025-05-23 17:29:20,004 - INFO - Best model: StackingEnsemble with G-mean score: 0.9209
+2025-05-23 17:29:20,180 - INFO - Model saved to C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\models\stackingensemble.pkl
+2025-05-23 17:29:20,182 - INFO - Pipeline completed successfully. Best model: StackingEnsemble
+2025-05-23 17:29:20,206 - INFO - CKD analysis completed successfully

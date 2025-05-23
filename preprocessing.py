@@ -32,6 +32,7 @@ from scipy.stats import randint, uniform
 import warnings
 import shap
 import pickle
+import matplotlib.cm as cm
 from sklearn.inspection import permutation_importance
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
@@ -283,12 +284,19 @@ class CKDPreprocessor:
                 'classifier__min_samples_split': [2, 5, 10],
                 'classifier__subsample': [0.8, 0.9, 1.0]
             },
-            'Logistic Regression': {
-                'classifier__C': [0.001, 0.01, 0.1, 1, 10, 100],
-                'classifier__penalty': ['l1', 'l2', 'elasticnet', None],
-                'classifier__solver': ['saga', 'liblinear'],
-                'classifier__l1_ratio': [0.2, 0.5, 0.8]
-            },
+            'Logistic Regression': [
+                {
+                    'classifier__solver': ['liblinear'],
+                    'classifier__penalty': ['l1', 'l2'],
+                    'classifier__C': [0.001, 0.01, 0.1, 1, 10, 100]
+                },
+                {
+                    'classifier__solver': ['saga'],
+                    'classifier__penalty': ['l1', 'l2', 'elasticnet', None],
+                    'classifier__C': [0.001, 0.01, 0.1, 1, 10, 100],
+                    'classifier__l1_ratio': [0.2, 0.5, 0.8]
+                }
+            ],
             'SVM': {
                 'classifier__C': [0.1, 1.0, 10.0],
                 'classifier__gamma': ['scale', 'auto'],
@@ -333,12 +341,19 @@ class CKDPreprocessor:
                 'classifier__min_samples_split': randint(2, 20),
                 'classifier__subsample': uniform(0.6, 0.4)
             },
-            'Logistic Regression': {
-                'classifier__C': uniform(0.001, 100),
-                'classifier__penalty': ['l1', 'l2', 'elasticnet', None],
-                'classifier__solver': ['saga', 'liblinear'],
-                'classifier__l1_ratio': uniform(0, 1)
-            },
+            'Logistic Regression': [
+                {
+                    'classifier__solver': ['liblinear'],
+                    'classifier__penalty': ['l1', 'l2'],
+                    'classifier__C': uniform(0.001, 100)
+                },
+                {
+                    'classifier__solver': ['saga'],
+                    'classifier__penalty': ['l1', 'l2', 'elasticnet', None],
+                    'classifier__C': uniform(0.001, 100),
+                    'classifier__l1_ratio': uniform(0, 1)
+                }
+            ],
             'SVM': {
                 'classifier__C': uniform(0.01, 50),  # Narrower range
                 'classifier__gamma': ['scale', 'auto'],
@@ -1153,12 +1168,18 @@ class CKDPreprocessor:
             target_name = y.name if hasattr(y, 'name') else self.target
             
             # Perform resampling
-            X_res, y_res = sampler.fit_resample(X, y)
+            if isinstance(X, pd.DataFrame):
+                X_res, y_res = sampler.fit_resample(X.values, y)
+                X_res = pd.DataFrame(X_res, columns=X.columns)
+            else:
+                X_res, y_res = sampler.fit_resample(X, y)
             
             # Convert back to DataFrame/Series with proper indices if the input was a DataFrame
             if is_df:
                 X_res = pd.DataFrame(X_res, columns=columns)
                 y_res = pd.Series(y_res, name=target_name)
+            else:
+                X_res = np.array(X_res)
             
             # Make sure indices are reset and aligned between X_res and y_res
             if hasattr(X_res, 'reset_index'):
@@ -1293,13 +1314,27 @@ class CKDPreprocessor:
 
     def evaluate_model(self, model, X_test, y_test, feature_names=None, model_name="Model"):
         """Evaluate model performance with comprehensive metrics"""
+        
+        # Initialize curve_data at the beginning to avoid UnboundLocalError
+        curve_data = {
+            'fpr': np.array([0, 1]),
+            'tpr': np.array([0, 1]), 
+            'roc_auc': 0,
+            'precision': np.array([0, 1]),
+            'recall': np.array([1, 0]),
+            'pr_auc': 0
+        }
+        
+        if not isinstance(X_test, pd.DataFrame):
+            X_test = pd.DataFrame(X_test, columns=feature_names)
+
         try:
             y_pred = model.predict(X_test)
             
             # Check if model is making constant predictions
             if len(np.unique(y_pred)) == 1:
                 logging.warning(f"{model_name} produced constant predictions. Evaluation skipped.")
-                return {'constant_predictions': True}, {}
+                return {'constant_predictions': True}, {}, curve_data
             
             # Get prediction probabilities safely
             try:
@@ -1342,6 +1377,16 @@ class CKDPreprocessor:
                 logging.error(f"Error generating classification report: {str(report_error)}")
                 class_report = {}
             
+            # Initialize variables for threshold optimization
+            precision_curve = np.array([0, 1])
+            recall_curve = np.array([1, 0])
+            pr_thresholds = np.array([0, 1])
+            fpr, tpr = np.array([0, 1]), np.array([0, 1])
+            roc_thresholds = np.array([0, 1])
+            f1_scores = np.array([0, 0])
+            youden_j = np.array([0, 0])
+            pr_auc = 0
+            
             # Threshold optimization - with error handling
             try:
                 # Check if we have enough unique values in y_test for curve calculation
@@ -1351,6 +1396,9 @@ class CKDPreprocessor:
                     
                     # Calculate ROC curve for Youden's J statistic
                     fpr, tpr, roc_thresholds = roc_curve(y_test, y_proba)
+                    
+                    # Calculate PR AUC
+                    pr_auc = auc(recall_curve, precision_curve)
                     
                     # Calculate Youden's J statistic (sensitivity + specificity - 1)
                     youden_j = tpr + (1 - fpr) - 1
@@ -1366,7 +1414,7 @@ class CKDPreprocessor:
                     # Remove last element which doesn't have a corresponding threshold
                     f1_scores = f1_scores[:-1]
                     
-                    if len(f1_scores) > 0:
+                    if f1_scores.size > 0 and len(f1_scores) > 0:
                         optimal_idx_f1 = np.argmax(f1_scores)
                         optimal_threshold_f1 = pr_thresholds[optimal_idx_f1]
                         
@@ -1387,27 +1435,29 @@ class CKDPreprocessor:
                     logging.warning("Not enough unique values for threshold optimization")
                     metrics['optimal_threshold'] = 0.5  # Default
                     optimal_threshold = 0.5
-                    
-                    # Create dummy values for plotting
-                    precision_curve = np.array([0, 1])
-                    recall_curve = np.array([1, 0])
-                    pr_thresholds = np.array([0, 1])
-                    fpr, tpr = np.array([0, 1]), np.array([0, 1])
-                    roc_thresholds = np.array([0, 1])
-                    f1_scores = np.array([0, 0])
-                    youden_j = np.array([0, 0])
+
             except Exception as threshold_error:
                 logging.error(f"Error in threshold optimization: {str(threshold_error)}")
-                # Create dummy values for plotting
-                precision_curve = np.array([0, 1])
-                recall_curve = np.array([1, 0])
-                pr_thresholds = np.array([0, 1])
-                fpr, tpr = np.array([0, 1]), np.array([0, 1])
-                roc_thresholds = np.array([0, 1])
-                f1_scores = np.array([0, 0])
-                youden_j = np.array([0, 0])
                 optimal_threshold = 0.5
                 metrics['optimal_threshold'] = 0.5  # Default
+            
+            # Update curve_data with calculated values - POSITION FIXED HERE
+            curve_data = {
+                'fpr': fpr,
+                'tpr': tpr,
+                'roc_auc': metrics.get('roc_auc', 0),
+                'precision': precision_curve,
+                'recall': recall_curve,
+                'pr_auc': pr_auc
+            }
+            
+            # Store threshold data in metrics - POSITION FIXED HERE
+            metrics['threshold_data'] = {
+                'thresholds': pr_thresholds,
+                'f1_scores': f1_scores,
+                'youden_j': youden_j,
+                'roc_thresholds': roc_thresholds
+            }
             
             # Create figure with 3x2 subplots for visualization
             fig = plt.figure(figsize=(16, 20))
@@ -1469,7 +1519,6 @@ class CKDPreprocessor:
                 if len(precision_curve) > 1 and len(recall_curve) > 1:
                     # Calculate AUC only if we have valid curves
                     try:
-                        pr_auc = auc(recall_curve, precision_curve)
                         ax3.plot(recall_curve, precision_curve, label=f'PR curve (area = {pr_auc:.3f})')
                         
                         # Plot optimal F1 threshold point on PR curve
@@ -1566,7 +1615,7 @@ class CKDPreprocessor:
                         # Calculate permutation importance if X_test has enough samples
                         if len(X_test) >= 10:  # Only calculate if we have enough samples
                             # Convert X_test to numpy if it's a DataFrame
-                            X_test_arr = X_test.values if isinstance(X_test, pd.DataFrame) else X_test
+                            X_test_df = X_test if isinstance(X_test, pd.DataFrame) else pd.DataFrame(X_test, columns=feature_names)
                             
                             perm_importance = permutation_importance(model, X_test_arr, y_test, 
                                                             n_repeats=10,  # Increased for more stability
@@ -1694,19 +1743,29 @@ class CKDPreprocessor:
                 
                 # Calculate log loss if possible
                 if len(np.unique(y_test)) > 1 and len(np.unique(y_proba)) > 1:
-                    metrics['log_loss'] = log_loss(y_test, y_proba, eps=1e-15)
+                    y_proba_clipped = np.clip(y_proba, 1e-15, 1 - 1e-15)
+                    metrics['log_loss'] = log_loss(y_test, y_proba_clipped)
                     
                 # Add Brier score
                 metrics['brier_score'] = brier_score_loss(y_test, y_proba)
             except Exception as add_metrics_error:
                 logging.error(f"Error calculating additional metrics: {str(add_metrics_error)}")
-            
-            return metrics, class_report
+
+            return metrics, class_report, curve_data
             
         except Exception as e:
             logging.error(f"Evaluation failed for {model_name}: {str(e)}")
             traceback.print_exc()  # Print stack trace for debugging
-            return {'evaluation_error': str(e)}, {}
+            default_curve_data = {
+                'fpr': np.array([0, 1]),
+                'tpr': np.array([0, 1]),
+                'roc_auc': 0,
+                'precision': np.array([0, 1]),
+                'recall': np.array([1, 0]),                    
+                'pr_auc': 0
+            }
+            
+            return {'evaluation_error': str(e)}, {}, default_curve_data
 
     def visualize_data(self, X, y, feature_names=None):
         """Visualize data distribution and relationships with added SHAP explanations"""
@@ -1787,6 +1846,9 @@ class CKDPreprocessor:
     def generate_shap_explanations(self, model, X, feature_names=None):
         """Generate SHAP explanations for the model predictions"""
         try:
+            if not isinstance(X_sample, pd.DataFrame):
+                X_sample = pd.DataFrame(X_sample, columns=feature_names)
+
             # Use feature names if provided
             if feature_names is None:
                 feature_names = [f"Feature_{i}" for i in range(X.shape[1])]
@@ -1808,7 +1870,7 @@ class CKDPreprocessor:
                 explainer = shap.Explainer(model.predict_proba, X_sample)
             else:
                 explainer = shap.Explainer(model.predict, X_sample)
-            
+
             # Calculate SHAP values
             shap_values = explainer(X_sample)
             
@@ -1937,8 +1999,10 @@ class CKDPreprocessor:
             # Preserve feature names
             if isinstance(X_train, pd.DataFrame):
                 feature_names = X_train.columns.tolist()
+                original_columns = X_train.columns.tolist()
             else:
                 feature_names = [f"feature_{i}" for i in range(X_train.shape[1])]
+                original_columns = feature_names
             
             # Feature selection if configured (BEFORE any data augmentation like SMOTE)
             if self.use_feature_selection:
@@ -1954,16 +2018,20 @@ class CKDPreprocessor:
                     # If feature selection was successful and we have a selector
                     if selector is not None:
                         # Transform test set using the SAME selector
-                        X_test = selector.transform(X_test)
+                        X_test_transformed = selector.transform(X_test)
                         
                         # Update feature names with selected ones
                         selected_indices = selector.get_support(indices=True)
-                        feature_names = [feature_names[i] for i in selected_indices]
+                        feature_names = [original_columns[i] for i in selected_indices]
                         
-                        # Convert to DataFrame if original was DataFrame to preserve feature names
+                        # Convert to DataFrame to preserve feature names
                         if isinstance(X, pd.DataFrame):
+                            X_train = pd.DataFrame(X_train, columns=feature_names, index=X_train.index if hasattr(X_train, 'index') else None)
+                            X_test = pd.DataFrame(X_test_transformed, columns=feature_names, index=X_test.index if hasattr(X_test, 'index') else None)
+                        else:
+                            # If original wasn't DataFrame, convert arrays to DataFrame for consistency
                             X_train = pd.DataFrame(X_train, columns=feature_names)
-                            X_test = pd.DataFrame(X_test, columns=feature_names)
+                            X_test = pd.DataFrame(X_test_transformed, columns=feature_names)
                     else:
                         logging.error("Feature selection failed, no selector was returned")
                         return {}, None
@@ -1971,26 +2039,24 @@ class CKDPreprocessor:
                     logging.error(f"Feature selection failed: {str(e)}")
                     return {}, None
             
-            # Convert to numpy arrays for processing if not using pipelines
-            # This makes SMOTE and scaling more reliable
-            is_dataframe = isinstance(X_train, pd.DataFrame)
-            if not use_pipeline and is_dataframe:
-                X_train_values = X_train.values
-                X_test_values = X_test.values
-            else:
-                X_train_values = X_train
-                X_test_values = X_test
+            # Ensure we have DataFrame for consistent processing
+            if not isinstance(X_train, pd.DataFrame):
+                X_train = pd.DataFrame(X_train, columns=feature_names)
+                X_test = pd.DataFrame(X_test, columns=feature_names)
             
             # Handle class imbalance AFTER feature selection but BEFORE scaling
             # Only apply to training data to prevent data leakage
-            if self.use_smote and not use_pipeline:  # if using pipeline, SMOTE will be applied there
+            if self.use_smote and not use_pipeline:
                 try:
-                    X_train_values, y_train = self.handle_imbalance(X_train_values, y_train, method='smote')
+                    # Apply SMOTE while preserving DataFrame structure
+                    X_train_values, y_train = self.handle_imbalance(X_train.values, y_train, method='smote')
+                    # Convert back to DataFrame with original feature names
+                    X_train = pd.DataFrame(X_train_values, columns=X_train.columns)
                 except Exception as e:
                     logging.error(f"SMOTE application failed: {str(e)}")
                     logging.warning("Continuing without applying SMOTE")
-            # If not using SMOTE, set scale_pos_weight for XGBoost if it exists in models
             elif not self.use_smote and 'XGBoost' in self.models:
+
                 # Calculate class weight for imbalanced data
                 if isinstance(y_train, (pd.Series, pd.DataFrame)):
                     y_train_values = y_train.values
@@ -2004,22 +2070,27 @@ class CKDPreprocessor:
                 logging.info(f"Set XGBoost scale_pos_weight to {scale_pos:.2f}")
             
             # Scale features if configured (AFTER feature selection and SMOTE)
-            if self.scaler is not None and not use_pipeline:  # if using pipeline, scaling will be done there
+            if self.scaler is not None and not use_pipeline:
                 try:
-                    X_train_values = self.scaler.fit_transform(X_train_values)
-                    X_test_values = self.scaler.transform(X_test_values)
+                    # Apply scaling while preserving DataFrame structure
+                    X_train_scaled = self.scaler.fit_transform(X_train)
+                    X_test_scaled = self.scaler.transform(X_test)
+                    
+                    # Convert back to DataFrame with feature names preserved
+                    X_train = pd.DataFrame(
+                        X_train_scaled, 
+                        columns=X_train.columns, 
+                        index=X_train.index
+                    )
+                    X_test = pd.DataFrame(
+                        X_test_scaled, 
+                        columns=X_test.columns, 
+                        index=X_test.index
+                    )
                 except Exception as e:
                     logging.error(f"Scaling failed: {str(e)}")
                     # Try to continue without scaling
                     logging.warning("Continuing without scaling")
-            
-            # Convert back to DataFrame if original input was DataFrame
-            if is_dataframe and not use_pipeline:
-                X_train = pd.DataFrame(X_train_values, columns=feature_names)
-                X_test = pd.DataFrame(X_test_values, columns=feature_names)
-            else:
-                X_train = X_train_values
-                X_test = X_test_values
             
             # Visualize preprocessed data
             try:
@@ -2069,7 +2140,7 @@ class CKDPreprocessor:
                             'f1': 'f1_weighted',
                             'gmean': make_scorer(geometric_mean_score, average='weighted')
                         }
-                        refit = 'gmean'  # Choose geometric mean as primary optimization metric
+                        refit = 'gmean'
                         
                         # Check if param grids/distributions exist for this model
                         param_exists = False
@@ -2089,7 +2160,7 @@ class CKDPreprocessor:
                             search = RandomizedSearchCV(
                                 pipe,
                                 param_distributions=self.param_distributions[name],
-                                n_iter=50,  # Increased from 20 to 50 for better coverage
+                                n_iter=50,
                                 cv=inner_cv,
                                 scoring=scoring,
                                 refit=refit,
@@ -2101,7 +2172,11 @@ class CKDPreprocessor:
                         if not param_exists:
                             logging.warning(f"No parameters found for {name} with search_type={search_type}, skipping tuning")
                             model = pipe
-                            model.fit(X_train, y_train)
+                            # Ensure DataFrame structure is maintained during fit
+                            if isinstance(X_train, pd.DataFrame):
+                                model.fit(X_train, y_train)
+                            else:
+                                model.fit(pd.DataFrame(X_train, columns=feature_names), y_train)
                             nested_scores = None
                         else:
                             # Outer CV loop for nested CV evaluation
@@ -2109,14 +2184,13 @@ class CKDPreprocessor:
                                 'f1': [],
                                 'gmean': []
                             }
-                            for train_idx, test_idx in outer_cv.split(X_train, y_train):
-                                # Make sure X_train is an array if using SMOTE in pipeline
-                                if isinstance(X_train, pd.DataFrame):
-                                    X_tr = X_train.iloc[train_idx].values
-                                    X_val = X_train.iloc[test_idx].values
-                                else:
-                                    X_tr, X_val = X_train[train_idx], X_train[test_idx]
-                                    
+                            
+                            # Ensure X_train is DataFrame for consistent processing
+                            X_train_df = X_train if isinstance(X_train, pd.DataFrame) else pd.DataFrame(X_train, columns=feature_names)
+                            
+                            for train_idx, test_idx in outer_cv.split(X_train_df, y_train):
+                                X_tr = X_train_df.iloc[train_idx]
+                                X_val = X_train_df.iloc[test_idx]
                                 y_tr, y_val = y_train[train_idx], y_train[test_idx]
                                 
                                 search.fit(X_tr, y_tr)
@@ -2134,7 +2208,7 @@ class CKDPreprocessor:
                                 logging.info(f"Mean nested CV G-mean score: {np.mean(nested_scores['gmean']):.4f} (±{np.std(nested_scores['gmean']):.4f})")
                             
                             # Final fit with the entire training data
-                            search.fit(X_train, y_train)
+                            search.fit(X_train_df, y_train)
                             model = search.best_estimator_
                             
                             # Clean and log best parameters
@@ -2144,36 +2218,33 @@ class CKDPreprocessor:
                                 best_params = search.best_params_
                             logging.info(f"{name} best params: {best_params}")
                     else:
-                        # Train without a pipeline
+                        # Train without a pipeline - ensure DataFrame consistency
                         model = clone(base_model)
-                        model.fit(X_train, y_train)
+                        # Fit with DataFrame to maintain feature names
+                        if isinstance(X_train, pd.DataFrame):
+                            model.fit(X_train, y_train)
+                        else:
+                            X_train_df = pd.DataFrame(X_train, columns=feature_names)
+                            model.fit(X_train_df, y_train)
                         nested_scores = None
                     
-                    # Evaluate the model
-                    metrics, report = self.evaluate_model(
-                        model, X_test, y_test, feature_names, name
+                    # Evaluate the model - ensure DataFrame consistency
+                    X_test_eval = X_test if isinstance(X_test, pd.DataFrame) else pd.DataFrame(X_test, columns=feature_names)
+                    metrics, report, curve_data = self.evaluate_model(
+                        model, X_test_eval, y_test, feature_names, name
                     )
                     
                     # Add geometric mean to metrics if not already present
                     if 'gmean' not in metrics:
                         try:
-                            y_pred = model.predict(X_test)
+                            y_pred = model.predict(X_test_eval)
                             metrics['gmean'] = geometric_mean_score(y_test, y_pred, average='weighted')
                         except Exception as e:
                             logging.warning(f"Could not calculate G-mean: {str(e)}")
                             metrics['gmean'] = 0.0
                     
                     training_time = time.time() - start_time
-                    
-                    # Store results
-                    model_results[name] = {
-                        'model': model,
-                        'metrics': metrics,
-                        'report': report,
-                        'training_time': training_time,
-                        'nested_scores': nested_scores
-                    }
-                    
+
                     logging.info(f"{name} training completed in {training_time:.2f}s")
                     logging.info(f"{name} F1 score: {metrics.get('f1', 0):.4f}")
                     logging.info(f"{name} G-mean score: {metrics.get('gmean', 0):.4f}")
@@ -2182,10 +2253,19 @@ class CKDPreprocessor:
                     if metrics.get('gmean', 0) > best_score:
                         best_score = metrics.get('gmean', 0)
                         best_model_name = name
-                        
+                    
+                    model_results[name] = {
+                        'model': model,
+                        'metrics': metrics,
+                        'report': report,
+                        'curve_data': curve_data,
+                        'training_time': training_time,
+                        'nested_scores': nested_scores
+                    }
+
                 except Exception as e:
                     logging.error(f"Error training {name}: {str(e)}")
-                    traceback.print_exc()  # Print stack trace for debugging
+                    traceback.print_exc()
                     continue
             
             # Create ensemble of top models if we have multiple successful models
@@ -2196,11 +2276,15 @@ class CKDPreprocessor:
                     # Take top 3 models or fewer if we don't have 3
                     top_models = sorted(
                         model_results.items(), 
-                        key=lambda x: x[1]['metrics'].get('gmean', 0),  # Sort by G-mean instead of F1
+                        key=lambda x: x[1]['metrics'].get('gmean', 0),
                         reverse=True
                     )[:min(3, len(model_results))]
                     
                     estimators = [(name, model_dict['model']) for name, model_dict in top_models]
+                    
+                    # Ensure X_train is DataFrame for ensemble training
+                    X_train_ensemble = X_train if isinstance(X_train, pd.DataFrame) else pd.DataFrame(X_train, columns=feature_names)
+                    X_test_ensemble = X_test if isinstance(X_test, pd.DataFrame) else pd.DataFrame(X_test, columns=feature_names)
                     
                     # Create a voting ensemble
                     ensemble = VotingClassifier(
@@ -2209,17 +2293,17 @@ class CKDPreprocessor:
                         n_jobs=-1
                     )
                     
-                    ensemble.fit(X_train, y_train)
+                    ensemble.fit(X_train_ensemble, y_train)
                     
                     # Evaluate voting ensemble
-                    metrics, report = self.evaluate_model(
-                        ensemble, X_test, y_test, feature_names, "VotingEnsemble"
+                    metrics, report, curve_data = self.evaluate_model(
+                        ensemble, X_test_ensemble, y_test, feature_names, "VotingEnsemble"
                     )
                     
                     # Add geometric mean to metrics if not already present
                     if 'gmean' not in metrics:
                         try:
-                            y_pred = ensemble.predict(X_test)
+                            y_pred = ensemble.predict(X_test_ensemble)
                             metrics['gmean'] = geometric_mean_score(y_test, y_pred, average='weighted')
                         except Exception as e:
                             logging.warning(f"Could not calculate G-mean for VotingEnsemble: {str(e)}")
@@ -2229,6 +2313,7 @@ class CKDPreprocessor:
                         'model': ensemble,
                         'metrics': metrics,
                         'report': report,
+                        'curve_data': curve_data,
                         'training_time': sum(model_dict['training_time'] for _, model_dict in top_models),
                         'nested_scores': None
                     }
@@ -2259,23 +2344,23 @@ class CKDPreprocessor:
                         final_estimator=meta_model,
                         cv=5,
                         n_jobs=-1,
-                        passthrough=False  # Don't include original features
+                        passthrough=False
                     )
                     
                     logging.info("Training stacking ensemble...")
                     stacking_start_time = time.time()
-                    stacking.fit(X_train, y_train)
+                    stacking.fit(X_train_ensemble, y_train)
                     stacking_training_time = time.time() - stacking_start_time
                     
                     # Evaluate stacking ensemble
-                    stacking_metrics, stacking_report = self.evaluate_model(
-                        stacking, X_test, y_test, feature_names, "StackingEnsemble"
+                    stacking_metrics, stacking_report, stacking_curve_data = self.evaluate_model(
+                        stacking, X_test_ensemble, y_test, feature_names, "StackingEnsemble"
                     )
                     
                     # Add geometric mean to metrics if not already present
                     if 'gmean' not in stacking_metrics:
                         try:
-                            y_pred = stacking.predict(X_test)
+                            y_pred = stacking.predict(X_test_ensemble)
                             stacking_metrics['gmean'] = geometric_mean_score(y_test, y_pred, average='weighted')
                         except Exception as e:
                             logging.warning(f"Could not calculate G-mean for StackingEnsemble: {str(e)}")
@@ -2285,6 +2370,7 @@ class CKDPreprocessor:
                         'model': stacking,
                         'metrics': stacking_metrics,
                         'report': stacking_report,
+                        'curve_data': stacking_curve_data,
                         'training_time': stacking_training_time,
                         'nested_scores': None
                     }
@@ -2307,7 +2393,10 @@ class CKDPreprocessor:
                         
                 except Exception as e:
                     logging.error(f"Error training ensemble models: {str(e)}")
-                    traceback.print_exc()  # Print stack trace for debugging
+                    traceback.print_exc()
+            
+            self.plot_combined_curves(model_results)
+            self.visualize_hyperparameter_performance(model_results)
 
             # Select the best model
             if best_model_name:
@@ -2337,8 +2426,10 @@ class CKDPreprocessor:
                 # Generate SHAP explanations for the best model (if not ensemble)
                 if not best_model_name.endswith("Ensemble"):
                     try:
+                        # Ensure DataFrame consistency for SHAP
+                        X_test_shap = X_test if isinstance(X_test, pd.DataFrame) else pd.DataFrame(X_test, columns=feature_names)
                         self.generate_shap_explanations(
-                            self.best_model, X_test, feature_names, best_model_name
+                            self.best_model, X_test_shap, feature_names, best_model_name
                         )
                     except Exception as e:
                         logging.error(f"SHAP explanation generation failed: {str(e)}")
@@ -2350,9 +2441,536 @@ class CKDPreprocessor:
                 
         except Exception as e:
             logging.error(f"Model training failed: {str(e)}")
-            traceback.print_exc()  # Print stack trace for debugging
+            traceback.print_exc()
         return {}, None
     
+    def plot_combined_curves(self, model_results):
+        """
+        Enhanced comprehensive visualization combining ROC, PR, Threshold Optimization, and Calibration curves
+        with improved styling and statistical insights
+        """
+        
+        try:
+            # Enhanced color palette and styling options
+            colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
+                    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+            line_styles = ['-', '--', '-.', ':']
+            markers = ['o', 's', 'D', '^', 'v', '<', '>', 'p', '*', 'h']
+            
+            # Create comprehensive figure layout (2x3 grid for better organization)
+            fig = plt.figure(figsize=(24, 16))
+            gs = fig.add_gridspec(2, 3, hspace=0.3, wspace=0.3)
+            fig.suptitle('Comprehensive Model Performance Analysis', fontsize=20, fontweight='bold', y=0.96)
+            
+            # Track performance for summary
+            roc_aucs = []
+            pr_aucs = []
+            
+            # 1. Enhanced ROC Curves
+            ax1 = fig.add_subplot(gs[0, 0])
+            for i, (name, result) in enumerate(model_results.items()):
+                if 'curve_data' in result and all(key in result['curve_data'] for key in ['fpr', 'tpr', 'roc_auc']):
+                    fpr = result['curve_data']['fpr']
+                    tpr = result['curve_data']['tpr']
+                    roc_auc = result['curve_data']['roc_auc']
+                    roc_aucs.append((name, roc_auc))
+                    
+                    # Enhanced plotting with multiple styles
+                    ax1.plot(fpr, tpr, 
+                            color=colors[i % len(colors)], 
+                            linestyle=line_styles[i % len(line_styles)],
+                            label=f"{name} (AUC = {roc_auc:.3f})", 
+                            linewidth=2.5, alpha=0.8)
+                    
+                    # Mark optimal threshold point if available
+                    if 'optimal_roc_point' in result['curve_data']:
+                        opt_point = result['curve_data']['optimal_roc_point']
+                        ax1.scatter(opt_point[0], opt_point[1], 
+                                color=colors[i % len(colors)], 
+                                s=80, marker=markers[i % len(markers)], 
+                                edgecolors='black', linewidth=1, zorder=5)
+            
+            # Enhanced ROC styling
+            ax1.plot([0, 1], [0, 1], 'k--', linewidth=1.5, alpha=0.6, label='Random Classifier')
+            ax1.set_xlim([-0.02, 1.02])
+            ax1.set_ylim([-0.02, 1.02])
+            ax1.set_xlabel('False Positive Rate', fontsize=12, fontweight='bold')
+            ax1.set_ylabel('True Positive Rate', fontsize=12, fontweight='bold')
+            ax1.set_title('ROC Curves with Optimal Points', fontsize=14, fontweight='bold')
+            ax1.legend(loc="lower right", fontsize=9, framealpha=0.9, fancybox=True, shadow=True)
+            ax1.grid(True, linestyle='--', alpha=0.4)
+            ax1.set_facecolor('#f8f9fa')
+            
+            # 2. Enhanced Precision-Recall Curves
+            ax2 = fig.add_subplot(gs[0, 1])
+            for i, (name, result) in enumerate(model_results.items()):
+                if 'curve_data' in result and all(key in result['curve_data'] for key in ['precision', 'recall']):
+                    precision = result['curve_data']['precision']
+                    recall = result['curve_data']['recall']
+                    pr_auc = result['curve_data'].get('pr_auc')
+                    
+                    if pr_auc is not None:
+                        pr_aucs.append((name, pr_auc))
+                        label = f"{name} (AUC = {pr_auc:.3f})"
+                    else:
+                        label = name
+                        
+                    ax2.plot(recall, precision, 
+                            color=colors[i % len(colors)], 
+                            linestyle=line_styles[i % len(line_styles)],
+                            label=label, linewidth=2.5, alpha=0.8)
+            
+            # Enhanced PR styling
+            ax2.set_xlim([-0.02, 1.02])
+            ax2.set_ylim([-0.02, 1.02])
+            ax2.set_xlabel('Recall', fontsize=12, fontweight='bold')
+            ax2.set_ylabel('Precision', fontsize=12, fontweight='bold')
+            ax2.set_title('Precision-Recall Curves', fontsize=14, fontweight='bold')
+            ax2.legend(loc="lower left", fontsize=9, framealpha=0.9, fancybox=True, shadow=True)
+            ax2.grid(True, linestyle='--', alpha=0.4)
+            ax2.set_facecolor('#f8f9fa')
+            
+            # 3. Combined Threshold Optimization
+            ax3 = fig.add_subplot(gs[0, 2])
+            has_threshold_data = False
+            
+            for i, (name, result) in enumerate(model_results.items()):
+                # Check for threshold data in multiple possible locations
+                threshold_data = None
+                if 'curve_data' in result and 'roc_thresholds' in result['curve_data']:
+                    # Calculate F1 and Youden's J from available data
+                    if 'y_pred_proba' in result['curve_data'] and result['curve_data']['y_pred_proba'] is not None:
+                        thresholds = np.linspace(0.1, 0.9, 30)
+                        f1_scores = []
+                        youden_j = []
+                        
+                        # This would need y_test from the original evaluation
+                        # For now, we'll use the ROC thresholds as approximation
+                        roc_thresholds = result['curve_data']['roc_thresholds']
+                        fpr = result['curve_data']['fpr']
+                        tpr = result['curve_data']['tpr']
+                        
+                        # Calculate Youden's J for each threshold
+                        youden_scores = tpr - fpr
+                        
+                        # Sample subset of thresholds for visualization
+                        sample_indices = np.linspace(0, len(roc_thresholds)-1, min(30, len(roc_thresholds)), dtype=int)
+                        sampled_thresholds = roc_thresholds[sample_indices]
+                        sampled_youden = youden_scores[sample_indices]
+                        
+                        # Plot Youden's J statistic
+                        ax3.plot(sampled_thresholds, sampled_youden, 
+                                color=colors[i % len(colors)],
+                                linestyle=line_styles[i % len(line_styles)],
+                                linewidth=2,
+                                marker=markers[i % len(markers)],
+                                markersize=4,
+                                label=f"{name} Youden's J")
+                        has_threshold_data = True
+                
+                # Check for existing threshold data structure
+                elif 'metrics' in result and 'threshold_data' in result['metrics']:
+                    threshold_data = result['metrics']['threshold_data']
+                    thresholds = threshold_data['thresholds']
+                    f1_scores = threshold_data.get('f1_scores', [])
+                    youden_j = threshold_data.get('youden_j', [])
+                    
+                    if f1_scores.size > 0 and len(f1_scores) > 0:
+                        ax3.plot(thresholds, f1_scores, 
+                                color=colors[i % len(colors)],
+                                linestyle=line_styles[i % len(line_styles)],
+                                linewidth=2,
+                                label=f'{name} F1')
+                    
+                    if youden_j:
+                        ax3b = ax3.twinx()
+                        ax3b.plot(thresholds, youden_j,
+                                color=colors[i % len(colors)],
+                                linestyle=line_styles[(i+1) % len(line_styles)],
+                                linewidth=1.5,
+                                alpha=0.7,
+                                label=f'{name} Youden J')
+                        ax3b.set_ylabel("Youden's J Statistic", fontsize=12, fontweight='bold')
+                    
+                    has_threshold_data = True
+            
+            if has_threshold_data:
+                ax3.set_xlabel('Threshold', fontsize=12, fontweight='bold')
+                ax3.set_ylabel('Performance Score', fontsize=12, fontweight='bold')
+                ax3.set_title('Threshold Optimization', fontsize=14, fontweight='bold')
+                ax3.legend(loc='upper right', fontsize=9)
+                ax3.grid(True, alpha=0.4)
+                ax3.set_facecolor('#f8f9fa')
+            else:
+                # Fallback: Show optimal thresholds as bar chart
+                model_names = []
+                roc_thresholds = []
+                pr_thresholds = []
+                
+                for name, result in model_results.items():
+                    if 'curve_data' in result:
+                        model_names.append(name)
+                        roc_thresholds.append(result['curve_data'].get('optimal_roc_threshold', 0.5))
+                        pr_thresholds.append(result['curve_data'].get('optimal_pr_threshold', 0.5))
+                
+                if model_names:
+                    x = np.arange(len(model_names))
+                    width = 0.35
+                    
+                    ax3.bar(x - width/2, roc_thresholds, width, label='ROC Optimal', 
+                        color='skyblue', alpha=0.8)
+                    ax3.bar(x + width/2, pr_thresholds, width, label='PR Optimal', 
+                        color='lightcoral', alpha=0.8)
+                    
+                    ax3.set_xlabel('Models', fontsize=12, fontweight='bold')
+                    ax3.set_ylabel('Optimal Threshold', fontsize=12, fontweight='bold')
+                    ax3.set_title('Optimal Thresholds Comparison', fontsize=14, fontweight='bold')
+                    ax3.set_xticks(x)
+                    ax3.set_xticklabels(model_names, rotation=45, ha='right')
+                    ax3.legend()
+                    ax3.grid(True, alpha=0.4)
+                    ax3.set_facecolor('#f8f9fa')
+            
+            # 4. Combined Calibration Plot
+            ax4 = fig.add_subplot(gs[1, 0])
+            has_calibration = False
+            
+            for i, (name, result) in enumerate(model_results.items()):
+                # Check for calibration data
+                if 'metrics' in result and 'calibration' in result['metrics']:
+                    prob_true, prob_pred = result['metrics']['calibration']
+                    ax4.plot(prob_pred, prob_true, 
+                            marker=markers[i % len(markers)],
+                            color=colors[i % len(colors)],
+                            linestyle=line_styles[i % len(line_styles)],
+                            markersize=6,
+                            linewidth=2,
+                            label=name)
+                    has_calibration = True
+                
+                # Alternative: Create calibration from probability predictions
+                elif 'curve_data' in result and 'y_pred_proba' in result['curve_data']:
+                    y_proba = result['curve_data']['y_pred_proba']
+                    if y_proba is not None:
+                        # This would need y_test for proper calibration
+                        # For visualization purposes, we'll show the distribution
+                        ax4.hist(y_proba, bins=10, alpha=0.3, 
+                                color=colors[i % len(colors)], 
+                                label=f'{name} Prob Distribution')
+                        has_calibration = True
+            
+            if has_calibration and 'prob_true' in locals():
+                ax4.plot([0, 1], [0, 1], 'k:', linewidth=2, label="Perfect Calibration")
+                ax4.set_xlim([-0.05, 1.05])
+                ax4.set_ylim([-0.05, 1.05])
+                ax4.set_xlabel('Predicted Probability', fontsize=12, fontweight='bold')
+                ax4.set_ylabel('True Probability', fontsize=12, fontweight='bold')
+                ax4.set_title('Calibration Curves', fontsize=14, fontweight='bold')
+            else:
+                ax4.set_xlabel('Predicted Probability', fontsize=12, fontweight='bold')
+                ax4.set_ylabel('Frequency', fontsize=12, fontweight='bold')
+                ax4.set_title('Probability Distributions', fontsize=14, fontweight='bold')
+            
+            ax4.legend(loc="upper left", fontsize=9)
+            ax4.grid(True, alpha=0.4)
+            ax4.set_facecolor('#f8f9fa')
+            
+            # 5. Performance Comparison Radar Chart
+            ax5 = fig.add_subplot(gs[1, 1], projection='polar')
+            
+            # Metrics for radar chart
+            radar_metrics = ['roc_auc', 'pr_auc', 'f1_score', 'precision', 'recall', 'accuracy']
+            angles = np.linspace(0, 2 * np.pi, len(radar_metrics), endpoint=False).tolist()
+            angles += angles[:1]  # Complete the circle
+            
+            for i, (name, result) in enumerate(model_results.items()):
+                if 'metrics' in result:
+                    metrics = result['metrics']
+                    values = []
+                    
+                    for metric in radar_metrics:
+                        if metric in ['roc_auc', 'pr_auc']:
+                            # Get from curve_data
+                            if 'curve_data' in result:
+                                values.append(result['curve_data'].get(metric, 0))
+                            else:
+                                values.append(metrics.get(metric, 0))
+                        else:
+                            values.append(metrics.get(metric, 0))
+                    
+                    values += values[:1]  # Complete the circle
+                    
+                    ax5.plot(angles, values, 'o-', linewidth=2, 
+                            color=colors[i % len(colors)], label=name)
+                    ax5.fill(angles, values, alpha=0.25, color=colors[i % len(colors)])
+            
+            ax5.set_xticks(angles[:-1])
+            ax5.set_xticklabels([m.replace('_', ' ').title() for m in radar_metrics])
+            ax5.set_ylim(0, 1)
+            ax5.set_title('Performance Radar Chart', fontsize=14, fontweight='bold', pad=20)
+            ax5.legend(loc='upper right', bbox_to_anchor=(1.3, 1.0), fontsize=9)
+            
+            # 6. Summary Statistics Table
+            ax6 = fig.add_subplot(gs[1, 2])
+            ax6.axis('tight')
+            ax6.axis('off')
+            
+            # Create performance summary table
+            table_data = []
+            headers = ['Model', 'ROC AUC', 'PR AUC', 'F1 Score', 'Precision', 'Recall']
+            
+            for name, result in model_results.items():
+                metrics = result.get('metrics', {})
+                curve_data = result.get('curve_data', {})
+                
+                row = [
+                    name,
+                    f"{curve_data.get('roc_auc', 0):.3f}",
+                    f"{curve_data.get('pr_auc', 0):.3f}",
+                    f"{metrics.get('f1_score', 0):.3f}",
+                    f"{metrics.get('precision', 0):.3f}",
+                    f"{metrics.get('recall', 0):.3f}"
+                ]
+                table_data.append(row)
+            
+            # Sort by ROC AUC
+            table_data.sort(key=lambda x: float(x[1]), reverse=True)
+            
+            table = ax6.table(cellText=table_data, colLabels=headers, 
+                            cellLoc='center', loc='center')
+            table.auto_set_font_size(False)
+            table.set_fontsize(9)
+            table.scale(1.2, 1.8)
+            
+            # Style the table
+            for i in range(len(headers)):
+                table[(0, i)].set_facecolor('#4CAF50')
+                table[(0, i)].set_text_props(weight='bold', color='white')
+            
+            # Highlight best performers
+            for i in range(1, len(table_data) + 1):
+                if i == 1:  # Best performer
+                    for j in range(len(headers)):
+                        table[(i, j)].set_facecolor('#FFD700')  # Gold
+            
+            ax6.set_title('Performance Summary', fontsize=14, fontweight='bold', pad=20)
+            
+            # Final layout adjustments
+            plt.tight_layout()
+            plt.subplots_adjust(top=0.92)
+            
+            # Save in multiple formats with enhanced quality
+            for fmt in ['png', 'pdf', 'svg']:
+                plt.savefig(self.plots_dir / f"comprehensive_model_analysis.{fmt}", 
+                        dpi=300, bbox_inches='tight', facecolor='white', edgecolor='none')
+            
+            plt.close()
+            
+            # Enhanced logging with comprehensive summary
+            logging.info("=" * 60)
+            logging.info("COMPREHENSIVE MODEL PERFORMANCE SUMMARY")
+            logging.info("=" * 60)
+            
+            if roc_aucs:
+                roc_aucs.sort(key=lambda x: x[1], reverse=True)
+                logging.info("ROC AUC Rankings:")
+                for i, (name, auc) in enumerate(roc_aucs, 1):
+                    logging.info(f"  {i}. {name}: {auc:.3f}")
+            
+            if pr_aucs:
+                pr_aucs.sort(key=lambda x: x[1], reverse=True)
+                logging.info("\nPR AUC Rankings:")
+                for i, (name, auc) in enumerate(pr_aucs, 1):
+                    logging.info(f"  {i}. {name}: {auc:.3f}")
+            
+            # Overall best model
+            if roc_aucs and pr_aucs:
+                # Calculate combined score (average of normalized ROC and PR AUC)
+                combined_scores = {}
+                for name, _ in model_results.items():
+                    roc_score = next((auc for n, auc in roc_aucs if n == name), 0)
+                    pr_score = next((auc for n, auc in pr_aucs if n == name), 0)
+                    combined_scores[name] = (roc_score + pr_score) / 2
+                
+                best_overall = max(combined_scores.items(), key=lambda x: x[1])
+                logging.info(f"\n🏆 BEST OVERALL MODEL: {best_overall[0]} (Combined Score: {best_overall[1]:.3f})")
+            
+            logging.info("=" * 60)
+            logging.info("✅ Comprehensive model analysis visualization completed!")
+            logging.info(f"📁 Saved as: comprehensive_model_analysis.[png|pdf|svg]")
+            logging.info("=" * 60)
+            
+        except Exception as e:
+            logging.error(f"❌ Comprehensive visualization failed: {str(e)}")
+            logging.error(f"📍 Traceback: {traceback.format_exc()}")
+            
+            # Fallback to basic combined curves
+            try:
+                logging.info("🔄 Attempting fallback to basic combined curves...")
+                self._plot_basic_combined_curves(model_results)
+            except Exception as fallback_error:
+                logging.error(f"❌ Fallback also failed: {str(fallback_error)}")
+
+    def _plot_basic_combined_curves(self, model_results):
+        """Fallback function for basic combined ROC and PR curves"""
+        
+        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+        
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+        fig.suptitle('Basic Model Performance Comparison', fontsize=16, fontweight='bold')
+        
+        # ROC Curves
+        for i, (name, result) in enumerate(model_results.items()):
+            if 'curve_data' in result:
+                curve_data = result['curve_data']
+                if 'fpr' in curve_data and 'tpr' in curve_data:
+                    ax1.plot(curve_data['fpr'], curve_data['tpr'], 
+                            color=colors[i % len(colors)], 
+                            label=f"{name} (AUC = {curve_data.get('roc_auc', 0):.3f})", 
+                            linewidth=2)
+        
+        ax1.plot([0, 1], [0, 1], 'k--', alpha=0.6)
+        ax1.set_xlabel('False Positive Rate')
+        ax1.set_ylabel('True Positive Rate')
+        ax1.set_title('ROC Curves')
+        ax1.legend()
+        ax1.grid(True, alpha=0.3)
+        
+        # PR Curves
+        for i, (name, result) in enumerate(model_results.items()):
+            if 'curve_data' in result:
+                curve_data = result['curve_data']
+                if 'precision' in curve_data and 'recall' in curve_data:
+                    ax2.plot(curve_data['recall'], curve_data['precision'], 
+                            color=colors[i % len(colors)], 
+                            label=f"{name} (AUC = {curve_data.get('pr_auc', 0):.3f})", 
+                            linewidth=2)
+        
+        ax2.set_xlabel('Recall')
+        ax2.set_ylabel('Precision')
+        ax2.set_title('Precision-Recall Curves')
+        ax2.legend()
+        ax2.grid(True, alpha=0.3)
+        
+        plt.tight_layout()
+        plt.savefig(self.plots_dir / "basic_combined_curves.png", dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        logging.info("✅ Basic combined curves saved successfully")
+
+    def visualize_hyperparameter_performance(self, model_results):
+        """Enhanced visualization of hyperparameter tuning results with statistical insights"""
+        
+        try:
+            # Prepare data for visualization
+            model_names = []
+            all_scores = []
+            mean_scores = []
+            std_scores = []
+            
+            for model_name, results in model_results.items():
+                if results.get('nested_scores') and 'gmean' in results['nested_scores']:
+                    scores = results['nested_scores']['gmean']
+                    model_names.append(model_name)
+                    all_scores.append(scores)
+                    mean_scores.append(np.mean(scores))
+                    std_scores.append(np.std(scores))
+            
+            if not model_names:
+                logging.warning("No hyperparameter tuning results found to visualize")
+                return
+            
+            # Enhanced plotting with better styling
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18, 8))
+            fig.suptitle('Hyperparameter Tuning Performance Analysis', 
+                        fontsize=18, fontweight='bold', y=0.98)
+            
+            # Color scheme
+            colors = plt.cm.Set3(np.linspace(0, 1, len(model_names)))
+            
+            # Left plot: Scatter plot with error bars
+            for i, (model_name, scores) in enumerate(zip(model_names, all_scores)):
+                # Add jitter for better visibility
+                x_jitter = np.random.normal(i, 0.05, len(scores))
+                ax1.scatter(x_jitter, scores, color=colors[i], alpha=0.6, 
+                        s=50, edgecolors='black', linewidth=0.5, label=model_name)
+                
+                # Add mean with error bars
+                ax1.errorbar(i, mean_scores[i], yerr=std_scores[i], 
+                            fmt='D', color='red', markersize=8, capsize=8, 
+                            capthick=2, elinewidth=2, alpha=0.8)
+            
+            ax1.set_xticks(range(len(model_names)))
+            ax1.set_xticklabels(model_names, rotation=45, ha='right', fontsize=12)
+            ax1.set_ylabel('G-mean Score', fontsize=14, fontweight='bold')
+            ax1.set_title('Cross-Validation Scores Distribution', fontsize=14, fontweight='bold')
+            ax1.grid(True, alpha=0.3, linestyle='--')
+            ax1.set_facecolor('#f8f9fa')
+            
+            # Add statistical annotations
+            max_score_idx = np.argmax(mean_scores)
+            ax1.annotate(f'Best: {model_names[max_score_idx]}\n{mean_scores[max_score_idx]:.3f}±{std_scores[max_score_idx]:.3f}',
+                        xy=(max_score_idx, mean_scores[max_score_idx]), 
+                        xytext=(10, 10), textcoords='offset points',
+                        bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.7),
+                        arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
+            
+            # Right plot: Box plot for better statistical comparison
+            box_data = [scores for scores in all_scores]
+            bp = ax2.boxplot(box_data, patch_artist=True, notch=True, showmeans=True)
+            ax2.set_xticks(np.arange(1, len(model_names)+1))
+            ax2.set_xticklabels(model_names, rotation=45, ha='right', fontsize=12)              
+            
+            # Customize box plot colors
+            for patch, color in zip(bp['boxes'], colors):
+                patch.set_facecolor(color)
+                patch.set_alpha(0.7)
+            
+            # Customize other elements
+            for element in ['whiskers', 'fliers', 'medians', 'caps']:
+                plt.setp(bp[element], color='black', linewidth=1.5)
+            
+            plt.setp(bp['means'], marker='D', markerfacecolor='red', 
+                    markeredgecolor='black', markersize=6)
+            
+            ax2.set_xticklabels(model_names, rotation=45, ha='right', fontsize=12)
+            ax2.set_ylabel('G-mean Score', fontsize=14, fontweight='bold')
+            ax2.set_title('Statistical Distribution Comparison', fontsize=14, fontweight='bold')
+            ax2.grid(True, alpha=0.3, linestyle='--')
+            ax2.set_facecolor('#f8f9fa')
+            
+            # Add performance summary text
+            summary_text = "Performance Summary:\n"
+            sorted_results = sorted(zip(model_names, mean_scores, std_scores), 
+                                key=lambda x: x[1], reverse=True)
+            
+            for i, (name, mean_score, std_score) in enumerate(sorted_results[:3]):
+                summary_text += f"{i+1}. {name}: {mean_score:.3f}±{std_score:.3f}\n"
+            
+            fig.text(0.02, 0.02, summary_text, fontsize=10, 
+                    bbox=dict(boxstyle='round,pad=0.5', facecolor='lightblue', alpha=0.8))
+            
+            plt.tight_layout()
+            plt.subplots_adjust(top=0.92, bottom=0.15)
+            
+            # Save in multiple formats
+            for fmt in ['png', 'pdf', 'svg']:
+                plt.savefig(self.plots_dir / f"hyperparameter_performance.{fmt}", 
+                        dpi=300, bbox_inches='tight', facecolor='white', edgecolor='none')
+            
+            plt.close()
+            
+            # Log detailed results
+            logging.info("Hyperparameter Performance Summary:")
+            for name, mean_score, std_score in sorted_results:
+                logging.info(f"  {name}: {mean_score:.3f} ± {std_score:.3f}")
+                
+            logging.info("Enhanced hyperparameter performance visualization completed")
+            
+        except Exception as e:
+            logging.error(f"Enhanced hyperparameter visualization failed: {str(e)}")
+            logging.error(f"Traceback: {traceback.format_exc()}")
+
     def save_model(self, model, model_name):
         """Save the model to disk"""
         try:
