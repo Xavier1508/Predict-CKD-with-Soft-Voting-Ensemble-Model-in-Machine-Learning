@@ -149,21 +149,22 @@
             height: 4rem;
         }
         
-        .resultsContainer {
+        .result-card {
+            display: none;
             opacity: 0;
             max-height: 0;
             transition: all 0.5s ease;
         }
-        
-        .resultsContainer.show {
-            display: block;
+
+        .result-card.show {
+            display: block !important;
             opacity: 1;
             max-height: 1000px;
             animation: fadeIn 0.5s;
         }
 
         #mainResult {
-            border-radius: 20px;
+            border-radius: 10px;
             padding: 20px;
             text-align: center;
         }
@@ -245,11 +246,9 @@
         /* Progress bar styling */
         .progress-container {
             width: 100%;
-            max-width: 100%;
             background-color: #f1f1f1;
             border-radius: 5px;
-            margin: 15px auto;
-            overflow: hidden;
+            margin: 15px 0;
         }
 
         .progress-bar {
@@ -574,10 +573,13 @@
         
         .progress-step.active .step-number, 
         .progress-step.completed .step-number {
-            background-color: var(--secondary-color);
+            background-color: var(--secondary-color) !important;
             color: white;
         }
-        
+
+        .progress-step.active.completed .step-number {
+            background-color: var(--success-color) !important;
+        }
         .step-title {
             font-size: 0.85rem;
             font-weight: 500;
@@ -596,7 +598,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -1 !important;
             pointer-events: auto;
             background : lenear-gradient(45deg, #f3f4f6, #e2e8f0);
         }
@@ -612,105 +614,6 @@
 
         .main-content > * {
             pointer-events: auto;
-        }
-        
-        /* CSS asli yang sudah ada tetap dipertahankan */
-        .result-card {
-            border: 1px solid #dee2e6;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
-        }
-
-        .card-header.bg-light {
-            background-color: #f8f9fa !important;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .awareness-section {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-        }
-
-        .table-borderless th,
-        .table-borderless td {
-            border-color: transparent !important;
-            padding: 0.5rem 0.75rem;
-        }
-
-        /* CSS BARU YANG DITAMBAHKAN */
-        .result-card .card-body > .row.mb-4:first-child {
-            margin-bottom: 1rem !important;
-        }
-
-        #mainResult {
-            margin-bottom: 1rem !important;
-        }
-
-        .ckd-stage-indicator {
-            margin-bottom: 1.5rem !important;
-        }
-
-        .featureImportance-table td,
-        .featureImportance-table th {
-            padding: 0.4rem !important;
-        }
-
-        .col-md-6.detail-pasien-col {
-            max-width: 45%;
-            flex: 0 0 45%;
-        }
-
-        .col-md-6.param-kritis-col {
-            max-width: 55%;
-            flex: 0 0 55%;
-        }
-
-        .table-sm td, .table-sm th {
-            padding: 0.4rem !important;
-        }
-
-        @media (min-width: 768px) {
-            .card.result-card .row > .col-md-12 {
-                margin-bottom: 1rem;
-            }
-        }
-
-        /* Untuk responsivitas */
-        @media (max-width: 768px) {
-            .result-card .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .result-card .card-header > div {
-                margin-top: 1rem;
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .col-md-6.detail-pasien-col,
-            .col-md-6.param-kritis-col {
-                max-width: 100%;
-                flex: 0 0 100%;
-                margin-bottom: 1rem;
-            }
-        }
-
-        /* Tambahkan di bagian CSS yang sudah ada */
-        #interventionFocus {
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .risk-factor-badge {
-            background-color: #3498db !important;
-            transition: all 0.3s ease;
-        }
-
-        .featureImportance-table {
-            max-height: 300px;
-            overflow-y: auto;
-            display: table;
-            width: 100%;
         }
     </style>
 </head>
@@ -736,28 +639,28 @@
     
     <div id = "particles-js"></div>
 
-    <!-- Progress Steps (Visible only on non-print) -->
-    <div class="form-progress no-print">
-        <div class="progress-step active" data-step="1">
-            <div class="step-number">1</div>
-            <div class="step-title">Data Dasar</div>
-        </div>
-        <div class="progress-step" data-step="2">
-            <div class="step-number">2</div>
-            <div class="step-title">Parameter Ginjal</div>
-        </div>
-        <div class="progress-step" data-step="3">
-            <div class="step-number">3</div>
-            <div class="step-title">Parameter Darah</div>
-        </div>
-        <div class="progress-step" data-step="4">
-            <div class="step-number">4</div>
-            <div class="step-title">Hasil</div>
-        </div>
-    </div>
-
     <div class="container main-container">
-        <div id="inputFormContainer" class="row"></div>
+        <!-- Progress Steps (Visible only on non-print) -->
+        <div class="form-progress no-print">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-title">Data Dasar</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-title">Parameter Ginjal</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-title">Parameter Darah</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-title">Hasil</div>
+            </div>
+        </div>
+        
+        <div id="inputFormContainer" class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -1287,7 +1190,7 @@
         
         <!-- Results Container - This will be initially hidden, then shown when results are ready -->
         <!-- Note that this is outside the main form container for clean separation -->
-        <div class="container" id="resultsContainer" style="display: none;">
+        <div id="resultsSection" style="display: none;">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card result-card">
@@ -1300,9 +1203,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <!-- Main Result Section -->
-                            <div class="row mb-4">
-                                <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div id="mainResult" class="mb-4">
                                         <!-- Will be filled by JS -->
                                     </div>
@@ -1339,118 +1241,62 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Charts and Tables Section -->
-                            <div class="row">
-                                <!-- Factor Risk Chart -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="card h-100">
+                                <div class="col-md-6">
+                                    <div class="card">
                                         <div class="card-header">
                                             <h6 class="mb-0"><i class="fas fa-chart-bar"></i> Faktor Risiko Signifikan</h6>
                                         </div>
                                         <div class="card-body">
-                                            <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
-                                                <table class="table table-sm table-bordered featureImportance-table">
-                                                    <!-- Table content from JS -->
-                                                </table>
-                                            </div>
+                                            <canvas id="featureImportanceChart" height="250" style="display: none;"></canvas>
+                                            <div id="featureImportance"></div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Patient Details Section -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="row">
-                                        <div class="col-md-6 detail-pasien-col">
-                                            <div class="card h-100">
-                                                <div class="card-header">
-                                                    <h6 class="mb-0"><i class="fas fa-user"></i> Detail Pasien</h6>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-sm table-bordered">
-                                                            <tr>
-                                                                <th>Usia</th>
-                                                                <td id="result-age">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Jenis Kelamin</th>
-                                                                <td id="result-gender">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Hipertensi</th>
-                                                                <td id="result-htn">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Diabetes</th>
-                                                                <td id="result-dm">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>BMI</th>
-                                                                <td id="result-bmi">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Tekanan Darah</th>
-                                                                <td id="result-bp">-</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        
-                                        <div class="col-md-6 param-kritis-col">
-                                            <div class="card h-100">
-                                                <div class="card-header">
-                                                    <h6 class="mb-0"><i class="fas fa-flask"></i> Parameter Kritis</h6>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-sm table-bordered">
-                                                            <tr>
-                                                                <th>Kreatinin</th>
-                                                                <td id="result-sc">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Ureum</th>
-                                                                <td id="result-bu">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Hemoglobin</th>
-                                                                <td id="result-hemo">-</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Albumin Urin</th>
-                                                                <td id="result-al">-</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <h5 class="mt-4">Detail Pasien</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <tr>
+                                                <th>Usia</th>
+                                                <td id="result-age">-</td>
+                                                <th>Jenis Kelamin</th>
+                                                <td id="result-gender">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hipertensi</th>
+                                                <td id="result-htn">-</td>
+                                                <th>Diabetes</th>
+                                                <td id="result-dm">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>BMI</th>
+                                                <td id="result-bmi">-</td>
+                                                <th>Tekanan Darah</th>
+                                                <td id="result-bp">-</td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Fokus Intervensi Card Baru -->
-                            <div class="row mt-4">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h6 class="mb-0"><i class="fas fa-bullseye"></i> Fokus Intervensi</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="interventionFocus">
-                                                <!-- Content from JS -->
-                                            </div>
-                                        </div>
+
+                                    <h5 class="mt-4">Parameter Kritis</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <tr>
+                                                <th>Kreatinin</th>
+                                                <td id="result-sc">-</td>
+                                                <th>Ureum</th>
+                                                <td id="result-bu">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hemoglobin</th>
+                                                <td id="result-hemo">-</td>
+                                                <th>Albumin Urin</th>
+                                                <td id="result-al">-</td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Educational Section -->
                             <div class="awareness-section mt-4">
                                 <h5 class="awareness-title"><i class="fas fa-lightbulb mr-2"></i> Informasi Penyakit Ginjal Kronis</h5>
                                 <p>Penyakit Ginjal Kronis (CKD) adalah kondisi penurunan fungsi ginjal secara perlahan yang dapat berlangsung selama beberapa bulan hingga tahun. Kondisi ini sering tidak menimbulkan gejala sampai stadium lanjut.</p>
@@ -1540,7 +1386,8 @@
                 <p>Catatan: Hasil prediksi ini hanya merupakan estimasi dan bukan pengganti diagnosis medis profesional. Konsultasikan dengan dokter untuk evaluasi lebih lanjut.</p>
             </div>
         </div>
-    
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -1548,9 +1395,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
     
     <script>
+        // Fixed JavaScript code with proper error handling and missing functions
         $(document).ready(function() {
             updateProgressSteps(1);
-    
+
             // Tab Navigation Handlers
             $('#formTabs a[data-toggle="tab"]').on('click', function(e) {
                 e.preventDefault();
@@ -1656,11 +1504,16 @@
             }
             
             // Show validation alert
-            function showValidationAlert() {
-                $("#validationAlert").fadeIn();
-                setTimeout(function() {
-                    $("#validationAlert").fadeOut();
-                }, 5000);
+            function showValidationAlert(message) {
+                if ($("#validationAlert").length > 0) {
+                    $("#validationAlert").fadeIn();
+                    setTimeout(function() {
+                        $("#validationAlert").fadeOut();
+                    }, 5000);
+                } else {
+                    // Fallback jika tidak ada validationAlert element
+                    alert(message || 'Harap isi semua field yang diperlukan!');
+                }
             }
             
             // Next button handler - advances progress and validates
@@ -1688,10 +1541,12 @@
                         $(".tab-pane").removeClass("show active");
                         nextTab.addClass("show active");
                         
-                        // Scroll to top
-                        $('html, body').animate({
-                            scrollTop: $(".card-body").offset().top - 20
-                        }, 400);
+                        // Scroll to top with safety check
+                        if ($(".card-body").length > 0) {
+                            $('html, body').animate({
+                                scrollTop: $(".card-body").offset().top - 20
+                            }, 400);
+                        }
                     }
                 } else {
                     // Show validation message
@@ -1714,10 +1569,12 @@
                     $(".tab-pane").removeClass("show active");
                     prevTab.addClass("show active");
                     
-                    // Scroll to top
-                    $('html, body').animate({
-                        scrollTop: $(".card-body").offset().top - 20
-                    }, 400);
+                    // Scroll to top with safety check
+                    if ($(".card-body").length > 0) {
+                        $('html, body').animate({
+                            scrollTop: $(".card-body").offset().top - 20
+                        }, 400);
+                    }
                 }
             });
             
@@ -1727,84 +1584,329 @@
                     $(this).removeClass('is-invalid');
                 }
             });
+
+            // Helper function to get form data
+            function getFormData() {
+                const formData = {};
+                $('#predictionForm').find('input, select').each(function() {
+                    const name = $(this).attr('name') || $(this).attr('id');
+                    let value = $(this).val();
+                    
+                    if (name && !$(this).is(':disabled')) {
+                        if ($(this).attr('type') === 'number') {
+                            value = parseFloat(value) || 0;
+                        } else if ($(this).is('select')) {
+                            value = value || null;
+                        } else if ($(this).attr('type') === 'radio') {
+                            if ($(this).is(':checked')) {
+                                formData[name] = value;
+                            }
+                            return; // Skip to next iteration for radio buttons
+                        } else {
+                            value = value ? value.trim() : '';
+                        }
+                        formData[name] = value;
+                    }
+                });
+                
+                // Calculate BMI
+                if (formData.weight && formData.height) {
+                    const bmi = formData.weight / Math.pow(formData.height / 100, 2);
+                    formData.bmi = parseFloat(bmi.toFixed(1));
+                }
+                
+                return formData;
+            }
+
+            // Calculate GFR function
+            function calculateGFR(formData) {
+                const isFemale = formData.gender === 'female' ? 1 : 0;
+                const isBlack = false; // Assuming not black, adjust if needed
+                
+                // MDRD equation
+                let gfr = 175 * Math.pow(formData.sc, -1.154) * Math.pow(formData.age, -0.203);
+                gfr = gfr * (isFemale ? 0.742 : 1) * (isBlack ? 1.212 : 1);
+                
+                return Math.round(gfr * 100) / 100; // Round to 2 decimal places
+            }
+
+            // Simulate prediction function
+            function simulatePrediction(formData) {
+                let riskScore = 0;
+                
+                // Age factor
+                if (formData.age > 60) riskScore += 20;
+                else if (formData.age > 45) riskScore += 10;
+                
+                // Hypertension
+                if (formData.htn === 'yes') riskScore += 25;
+                
+                // Diabetes
+                if (formData.dm === 'yes') riskScore += 25;
+                
+                // High creatinine
+                if (formData.sc > 1.2) riskScore += 15;
+                
+                // High blood urea
+                if (formData.bu > 40) riskScore += 10;
+                
+                // Low hemoglobin
+                if (formData.hemo < 12) riskScore += 10;
+                
+                // BMI factor
+                if (formData.bmi > 30) riskScore += 5;
+                
+                // Add some randomness but keep it realistic
+                riskScore += Math.random() * 10;
+                
+                return Math.min(Math.max(riskScore, 0), 100); // Keep between 0-100
+            }
+
+            // Update results section function
+            function updateResultsSection(formData, riskScore, gfr) {
+                try {
+                    // Determine CKD stage based on GFR
+                    let ckdStage = 1;
+                    let stageDescription = "Normal atau tinggi";
+                    
+                    if (gfr >= 90) {
+                        ckdStage = 1;
+                        stageDescription = "Normal atau tinggi";
+                    } else if (gfr >= 60) {
+                        ckdStage = 2;
+                        stageDescription = "Penurunan ringan";
+                    } else if (gfr >= 30) {
+                        ckdStage = 3;
+                        stageDescription = "Penurunan sedang";
+                    } else if (gfr >= 15) {
+                        ckdStage = 4;
+                        stageDescription = "Penurunan berat";
+                    } else {
+                        ckdStage = 5;
+                        stageDescription = "Gagal ginjal";
+                    }
+
+                    // Update main result
+                    const mainResultElement = document.getElementById('mainResult');
+                    if (mainResultElement) {
+                        let riskLevel = "Rendah";
+                        let riskClass = "success";
+                        
+                        if (riskScore > 70) {
+                            riskLevel = "Tinggi";
+                            riskClass = "danger";
+                        } else if (riskScore > 40) {
+                            riskLevel = "Sedang";
+                            riskClass = "warning";
+                        }
+
+                        mainResultElement.innerHTML = `
+                            <div class="alert alert-${riskClass}">
+                                <h4><i class="fas fa-heartbeat"></i> Risiko CKD: ${riskLevel}</h4>
+                                <p>Skor Risiko: ${riskScore.toFixed(1)}%</p>
+                                <p>Estimasi GFR: ${gfr.toFixed(1)} mL/min/1.73m²</p>
+                                <p>Stadium CKD: ${ckdStage} (${stageDescription})</p>
+                            </div>
+                        `;
+                    }
+
+                    // Update explanation
+                    const explanationElement = document.getElementById('resultExplanation');
+                    if (explanationElement) {
+                        let explanation = "";
+                        if (riskScore > 70) {
+                            explanation = "Hasil menunjukkan risiko tinggi untuk mengalami Penyakit Ginjal Kronis. Sangat disarankan untuk segera berkonsultasi dengan dokter spesialis nefrologi.";
+                        } else if (riskScore > 40) {
+                            explanation = "Hasil menunjukkan risiko sedang untuk mengalami Penyakit Ginjal Kronis. Disarankan untuk melakukan pemeriksaan rutin dan konsultasi dengan dokter.";
+                        } else {
+                            explanation = "Hasil menunjukkan risiko rendah untuk mengalami Penyakit Ginjal Kronis. Tetap jaga pola hidup sehat dan lakukan pemeriksaan rutin.";
+                        }
+                        
+                        explanationElement.innerHTML = `<div class="alert alert-info">${explanation}</div>`;
+                    }
+
+                    // Update patient details
+                    const detailsMap = {
+                        'result-age': formData.age + ' tahun',
+                        'result-gender': formData.gender === 'male' ? 'Laki-laki' : 'Perempuan',
+                        'result-htn': formData.htn === 'yes' ? 'Ya' : 'Tidak',
+                        'result-dm': formData.dm === 'yes' ? 'Ya' : 'Tidak',
+                        'result-bmi': formData.bmi ? formData.bmi.toFixed(1) : '-',
+                        'result-bp': formData.bp ? formData.bp + ' mmHg' : '-',
+                        'result-sc': formData.sc ? formData.sc + ' mg/dL' : '-',
+                        'result-bu': formData.bu ? formData.bu + ' mg/dL' : '-',
+                        'result-hemo': formData.hemo ? formData.hemo + ' g/dL' : '-',
+                        'result-al': formData.al ? formData.al : 'Normal'
+                    };
+
+                    // Update each detail field with null check
+                    Object.keys(detailsMap).forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.textContent = detailsMap[id];
+                        }
+                    });
+
+                    // Highlight current CKD stage
+                    $('.stage-item').removeClass('current-stage');
+                    $(`.stage-item:nth-child(${ckdStage})`).addClass('current-stage');
+
+                } catch (error) {
+                    console.error('Error updating results section:', error);
+                    alert('Terjadi kesalahan saat menampilkan hasil. Silakan coba lagi.');
+                }
+            }
+
+            // Create feature importance chart
+            function createFeatureImportanceChart(formData) {
+                try {
+                    const features = [
+                        { name: 'Kreatinin Serum', value: formData.sc > 1.2 ? 85 : 20 },
+                        { name: 'Usia', value: formData.age > 60 ? 75 : 30 },
+                        { name: 'Hipertensi', value: formData.htn === 'yes' ? 70 : 10 },
+                        { name: 'Diabetes', value: formData.dm === 'yes' ? 70 : 10 },
+                        { name: 'Hemoglobin', value: formData.hemo < 12 ? 60 : 25 },
+                        { name: 'Blood Urea', value: formData.bu > 40 ? 55 : 20 }
+                    ];
+
+                    features.sort((a, b) => b.value - a.value);
+
+                    const featureImportanceElement = document.getElementById('featureImportance');
+                    if (featureImportanceElement) {
+                        let html = '<div class="feature-importance-list">';
+                        features.forEach((feature, index) => {
+                            const percentage = Math.min(feature.value, 100);
+                            html += `
+                                <div class="feature-item mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="feature-name">${feature.name}</span>
+                                        <span class="feature-value">${percentage.toFixed(0)}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" style="width: ${percentage}%"></div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                        featureImportanceElement.innerHTML = html;
+                    }
+                } catch (error) {
+                    console.error('Error creating feature importance chart:', error);
+                }
+            }
             
             // Form submission
             $('#predictionForm').submit(function(e) {
                 e.preventDefault();
                 
-                if (validateCurrentTab($('#blood'))) {
+                // Validate the current tab
+                const currentTab = $('#blood'); // Assuming blood is the last tab
+                if (validateCurrentTab(currentTab)) {
+                    // Show loading spinner and update progress
                     $('#loadingSpinner').show();
                     updateProgressSteps(4);
                     
+                    // Get form data
                     const formData = getFormData();
                     
-                    // Simulate prediction
+                    // Simulate prediction process with timeout
                     setTimeout(() => {
-                        const gfr = calculateGFR(formData);
-                        const riskScore = simulatePrediction(formData);
-                        
-                        updateresultsContainer(formData, riskScore, gfr);
-                        
-                        // Perbaikan utama di sini: Tampilkan container hasil
-                        $('.main-container').hide();
-                        $('#resultsContainer').show().addClass('show');
-                        $('#loadingSpinner').hide();
-                        
-                        $('html, body').animate({
-                            scrollTop: $("#resultsContainer").offset().top - 100
-                        }, 500);
-                        
+                        try {
+                            // Calculate results
+                            const gfr = calculateGFR(formData);
+                            const riskScore = simulatePrediction(formData);
+                            
+                            // Update the result section
+                            updateResultsSection(formData, riskScore, gfr);
+                            
+                            // Create feature importance chart
+                            createFeatureImportanceChart(formData);
+                            
+                            // Hide form and spinner, show results
+                            $('#inputFormContainer').hide();
+                            $('#loadingSpinner').hide();
+                            $('#resultsSection').show().css('display', 'flex');
+                            $('.result-card').addClass('show');
+                            
+                            $('.progress-step[data-step="4"]').addClass('completed');
+
+                            // Scroll to results with proper error handling
+                            setTimeout(() => {
+                                const resultsSection = $('#resultsSection');
+                                if (resultsSection.length) {
+                                    const offset = resultsSection.offset();
+                                    if (offset && offset.top) {
+                                        $('html, body').animate({
+                                            scrollTop: offset.top - 100
+                                        }, 500);
+                                    }
+                                }
+                            }, 300)
+                            
+                        } catch (error) {
+                            console.error('Error in prediction process:', error);
+                            $('#loadingSpinner').hide();
+                            alert('Terjadi kesalahan dalam proses prediksi. Silakan coba lagi.');
+                        }
                     }, 1000);
                 } else {
-                    // Show validation error notification
-                    showNotification('error', 'Harap isi semua field yang diperlukan!');
+                    showValidationAlert('Harap isi semua field yang diperlukan!');
                     
-                    // Find first invalid input and focus
-                    const firstInvalid = $(this).find(':invalid').first();
+                    const firstInvalid = $(this).find(':invalid, .is-invalid').first();
                     if (firstInvalid.length > 0) {
-                        // Switch to appropriate tab
                         const tabId = firstInvalid.closest('.tab-pane').attr('id');
-                        $(`#${tabId}-tab`).tab('show');
-                        
-                        // Focus on invalid input
-                        $('html, body').animate({
-                            scrollTop: firstInvalid.offset().top - 100
+                        if (tabId) {
+                            $(`#${tabId}-tab`).tab('show');
+                        }
+
+                        setTimeout(() => {
+                            // Tambahkan pengecekan offset
+                            if (firstInvalid.is(':visible')) {
+                                const invalidOffset = firstInvalid.offset();
+                                if (invalidOffset && typeof invalidOffset.top !== 'undefined') {
+                                    $('html, body').animate({
+                                        scrollTop: invalidOffset.top - 100
+                                    }, 500);
+                                }
+                                firstInvalid.focus();
+                            }
                         }, 500);
-                        firstInvalid.focus();
                     }
                 }
             });
-
-            // Form field validation function
-            function validateCurrentTab(currentTab) {
-                let isValid = true;
+            
+            // Back to form button handler
+            $(document).on('click', '#backToForm', function() {
+                $('#resultsSection').hide();
+                $('#inputFormContainer').show();
+                updateProgressSteps(3);
+                $('.progress-step[data-step="4"]').removeClass('completed');
                 
-                // Validate required fields in the current tab
-                currentTab.find(':input[required]').each(function() {
-                    if (!$(this).val()) {
-                        $(this).addClass('is-invalid');
-                        isValid = false;
-                    } else {
-                        $(this).removeClass('is-invalid');
-                    }
-                });
-                
-                return isValid;
-            }
+                // Scroll to top
+                $('html, body').animate({ scrollTop: 0 }, 500);
+            });
 
-            // Function to show notifications
-            function showNotification(type, message) {
-                // You can implement this function based on your notification system
-                // For example, using Bootstrap toasts or alerts
-                if (type === 'error') {
-                    // Fallback to alert if custom notification not implemented
-                    if (typeof showValidationAlert === 'function') {
-                        showValidationAlert(message);
-                    } else {
-                        alert(message);
-                    }
-                }
-            }
+            // Reset form button handler
+            $(document).on('click', '#resetForm', function() {
+                $('#predictionForm')[0].reset();
+                $('#predictionForm').removeClass('was-validated');
+                $('.is-invalid').removeClass('is-invalid');
+                $('#resultsSection').hide();
+                $('#inputFormContainer').show();
+                updateProgressSteps(1);
+                
+                // Reset tabs to first tab
+                $('#formTabs .nav-link').removeClass('active');
+                $('#formTabs .nav-link').first().addClass('active');
+                $('.tab-pane').removeClass('show active');
+                $('.tab-pane').first().addClass('show active');
+            });
+
+            // Print report handler
+            $(document).on('click', '#printReport', function() {
+                window.print();
+            });
 
             // Initialize form validation
             (function() {
@@ -1829,187 +1931,6 @@
                     });
                 }, false);
             })();
-
-            // Helper function to reset form
-            function resetForm() {
-                $('#predictionForm')[0].reset();
-                $('#predictionForm').removeClass('was-validated');
-                $('.is-invalid').removeClass('is-invalid');
-                $('#resultsContainer').removeClass('show').hide();
-                updateProgressSteps(1);
-            }
-
-            // Add reset button event listener
-            $('#resetButton').on('click', function() {
-                resetForm();
-            });
-            
-            // Form submission and prediction
-            function submitForm() {
-                // Validate form first
-                if (!validateForm()) {
-                    return;
-                }
-                
-                // Hide form and show loading spinner
-                $("#patientForm").hide();
-                $("#loadingSpinner").show();
-                
-                // Update progress to indicate processing
-                updateProgressSteps(3); // Assuming there are 4 steps and this is step 3
-                
-                // Collect form data
-                const formData = {
-                    age: parseInt($("#age").val()),
-                    gender: $("input[name='gender']:checked").val(),
-                    height: parseFloat($("#height").val()),
-                    weight: parseFloat($("#weight").val()),
-                    bp: parseFloat($("#bp").val()),
-                    bp_diastolic: parseFloat($("#bp_diastolic").val()), // Added from your new code
-                    appetite: $("#appetite").val(), // Added from your new code
-                    sg: parseFloat($("#sg").val()),
-                    al: parseInt($("#al").val() || "0"),
-                    su: parseInt($("#su").val() || "0"),
-                    rbc: $("#rbc").val(),
-                    pc: $("#pc").val(),
-                    pcc: $("#pcc").val(),
-                    ba: $("#ba").val(),
-                    bgr: parseFloat($("#bgr").val()),
-                    bu: parseFloat($("#bu").val()),
-                    sc: parseFloat($("#sc").val()),
-                    sod: parseFloat($("#sod").val()),
-                    pot: parseFloat($("#pot").val()),
-                    hemo: parseFloat($("#hemo").val()),
-                    pcv: parseFloat($("#pcv").val() || "0"),
-                    wc: parseFloat($("#wc").val() || "0"),
-                    rc: parseFloat($("#rc").val() || "0"),
-                    htn: $("#htn").val(),
-                    dm: $("#dm").val(),
-                    cad: $("#cad").val(),
-                    pe: $("#pe").val(),
-                    ane: $("#ane").val()
-                };
-                
-                // Calculate BMI
-                const bmi = formData.weight / Math.pow(formData.height / 100, 2);
-                formData.bmi = bmi.toFixed(1);
-                
-                // Calculate GFR (Glomerular Filtration Rate) using MDRD formula
-                let gfr;
-                const isFemale = formData.gender === 'female' ? 1 : 0;
-                const isBlack = false; // Assuming not black, adjust if needed
-                
-                // MDRD equation
-                gfr = 175 * Math.pow(formData.sc, -1.154) * Math.pow(formData.age, -0.203);
-                gfr = gfr * (isFemale ? 0.742 : 1) * (isBlack ? 1.212 : 1);
-                
-                // Try to use AJAX if available, otherwise use the simulation method
-                if (typeof $.ajax === 'function') {
-                    // Send request to backend using AJAX
-                    $.ajax({
-                        type: "POST",
-                        url: "/predict",
-                        contentType: "application/json",
-                        data: JSON.stringify(formData),
-                        success: function(response) {
-                            // Update result section with response data
-                            updateresultsContainer(formData, response.combined_probability * 100, gfr, response);
-                            
-                            // Hide loading spinner
-                            $("#loadingSpinner").hide();
-                            
-                            // Update progress to final step
-                            updateProgressSteps(4);
-                            
-                            // Show results with animation class
-                            $("#resultsContainer").addClass("show").fadeIn();
-                            
-                            // Smooth scroll to results
-                            $('html, body').animate({
-                                scrollTop: $("#resultsContainer").offset().top - 20
-                            }, 500);
-                            
-                            // Create feature importance chart if provided in response
-                            if (response.feature_importance) {
-                                createFeatureImportanceChart(response.feature_importance);
-                            } else {
-                                createFeatureImportanceChart(formData);
-                            }
-                        },
-                        error: function(xhr) {
-                            $("#loadingSpinner").hide();
-                            showNotification('error', 'Terjadi kesalahan: ' + (xhr.responseJSON?.error || 'Unknown error'));
-                        }
-                    });
-                } else {
-                    // Fallback to simulation if AJAX is not available
-                    setTimeout(function() {
-                        // Simulated risk score (0-100)
-                        const riskScore = simulatePrediction(formData);
-                        
-                        // Update result section with patient data
-                        updateresultsContainer(formData, riskScore, gfr);
-                        
-                        // Hide loading spinner
-                        $("#loadingSpinner").hide();
-                        
-                        // Update progress to final step
-                        updateProgressSteps(4);
-                        
-                        // Show results with animation class
-                        $("#resultsContainer").addClass("show").fadeIn();
-                        
-                        // Smooth scroll to results
-                        $('html, body').animate({
-                            scrollTop: $("#resultsContainer").offset().top - 20
-                        }, 500);
-                        
-                        // Create feature importance chart
-                        createFeatureImportanceChart(formData);
-                    }, 2000); // Simulate 2 second processing time
-                }
-
-                setTimeout(() => {
-                    // Update progress ke step 4 dengan status completed
-                    updateProgressSteps(4);
-                    $('.progress-step[data-step="4"]').addClass('completed');
-                    
-                    // Sembunyikan form dan tampilkan hasil
-                    $('.card:has(form)').hide();
-                    $('#resultsContainer').addClass('show').fadeIn();
-                    
-                    // Scroll ke atas halaman
-                    window.scrollTo(0, 0);
-                }, 1000);
-
-                // Tambahkan fungsi untuk tombol kembali
-                $('#resultsContainer').on('click', '#backToForm', function() {
-                    $('#resultsContainer').removeClass('show').fadeOut();
-                    $('.card:has(form)').show();
-                    updateProgressSteps(3);
-                    $('.progress-step[data-step="4"]').removeClass('completed');
-                });
-            }
-
-            function getFormData() {
-                const formData = {};
-                $('#predictionForm').find('input, select').each(function() {
-                    const name = $(this).attr('name');
-                    let value = $(this).val();
-                    
-                    if (name && !$(this).is(':disabled')) {
-                        if ($(this).attr('type') === 'number') {
-                            value = parseFloat(value) || 0;
-                        } else if ($(this).is('select')) {
-                            value = value || null;
-                        } else {
-                            value = value.trim();
-                        }
-                        formData[name] = value;
-                    }
-                });
-                return formData;
-            }
             
             // Simulate prediction based on key risk factors
             function simulatePrediction(data) {
@@ -2072,7 +1993,7 @@
             }
 
             // Update result section with patient data and prediction
-            function updateresultsContainer(data, riskScore, gfr) {
+            function updateResultsSection(data, riskScore, gfr) {
                 // Cache DOM elements to reduce lookups
                 const resultElements = {
                     age: document.getElementById("result-age"),
@@ -2088,7 +2009,7 @@
                     gfr: document.getElementById("result-gfr"),
                     mainResult: document.getElementById("mainResult"),
                     resultExplanation: document.getElementById("resultExplanation"),
-                    resultsContainer: document.getElementById("resultsContainer")
+                    resultsSection: document.getElementById("resultsSection")
                 };
                 
                 // Update basic patient info in batches
@@ -2276,45 +2197,11 @@
                     resultElements.resultExplanation.innerHTML += educationResources;
                     
                     // Show the result section with fade effect
-                    $(resultElements.resultsContainer).fadeIn(400);
+                    $(resultElements.resultsSection).fadeIn(400);
                     
                     // Create the feature importance chart
                     createFeatureImportanceChart(data);
                 }, 50);
-                
-                const features = [
-                    { name: 'Serum Creatinine', value: data.sc > 1.5 ? 'High' : 'Normal', importance: data.sc > 1.5 ? 35 : 0 },
-                    { name: 'Age', value: data.age, importance: Math.min(40, (data.age - 30) * 1.2) },
-                    { name: 'Blood Urea', value: data.bu, importance: data.bu > 40 ? Math.min(15, (data.bu - 40) * 0.5) : 0 },
-                    { name: 'Hypertension', value: data.htn === 'yes' ? 'Yes' : 'No', importance: data.htn === 'yes' ? 10 : 0 },
-                    { name: 'Diabetes', value: data.dm === 'yes' ? 'Yes' : 'No', importance: data.dm === 'yes' ? 10 : 0 }
-                ].sort((a, b) => b.importance - a.importance);
-
-                // Isi tabel
-                const featureTable = $('.featureImportance-table tbody');
-                featureTable.empty();
-                features.forEach(feat => {
-                    featureTable.append(`
-                        <tr>
-                            <td>${feat.name}</td>
-                            <td>${feat.importance}%</td>
-                        </tr>
-                    `);
-                });
-
-                // TAMBAHKAN INI UNTUK FOKUS INTERVENSI
-                const topFactors = features.slice(0, 3);
-                const interventionHTML = topFactors.map(factor => `
-                    <span class="risk-factor-badge bg-primary text-white">
-                        <i class="fas fa-chevron-circle-right mr-2"></i>${factor.name}
-                    </span>
-                `).join('');
-                
-                $('#interventionFocus').html(interventionHTML);
-                
-                updateProgressSteps(4);
-                $('#resultsContainer').show().addClass('show');
-                $('.main-container').hide();
             }
 
             function calculateStage(gfr) {
@@ -2330,6 +2217,8 @@
                 // Prepare chart container
                 const featureImportanceContainer = document.getElementById('featureImportance');
                 const featureImportanceChart = document.getElementById('featureImportanceChart');
+                
+                if (!featureImportanceContainer || !featureImportanceChart) return;
                 
                 // Determine if we should use Chart.js or custom implementation
                 if (Array.isArray(data) && typeof Chart !== 'undefined') {
@@ -2434,62 +2323,50 @@
                     
                     featureHTML += '</tbody></table></div>';
                     
-                    const interventionHTML = `
-                        <h6 class="mb-3 text-secondary">Berdasarkan analisis, intervensi sebaiknya difokuskan pada:</h6>
-                        <div class="d-flex flex-wrap gap-2">
-                            ${topFactors.map(factor => `
-                                <span class="risk-factor-badge bg-primary text-white">
-                                    <i class="fas fa-chevron-circle-right mr-2"></i>${factor.name}
-                                </span>
-                            `).join('')}
-                        </div>
-                    `;
-                    
-                    $('#interventionFocus').html(interventionHTML);
                     // Add recommendations based on top risk factors
-                    // featureHTML += '<div class="alert alert-warning mt-3">';
-                    // featureHTML += '<h5 class="alert-heading"><i class="fas fa-lightbulb mr-2"></i> Fokus Intervensi:</h5>';
-                    // featureHTML += '<p>Berdasarkan analisis, intervensi sebaiknya difokuskan pada faktor-faktor berikut:</p>';
-                    // featureHTML += '<ol>';
+                    featureHTML += '<div class="alert alert-warning mt-3">';
+                    featureHTML += '<h5 class="alert-heading"><i class="fas fa-lightbulb mr-2"></i> Fokus Intervensi:</h5>';
+                    featureHTML += '<p>Berdasarkan analisis, intervensi sebaiknya difokuskan pada faktor-faktor berikut:</p>';
+                    featureHTML += '<ol>';
                     
-                    // // Add top 3 factors or all if less than 3
-                    // const topFactors = features.filter(f => f.importance > 0).slice(0, 3);
-                    // topFactors.forEach(factor => {
-                    //     let recommendation = '';
+                    // Add top 3 factors or all if less than 3
+                    const topFactors = features.filter(f => f.importance > 0).slice(0, 3);
+                    topFactors.forEach(factor => {
+                        let recommendation = '';
                         
-                    //     switch(factor.name) {
-                    //         case 'Serum Creatinine':
-                    //             recommendation = 'Konsultasi dengan nefrolog untuk evaluasi fungsi ginjal dan penyesuaian pengobatan';
-                    //             break;
-                    //         case 'Age':
-                    //             recommendation = 'Monitoring fungsi ginjal lebih ketat sesuai dengan risiko berbasis usia';
-                    //             break;
-                    //         case 'Blood Urea':
-                    //             recommendation = 'Evaluasi diet protein dan fungsi ginjal secara berkala';
-                    //             break;
-                    //         case 'Hypertension':
-                    //             recommendation = 'Kontrol tekanan darah dengan ketat (target < 130/80 mmHg)';
-                    //             break;
-                    //         case 'Diabetes':
-                    //             recommendation = 'Kontrol gula darah optimal (HbA1c < 7%)';
-                    //             break;
-                    //         case 'Anemia':
-                    //             recommendation = 'Evaluasi dan pengobatan anemia';
-                    //             break;
-                    //         case 'Albumin':
-                    //             recommendation = 'Evaluasi proteinuria dan pertimbangkan obat nefroprotektif';
-                    //             break;
-                    //         case 'RBC in Urine':
-                    //             recommendation = 'Evaluasi lanjut untuk hematuria dan kemungkinan penyebabnya';
-                    //             break;
-                    //         default:
-                    //             recommendation = 'Monitoring rutin dan gaya hidup sehat';
-                    //     }
+                        switch(factor.name) {
+                            case 'Serum Creatinine':
+                                recommendation = 'Konsultasi dengan nefrolog untuk evaluasi fungsi ginjal dan penyesuaian pengobatan';
+                                break;
+                            case 'Age':
+                                recommendation = 'Monitoring fungsi ginjal lebih ketat sesuai dengan risiko berbasis usia';
+                                break;
+                            case 'Blood Urea':
+                                recommendation = 'Evaluasi diet protein dan fungsi ginjal secara berkala';
+                                break;
+                            case 'Hypertension':
+                                recommendation = 'Kontrol tekanan darah dengan ketat (target < 130/80 mmHg)';
+                                break;
+                            case 'Diabetes':
+                                recommendation = 'Kontrol gula darah optimal (HbA1c < 7%)';
+                                break;
+                            case 'Anemia':
+                                recommendation = 'Evaluasi dan pengobatan anemia';
+                                break;
+                            case 'Albumin':
+                                recommendation = 'Evaluasi proteinuria dan pertimbangkan obat nefroprotektif';
+                                break;
+                            case 'RBC in Urine':
+                                recommendation = 'Evaluasi lanjut untuk hematuria dan kemungkinan penyebabnya';
+                                break;
+                            default:
+                                recommendation = 'Monitoring rutin dan gaya hidup sehat';
+                        }
                         
-                    //     featureHTML += `<li><strong>${factor.name}</strong>: ${recommendation}</li>`;
-                    // });
+                        featureHTML += `<li><strong>${factor.name}</strong>: ${recommendation}</li>`;
+                    });
                     
-                    // featureHTML += '</ol></div>';
+                    featureHTML += '</ol></div>';
                     
                     // Add disclaimer
                     featureHTML += '<div class="small text-muted mt-2">*Analisis faktor risiko ini berdasarkan algoritma prediksi dan bukan pengganti evaluasi klinis oleh profesional kesehatan.</div>';
@@ -2510,7 +2387,7 @@
                     
                     // Show loading indicator
                     document.getElementById('loadingIndicator').style.display = 'block';
-                    document.getElementById('resultsContainer').style.display = 'none';
+                    document.getElementById('resultsSection').style.display = 'none';
                     document.getElementById('chartSection').style.display = 'none';
                     
                     // Get form data
@@ -2540,13 +2417,13 @@
                         const gfr = calculateGFR(formData);
                         
                         // Update result section
-                        updateresultsContainer(formData, riskScore, gfr);
+                        updateResultsSection(formData, riskScore, gfr);
                         
                         // Hide loading indicator
                         document.getElementById('loadingIndicator').style.display = 'none';
                         
                         // Scroll to results
-                        document.getElementById('resultsContainer').scrollIntoView({
+                        document.getElementById('resultsSection').scrollIntoView({
                             behavior: 'smooth'
                         });
                     }, 1000);
@@ -2554,7 +2431,7 @@
                 
                 // Reset button handler
                 document.getElementById('resetBtn').addEventListener('click', function() {
-                    document.getElementById('resultsContainer').style.display = 'none';
+                    document.getElementById('resultsSection').style.display = 'none';
                     document.getElementById('chartSection').style.display = 'none';
                     document.getElementById('ckdForm').reset();
                 });
@@ -2662,6 +2539,29 @@
             // Initialize with cool effects
             addPulseEffect();
             setInterval(addPulseEffect, 10000); // Repeat every 10 seconds
+            
+            // Add a confetti effect when results are shown
+            function showConfetti() {
+                const confettiCount = 100;
+                const confettiColors = ['#ff4d4d', '#4d79ff', '#4dff4d', '#ffff4d', '#ff4dff'];
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    createConfetti(confettiColors[Math.floor(Math.random() * confettiColors.length)]);
+                }
+            }
+            
+            function createConfetti(color) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = color;
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
             
             // Add water ripple effect to buttons
             $(".btn:not(.next-tab):not(.main-fab)").click(function(e) {
@@ -3162,6 +3062,13 @@
         .fab-options.active .fab-item {
             transform: scale(1);
         }
+
+        #resultsSection {
+            display: none;
+            /* Tambahkan */
+            flex-direction: column; 
+            min-height: 100vh;
+        }
     </style>
     
     <script>
@@ -3535,12 +3442,6 @@
                 setTimeout(() => {
                     showNotification('success', 'Pesan Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.');
                 }, 500);
-            });
-
-            $('#backToForm').on('click', function() {
-                $('#resultsContainer').hide().removeClass('show');
-                $('.main-container').show();
-                updateProgressSteps(3);
             });
         });
     </script>

@@ -560,3 +560,975 @@
 2025-05-21 13:07:54,059 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 13:07:54] "GET / HTTP/1.1" 200 -
 2025-05-21 13:07:54,126 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 13:07:54] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
 2025-05-21 13:07:54,138 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 13:07:54] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 18:36:08,501 - livereload - INFO - Serving on http://127.0.0.1:5000
+2025-05-23 18:36:08,505 - livereload - INFO - Start watching changes
+2025-05-23 18:36:08,507 - livereload - INFO - Start detecting changes
+2025-05-23 18:37:01,443 - tornado.access - INFO - 200 GET / (127.0.0.1) 58.07ms
+2025-05-23 18:37:01,533 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 65.87ms
+2025-05-23 18:37:01,835 - tornado.access - INFO - 200 GET /livereload.js?port=5000 (127.0.0.1) 11.78ms
+2025-05-23 18:37:01,936 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:37:01,951 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:37:02,780 - tornado.access - WARNING - 404 GET /favicon.ico (127.0.0.1) 2.15ms
+2025-05-23 18:37:46,707 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.39ms
+2025-05-23 18:37:46,775 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.51ms
+2025-05-23 18:37:46,879 - tornado.access - INFO - 200 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:37:47,143 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 143.52ms
+2025-05-23 18:37:47,147 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:37:47,314 - tornado.access - WARNING - 404 GET /favicon.ico (127.0.0.1) 1.01ms
+2025-05-23 18:43:50,117 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:43:50,131 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.52ms
+2025-05-23 18:43:50,158 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.03ms
+2025-05-23 18:43:50,181 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 18:43:50,231 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 18:43:50,273 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:43:52,507 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:43:53,308 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:43:53,317 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.01ms
+2025-05-23 18:43:53,386 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 18:43:53,395 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.99ms
+2025-05-23 18:43:53,426 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 18:43:53,503 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:45:23,716 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:45:23,745 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.57ms
+2025-05-23 18:45:23,838 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 12.06ms
+2025-05-23 18:45:23,843 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 18:45:23,870 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 2.01ms
+2025-05-23 18:45:23,915 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:45:24,669 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:45:26,913 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:45:26,933 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.15ms
+2025-05-23 18:45:27,115 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.00ms
+2025-05-23 18:45:27,119 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 3.52ms
+2025-05-23 18:45:27,120 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:45:27,122 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:45:46,120 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:45:46,140 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.13ms
+2025-05-23 18:45:46,198 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 9.53ms
+2025-05-23 18:45:46,201 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.99ms
+2025-05-23 18:45:46,222 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:45:46,262 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:45:47,700 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:45:49,325 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:45:49,373 - tornado.access - INFO - 200 GET / (127.0.0.1) 4.01ms
+2025-05-23 18:45:49,484 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.93ms
+2025-05-23 18:45:49,662 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 4.02ms
+2025-05-23 18:45:49,720 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.99ms
+2025-05-23 18:45:49,743 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:45:50,111 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:46:04,504 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:46:04,642 - tornado.access - INFO - 200 GET / (127.0.0.1) 7.58ms
+2025-05-23 18:46:04,678 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.53ms
+2025-05-23 18:46:04,685 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:46:04,717 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.99ms
+2025-05-23 18:46:04,753 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:46:05,314 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:46:06,909 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:46:07,712 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:46:07,767 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.52ms
+2025-05-23 18:46:07,878 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.51ms
+2025-05-23 18:46:07,945 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:46:07,981 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:46:08,610 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:47:41,308 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:47:41,321 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.11ms
+2025-05-23 18:47:41,372 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.05ms
+2025-05-23 18:47:41,385 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:47:41,413 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.99ms
+2025-05-23 18:47:41,484 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:47:42,924 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:47:46,130 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:47:46,144 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 18:47:46,192 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.56ms
+2025-05-23 18:47:46,200 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.01ms
+2025-05-23 18:47:46,255 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:47:46,301 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:48:13,322 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:48:13,349 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.41ms
+2025-05-23 18:48:13,408 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.51ms
+2025-05-23 18:48:13,414 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:48:13,439 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:48:13,625 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:48:14,108 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:48:14,928 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:48:15,703 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:48:26,809 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 18:48:26,840 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.03ms
+2025-05-23 18:48:26,842 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.98ms
+2025-05-23 18:48:26,886 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 18:48:26,909 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:56:54,195 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:56:54,252 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.54ms
+2025-05-23 18:56:54,328 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.54ms
+2025-05-23 18:56:54,361 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 18:56:54,396 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 18:56:54,445 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:56:54,914 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:57:11,718 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:57:11,725 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 18:57:11,759 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.01ms
+2025-05-23 18:57:11,761 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 18:57:11,799 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.98ms
+2025-05-23 18:57:11,831 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:57:13,329 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:58:11,725 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:58:11,780 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.53ms
+2025-05-23 18:58:11,871 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.54ms
+2025-05-23 18:58:11,886 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:58:11,922 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 18:58:11,970 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:58:34,132 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:58:34,144 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 18:58:34,248 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 9.54ms
+2025-05-23 18:58:34,298 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:58:34,333 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 18:58:34,447 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 18:58:35,714 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 18:58:38,176 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 18:58:38,188 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 18:58:38,243 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 9.08ms
+2025-05-23 18:58:38,247 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 18:58:38,313 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.98ms
+2025-05-23 18:58:38,397 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:01:56,663 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:01:56,670 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:01:56,690 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.58ms
+2025-05-23 19:01:56,694 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.99ms
+2025-05-23 19:01:56,717 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:01:56,755 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:03:04,510 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:03:04,705 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.54ms
+2025-05-23 19:03:04,742 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.22ms
+2025-05-23 19:03:04,746 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.01ms
+2025-05-23 19:03:04,782 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:03:04,829 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:03:16,643 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:03:16,661 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.62ms
+2025-05-23 19:03:16,712 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 19:03:16,721 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 19:03:16,753 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:03:16,820 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:03:19,763 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:03:19,802 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.57ms
+2025-05-23 19:03:19,858 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.27ms
+2025-05-23 19:03:19,864 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 3.02ms
+2025-05-23 19:03:19,907 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.51ms
+2025-05-23 19:03:19,986 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:03:56,620 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:03:56,634 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:03:56,690 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.55ms
+2025-05-23 19:03:56,695 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.02ms
+2025-05-23 19:03:56,721 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:03:56,805 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:11:17,321 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:11:17,332 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.33ms
+2025-05-23 19:11:17,378 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.54ms
+2025-05-23 19:11:17,386 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 3.03ms
+2025-05-23 19:11:17,407 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:11:17,463 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:13:04,599 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:13:04,607 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.50ms
+2025-05-23 19:13:04,640 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.52ms
+2025-05-23 19:13:04,644 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.02ms
+2025-05-23 19:13:04,719 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:13:04,777 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:13:05,317 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:06,128 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:08,515 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:13:08,674 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.53ms
+2025-05-23 19:13:08,712 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.54ms
+2025-05-23 19:13:08,728 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.00ms
+2025-05-23 19:13:08,752 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:13:08,806 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:13:09,310 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:10,154 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:10,925 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:11,715 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:13:11,730 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.01ms
+2025-05-23 19:13:11,771 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.50ms
+2025-05-23 19:13:11,781 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 19:13:11,831 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.51ms
+2025-05-23 19:13:11,951 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:13:12,691 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:13,317 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:13:23,716 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:13:23,722 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.51ms
+2025-05-23 19:13:23,739 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.00ms
+2025-05-23 19:13:23,747 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:13:23,765 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:13:23,802 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:13:26,123 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:03,703 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:14:03,709 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:14:03,739 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.53ms
+2025-05-23 19:14:03,745 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.85ms
+2025-05-23 19:14:03,778 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:14:03,851 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:14:04,592 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:05,324 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:06,112 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:06,907 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:14:06,922 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.49ms
+2025-05-23 19:14:06,994 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.53ms
+2025-05-23 19:14:07,114 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:14:07,124 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:14:07,128 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:14:07,707 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:24,592 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:14:24,602 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.52ms
+2025-05-23 19:14:24,638 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.00ms
+2025-05-23 19:14:24,642 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.52ms
+2025-05-23 19:14:24,706 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:14:24,766 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:14:25,319 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:26,104 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:27,723 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:14:27,745 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.49ms
+2025-05-23 19:14:27,857 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.05ms
+2025-05-23 19:14:27,871 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 19:14:28,161 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:14:28,287 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:14:28,521 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:14:29,317 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:15:37,328 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:15:37,358 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.56ms
+2025-05-23 19:15:37,452 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.50ms
+2025-05-23 19:15:37,456 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 19:15:37,570 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 87.03ms
+2025-05-23 19:15:37,572 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:15:38,093 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:15:38,922 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:16:42,103 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:16:42,114 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:16:42,159 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.51ms
+2025-05-23 19:16:42,164 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.53ms
+2025-05-23 19:16:42,194 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:16:42,249 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:16:49,304 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:16:49,312 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:16:49,330 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.95ms
+2025-05-23 19:16:49,337 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.02ms
+2025-05-23 19:16:49,362 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:16:49,399 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:17:02,126 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:17:02,152 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.45ms
+2025-05-23 19:17:02,206 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.55ms
+2025-05-23 19:17:02,209 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.52ms
+2025-05-23 19:17:02,229 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:17:02,264 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:17:03,720 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:17:10,917 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:17:10,925 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:17:10,974 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 9.60ms
+2025-05-23 19:17:10,979 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:17:11,091 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 90.07ms
+2025-05-23 19:17:11,093 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:17:16,581 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:17:16,587 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:17:16,605 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.01ms
+2025-05-23 19:17:16,611 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:17:16,630 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:17:16,666 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:17:44,643 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:17:44,650 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.53ms
+2025-05-23 19:17:44,685 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.03ms
+2025-05-23 19:17:44,690 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 3.06ms
+2025-05-23 19:17:44,716 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.99ms
+2025-05-23 19:17:44,746 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:17:46,926 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:17:48,605 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:17:48,618 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.53ms
+2025-05-23 19:17:48,660 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 19:17:48,664 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:17:48,696 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:17:48,736 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:17:53,316 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:17:53,323 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:17:53,340 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.53ms
+2025-05-23 19:17:53,352 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 4.02ms
+2025-05-23 19:17:53,378 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.51ms
+2025-05-23 19:17:53,418 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:18:02,097 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:18:02,110 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 19:18:02,150 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 19:18:02,155 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.55ms
+2025-05-23 19:18:02,176 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:18:02,205 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:18:07,710 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:18:07,717 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:18:07,757 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 19:18:07,767 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.00ms
+2025-05-23 19:18:07,791 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:18:07,841 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:18:15,725 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:18:15,730 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 19:18:15,757 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.02ms
+2025-05-23 19:18:15,761 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.54ms
+2025-05-23 19:18:15,785 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:18:15,810 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:18:22,909 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:18:22,918 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.51ms
+2025-05-23 19:18:22,951 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 19:18:22,954 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.99ms
+2025-05-23 19:18:22,974 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:18:23,095 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:18:26,922 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:18:26,950 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.43ms
+2025-05-23 19:18:27,170 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.20ms
+2025-05-23 19:18:27,171 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 6.20ms
+2025-05-23 19:18:27,183 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:18:27,185 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:18:32,582 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:18:32,588 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:18:32,608 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.53ms
+2025-05-23 19:18:32,612 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:18:32,633 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:18:32,685 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:20:56,521 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:20:56,710 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:20:56,724 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 3.52ms
+2025-05-23 19:20:56,727 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.51ms
+2025-05-23 19:20:56,747 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:20:56,781 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:21:01,327 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:21:01,338 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.52ms
+2025-05-23 19:21:01,400 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.57ms
+2025-05-23 19:21:01,404 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.02ms
+2025-05-23 19:21:01,431 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.51ms
+2025-05-23 19:21:01,501 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:21:02,142 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:21:02,919 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:21:03,719 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:21:04,510 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:21:04,615 - tornado.access - INFO - 200 GET / (127.0.0.1) 0.00ms
+2025-05-23 19:21:04,638 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.04ms
+2025-05-23 19:21:04,643 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.98ms
+2025-05-23 19:21:04,660 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 2.00ms
+2025-05-23 19:21:04,685 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:21:07,720 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:21:07,744 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.88ms
+2025-05-23 19:21:07,822 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.02ms
+2025-05-23 19:21:07,837 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.84ms
+2025-05-23 19:21:07,878 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.02ms
+2025-05-23 19:21:07,934 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:22:27,719 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:22:27,731 - tornado.access - INFO - 200 GET / (127.0.0.1) 0.97ms
+2025-05-23 19:22:27,763 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.07ms
+2025-05-23 19:22:27,770 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.01ms
+2025-05-23 19:22:27,809 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:22:27,868 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:26,122 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:26:26,132 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 19:26:26,211 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 4.51ms
+2025-05-23 19:26:26,256 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:26:26,289 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:26:26,343 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:26,918 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:27,717 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:30,113 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:26:30,118 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:26:30,140 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.01ms
+2025-05-23 19:26:30,144 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.57ms
+2025-05-23 19:26:30,173 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.51ms
+2025-05-23 19:26:30,213 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:30,907 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:31,728 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:32,513 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:33,314 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:26:33,326 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 19:26:33,364 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 19:26:33,367 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.52ms
+2025-05-23 19:26:33,388 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:26:33,434 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:34,199 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:35,720 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:36,599 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:26:36,608 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.99ms
+2025-05-23 19:26:36,636 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.53ms
+2025-05-23 19:26:36,639 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.97ms
+2025-05-23 19:26:36,664 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.27ms
+2025-05-23 19:26:36,692 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:38,934 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:39,726 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:26:39,745 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.52ms
+2025-05-23 19:26:39,805 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.53ms
+2025-05-23 19:26:39,811 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.00ms
+2025-05-23 19:26:39,840 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:26:39,900 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:40,517 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:41,321 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:42,208 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:46,115 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:26:46,123 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.71ms
+2025-05-23 19:26:46,161 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 4.01ms
+2025-05-23 19:26:46,163 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:26:46,181 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:26:46,211 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:26:46,916 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:26:48,580 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:28:00,155 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.50ms
+2025-05-23 19:36:15,725 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:36:15,751 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.52ms
+2025-05-23 19:36:15,834 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.01ms
+2025-05-23 19:36:15,867 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:36:15,921 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:36:15,937 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.00ms
+2025-05-23 19:36:16,105 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:36:20,593 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:36:20,600 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 19:36:20,627 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.04ms
+2025-05-23 19:36:20,632 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 3.01ms
+2025-05-23 19:36:20,640 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 19:36:20,688 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:36:20,803 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:36:22,120 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:36:26,140 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:36:26,146 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:36:26,173 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.00ms
+2025-05-23 19:36:26,178 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.52ms
+2025-05-23 19:36:26,191 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 11.05ms
+2025-05-23 19:36:26,219 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 19:36:26,385 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:42:37,327 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:42:37,358 - tornado.access - INFO - 200 GET / (127.0.0.1) 7.55ms
+2025-05-23 19:42:37,451 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.51ms
+2025-05-23 19:42:37,471 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 19:42:37,480 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 19:42:37,585 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:42:37,643 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:42:43,720 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:42:43,729 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.54ms
+2025-05-23 19:42:43,764 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 19:42:43,773 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 19:42:43,777 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:42:43,820 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:42:44,328 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:42:44,509 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:42:50,926 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:42:50,934 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.51ms
+2025-05-23 19:42:51,117 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.00ms
+2025-05-23 19:42:51,119 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 19:42:51,120 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.51ms
+2025-05-23 19:42:51,191 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:42:51,196 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:42:52,505 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:43:54,098 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:43:54,108 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:43:54,167 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.95ms
+2025-05-23 19:43:54,180 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 19:43:54,195 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.06ms
+2025-05-23 19:43:54,494 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:43:54,759 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:43:57,307 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:43:57,313 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:43:57,337 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.99ms
+2025-05-23 19:43:57,348 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.51ms
+2025-05-23 19:43:57,354 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.00ms
+2025-05-23 19:43:57,377 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:43:57,468 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:47:16,672 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:47:16,685 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.01ms
+2025-05-23 19:47:16,738 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 4.52ms
+2025-05-23 19:47:16,742 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 19:47:16,748 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:47:16,782 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:47:16,918 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:47:18,113 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:51:52,626 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:51:52,636 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.89ms
+2025-05-23 19:51:52,689 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.00ms
+2025-05-23 19:51:52,695 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.00ms
+2025-05-23 19:51:52,748 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:51:52,818 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.84ms
+2025-05-23 19:51:52,855 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:52:06,908 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:52:06,920 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:52:06,955 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.53ms
+2025-05-23 19:52:06,961 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.01ms
+2025-05-23 19:52:06,963 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.55ms
+2025-05-23 19:52:07,112 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:52:07,177 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:52:07,714 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:52:08,518 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:52:09,326 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:52:10,119 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:52:10,128 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:52:10,168 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 12.05ms
+2025-05-23 19:52:10,179 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.00ms
+2025-05-23 19:52:10,188 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.99ms
+2025-05-23 19:52:10,213 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.51ms
+2025-05-23 19:52:10,357 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:52:10,911 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:52:11,709 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:52:12,624 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:52:14,104 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:52:14,114 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.52ms
+2025-05-23 19:52:14,151 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 19:52:14,157 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 19:52:14,162 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:52:14,186 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.03ms
+2025-05-23 19:52:14,284 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:54:47,724 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:54:47,734 - tornado.access - INFO - 200 GET / (127.0.0.1) 0.99ms
+2025-05-23 19:54:47,769 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.52ms
+2025-05-23 19:54:47,776 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 19:54:47,778 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:54:47,804 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:54:48,197 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:54:48,597 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:54:52,673 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:54:52,689 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.19ms
+2025-05-23 19:54:52,738 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.65ms
+2025-05-23 19:54:52,757 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 19:54:52,760 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:54:52,785 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:54:52,889 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:54:53,325 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:54:55,725 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:54:55,733 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.52ms
+2025-05-23 19:54:55,764 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.57ms
+2025-05-23 19:54:55,772 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.00ms
+2025-05-23 19:54:55,778 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.98ms
+2025-05-23 19:54:55,802 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.51ms
+2025-05-23 19:54:55,900 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:55:02,193 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:55:02,201 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 19:55:02,234 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.51ms
+2025-05-23 19:55:02,242 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.51ms
+2025-05-23 19:55:02,244 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:55:02,262 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:55:02,334 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:04,641 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:56:04,651 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 19:56:04,697 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.00ms
+2025-05-23 19:56:04,700 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 19:56:04,701 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.51ms
+2025-05-23 19:56:04,759 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:56:04,834 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:08,761 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:56:08,783 - tornado.access - INFO - 200 GET / (127.0.0.1) 5.19ms
+2025-05-23 19:56:08,867 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 10.94ms
+2025-05-23 19:56:08,873 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:56:08,882 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 2.52ms
+2025-05-23 19:56:08,947 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:56:09,229 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:14,160 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:56:14,178 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.99ms
+2025-05-23 19:56:14,219 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.01ms
+2025-05-23 19:56:14,225 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:56:14,231 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.51ms
+2025-05-23 19:56:14,284 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:56:14,348 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:22,915 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:56:22,959 - tornado.access - INFO - 200 GET / (127.0.0.1) 8.38ms
+2025-05-23 19:56:23,090 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 19:56:23,096 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.55ms
+2025-05-23 19:56:23,098 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 9.54ms
+2025-05-23 19:56:23,143 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 19:56:23,287 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:24,666 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:56:27,706 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:56:27,729 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 19:56:27,787 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.54ms
+2025-05-23 19:56:27,792 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 0.80ms
+2025-05-23 19:56:27,840 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.73ms
+2025-05-23 19:56:27,866 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 19:56:27,951 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:29,308 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 19:56:32,761 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 19:56:32,796 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.58ms
+2025-05-23 19:56:32,887 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 19:56:32,926 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.98ms
+2025-05-23 19:56:32,954 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.54ms
+2025-05-23 19:56:32,957 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.98ms
+2025-05-23 19:56:33,169 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 19:56:33,308 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:01:05,302 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:01:05,334 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 20:01:05,404 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 20:01:05,420 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:01:05,422 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.00ms
+2025-05-23 20:01:05,446 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:01:05,622 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:01:35,724 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:01:35,743 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 20:01:35,813 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.53ms
+2025-05-23 20:01:35,825 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:01:35,870 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.02ms
+2025-05-23 20:01:36,128 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:01:36,634 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:01:37,306 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:01:42,918 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:01:42,924 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 20:01:43,001 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.52ms
+2025-05-23 20:01:43,121 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 2.01ms
+2025-05-23 20:01:43,124 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:01:43,163 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 20:01:43,215 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:01:43,701 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:01:44,642 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:01:45,323 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:01:46,108 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:01:46,121 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.02ms
+2025-05-23 20:01:46,157 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.51ms
+2025-05-23 20:01:46,182 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:01:46,200 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:01:46,241 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.51ms
+2025-05-23 20:01:46,364 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:13:21,329 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:13:21,362 - tornado.access - INFO - 200 GET / (127.0.0.1) 7.83ms
+2025-05-23 20:13:21,463 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.75ms
+2025-05-23 20:13:21,498 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.00ms
+2025-05-23 20:13:21,585 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:13:21,587 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:13:21,667 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:13:22,097 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:13:22,909 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:13:30,146 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:13:30,155 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 20:13:30,194 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.55ms
+2025-05-23 20:13:30,203 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 20:13:30,221 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 20:13:30,236 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:13:30,344 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:13:30,914 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:18:04,510 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:18:04,608 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 20:18:04,631 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 4.51ms
+2025-05-23 20:18:04,652 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 20:18:04,677 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 20:18:04,690 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.51ms
+2025-05-23 20:18:04,854 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:18:08,501 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:18:08,651 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 20:18:08,684 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.06ms
+2025-05-23 20:18:08,712 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:18:08,738 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 20:18:08,741 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.51ms
+2025-05-23 20:18:08,940 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:18:11,717 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:18:11,725 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 20:18:11,761 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 20:18:11,786 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:18:11,823 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:18:11,842 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 2.03ms
+2025-05-23 20:18:11,881 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:19:21,321 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:19:21,721 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.51ms
+2025-05-23 20:19:21,790 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 20:19:21,792 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 20:19:21,844 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:19:21,853 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:19:21,956 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:19:22,171 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:19:25,314 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:19:25,352 - tornado.access - INFO - 200 GET / (127.0.0.1) 4.52ms
+2025-05-23 20:19:25,398 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.01ms
+2025-05-23 20:19:25,407 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:19:25,481 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.19ms
+2025-05-23 20:19:25,631 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 20:19:25,698 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:19:26,157 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:19:30,924 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:19:30,946 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.01ms
+2025-05-23 20:19:30,982 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.54ms
+2025-05-23 20:19:31,126 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 3.00ms
+2025-05-23 20:19:31,129 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 5.52ms
+2025-05-23 20:19:31,139 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.52ms
+2025-05-23 20:19:31,144 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:19:33,330 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:19:35,721 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:19:35,761 - tornado.access - INFO - 200 GET / (127.0.0.1) 4.53ms
+2025-05-23 20:19:35,823 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 20:19:35,830 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:19:35,901 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 20:19:35,980 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 2.02ms
+2025-05-23 20:19:36,177 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:19:38,915 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:19:38,982 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.63ms
+2025-05-23 20:19:39,213 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 20:19:39,284 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 77.01ms
+2025-05-23 20:19:39,393 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:19:39,433 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:19:39,852 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:19:40,388 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 20:21:14,903 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:21:14,919 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.03ms
+2025-05-23 20:21:14,955 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.00ms
+2025-05-23 20:21:14,958 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.02ms
+2025-05-23 20:21:14,983 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:21:15,215 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 2.01ms
+2025-05-23 20:21:15,624 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:22:42,925 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:22:42,944 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.02ms
+2025-05-23 20:22:43,173 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 8.04ms
+2025-05-23 20:22:43,199 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 12.09ms
+2025-05-23 20:22:43,211 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 14.58ms
+2025-05-23 20:22:43,310 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 20:22:43,356 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:22:43,718 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:22:44,516 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:22:46,247 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:22:46,335 - tornado.access - INFO - 200 GET / (127.0.0.1) 9.53ms
+2025-05-23 20:22:46,447 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.00ms
+2025-05-23 20:22:46,668 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 2.51ms
+2025-05-23 20:22:46,688 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 22.08ms
+2025-05-23 20:22:46,702 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 36.58ms
+2025-05-23 20:22:46,764 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:23:32,509 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:23:32,677 - tornado.access - INFO - 200 GET / (127.0.0.1) 4.52ms
+2025-05-23 20:23:32,728 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.52ms
+2025-05-23 20:23:32,733 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:23:32,735 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:23:32,808 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:23:32,916 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:30:56,668 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:30:56,689 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 20:30:56,757 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.53ms
+2025-05-23 20:30:56,775 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.01ms
+2025-05-23 20:30:56,806 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:30:56,817 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:30:56,900 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:30:58,918 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:30:59,729 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:30:59,761 - tornado.access - INFO - 200 GET / (127.0.0.1) 7.02ms
+2025-05-23 20:30:59,932 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.52ms
+2025-05-23 20:30:59,953 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.89ms
+2025-05-23 20:31:00,133 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:31:00,957 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.98ms
+2025-05-23 20:31:01,265 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:31:08,676 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:31:08,690 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.52ms
+2025-05-23 20:31:08,749 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.01ms
+2025-05-23 20:31:08,774 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.83ms
+2025-05-23 20:31:08,794 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.01ms
+2025-05-23 20:31:08,839 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 2.00ms
+2025-05-23 20:31:09,144 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:31:09,312 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:31:10,150 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:31:16,591 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:31:16,601 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.51ms
+2025-05-23 20:31:16,667 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.55ms
+2025-05-23 20:31:16,680 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 0.00ms
+2025-05-23 20:31:16,692 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 2.54ms
+2025-05-23 20:31:16,739 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:31:16,868 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:31:18,920 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:31:19,815 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:31:19,842 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.51ms
+2025-05-23 20:31:19,931 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 11.65ms
+2025-05-23 20:31:19,966 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 3.00ms
+2025-05-23 20:31:19,972 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 2.53ms
+2025-05-23 20:31:20,167 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 161.87ms
+2025-05-23 20:31:20,259 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:33:59,694 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:33:59,702 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.00ms
+2025-05-23 20:33:59,736 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 7.53ms
+2025-05-23 20:33:59,757 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:33:59,767 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 4.02ms
+2025-05-23 20:33:59,791 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.29ms
+2025-05-23 20:33:59,896 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:34:01,302 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:34:02,920 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:34:02,930 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.00ms
+2025-05-23 20:34:02,952 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.03ms
+2025-05-23 20:34:02,992 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.01ms
+2025-05-23 20:34:03,094 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:34:03,190 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 20:34:03,195 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:34:05,322 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:34:40,704 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:34:40,720 - tornado.access - INFO - 200 GET / (127.0.0.1) 3.51ms
+2025-05-23 20:34:40,810 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 6.50ms
+2025-05-23 20:34:40,834 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:34:40,847 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:34:40,899 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 0.00ms
+2025-05-23 20:34:41,011 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:34:42,915 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:34:43,719 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:34:43,728 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.00ms
+2025-05-23 20:34:43,768 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.52ms
+2025-05-23 20:34:43,779 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:34:43,784 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.00ms
+2025-05-23 20:34:43,805 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:34:44,188 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:34:44,579 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:35:40,649 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:35:40,659 - tornado.access - INFO - 200 GET / (127.0.0.1) 1.02ms
+2025-05-23 20:35:40,700 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 5.51ms
+2025-05-23 20:35:40,703 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 1.00ms
+2025-05-23 20:35:40,709 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.51ms
+2025-05-23 20:35:40,735 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.00ms
+2025-05-23 20:35:40,831 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:35:43,691 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:35:43,713 - tornado.access - INFO - 200 GET / (127.0.0.1) 6.57ms
+2025-05-23 20:35:43,774 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 11.59ms
+2025-05-23 20:35:43,810 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 6.55ms
+2025-05-23 20:35:43,842 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 3.02ms
+2025-05-23 20:35:44,183 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 3.03ms
+2025-05-23 20:35:44,277 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:35:44,755 - livereload - INFO - Ignore: templates/index.html
+2025-05-23 20:35:54,149 - livereload - INFO - Reload 1 waiters: templates/index.html
+2025-05-23 20:35:54,161 - tornado.access - INFO - 200 GET / (127.0.0.1) 2.01ms
+2025-05-23 20:35:54,209 - tornado.access - INFO - 200 GET /api/placeholder/300/300 (127.0.0.1) 10.56ms
+2025-05-23 20:35:54,229 - tornado.access - WARNING - 404 GET /.well-known/appspecific/com.chrome.devtools.json (127.0.0.1) 4.52ms
+2025-05-23 20:35:54,245 - tornado.access - INFO - 304 GET /livereload.js?port=5000 (127.0.0.1) 1.98ms
+2025-05-23 20:35:54,290 - tornado.access - INFO - 101 GET /livereload (127.0.0.1) 1.01ms
+2025-05-23 20:35:54,380 - livereload - INFO - Browser Connected: http://127.0.0.1:5000/
+2025-05-23 20:37:09,021 - tornado.general - INFO - C:\Users\xavierrenjiro\Documents\File_Project_VSCode\CKD_Prediction_WebApp\app.py modified; restarting server
+2025-05-23 20:37:14,472 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 20:37:14,474 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 20:37:15,887 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:37:15] "[33mGET /livereload HTTP/1.1[0m" 404 -
+2025-05-23 20:37:20,887 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:37:20] "[33mGET /livereload HTTP/1.1[0m" 404 -
+2025-05-23 20:37:29,875 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:37:29] "[33mGET /livereload HTTP/1.1[0m" 404 -
+2025-05-23 20:37:46,891 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:37:46] "[33mGET /livereload HTTP/1.1[0m" 404 -
+2025-05-23 20:38:08,249 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 20:38:08,249 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 20:38:16,798 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:38:16] "GET / HTTP/1.1" 200 -
+2025-05-23 20:38:16,879 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:38:16] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 20:38:16,894 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:38:16] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-23 20:42:07,669 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:42:07] "GET / HTTP/1.1" 200 -
+2025-05-23 20:42:07,712 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:42:07] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 20:42:07,725 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:42:07] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-23 20:48:07,088 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 20:48:07,088 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 20:48:09,112 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:48:09] "GET / HTTP/1.1" 200 -
+2025-05-23 20:48:09,153 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:48:09] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-23 20:48:09,154 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:48:09] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 20:50:32,099 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 20:50:32,100 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 20:50:34,685 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:50:34] "GET / HTTP/1.1" 200 -
+2025-05-23 20:50:34,727 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:50:34] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 20:50:34,738 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 20:50:34] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-23 21:28:57,039 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 21:28:57] "GET / HTTP/1.1" 200 -
+2025-05-23 21:28:57,076 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 21:28:57] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-23 21:28:57,078 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 21:28:57] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 21:29:04,169 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 21:29:04] "GET / HTTP/1.1" 200 -
+2025-05-23 21:29:04,219 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 21:29:04] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-23 21:29:04,329 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 21:29:04] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 21:29:51,124 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 21:29:51,124 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 21:30:20,167 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 21:30:20,168 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 21:30:20,170 - werkzeug - INFO -  * Restarting with stat
+2025-05-23 21:30:23,548 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 21:30:23,606 - werkzeug - INFO -  * Debugger PIN: 663-141-197
+2025-05-23 21:30:42,545 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 21:30:42] "GET / HTTP/1.1" 200 -
+2025-05-23 21:30:42,648 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 21:30:42] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 21:30:42,880 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 21:30:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-23 21:49:56,743 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 21:49:56,743 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 21:49:56,746 - werkzeug - INFO -  * Restarting with stat
+2025-05-23 21:50:01,782 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 21:50:01,879 - werkzeug - INFO -  * Debugger PIN: 663-141-197
+2025-05-23 21:50:02,270 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 21:50:02] "GET / HTTP/1.1" 200 -
+2025-05-23 21:50:02,378 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 21:50:02] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:09:31,217 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 22:09:31,217 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 22:09:31,218 - werkzeug - INFO -  * Restarting with stat
+2025-05-23 22:09:38,237 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 22:09:38,327 - werkzeug - INFO -  * Debugger PIN: 663-141-197
+2025-05-23 22:09:38,610 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:09:38] "GET / HTTP/1.1" 200 -
+2025-05-23 22:09:38,706 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:09:38] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:10:03,378 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:10:03] "GET / HTTP/1.1" 200 -
+2025-05-23 22:10:03,427 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:10:03] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:11:10,471 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:11:10] "GET / HTTP/1.1" 200 -
+2025-05-23 22:11:10,528 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:11:10] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:14:18,201 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:14:18] "GET / HTTP/1.1" 200 -
+2025-05-23 22:14:18,282 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:14:18] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:17:20,701 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:17:20] "GET / HTTP/1.1" 200 -
+2025-05-23 22:17:20,753 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:17:20] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:30:20,953 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 22:30:20,954 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 22:30:20,959 - werkzeug - INFO -  * Restarting with stat
+2025-05-23 22:30:25,142 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 22:30:25,226 - werkzeug - INFO -  * Debugger PIN: 663-141-197
+2025-05-23 22:30:25,424 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:30:25] "GET / HTTP/1.1" 200 -
+2025-05-23 22:30:25,496 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:30:25] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:32:04,950 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-23 22:32:04,951 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 22:32:04,957 - werkzeug - INFO -  * Restarting with stat
+2025-05-23 22:32:09,011 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 22:32:09,059 - werkzeug - INFO -  * Debugger PIN: 663-141-197
+2025-05-23 22:32:09,275 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:32:09] "GET / HTTP/1.1" 200 -
+2025-05-23 22:32:09,349 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:32:09] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:33:11,622 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:33:11] "GET / HTTP/1.1" 200 -
+2025-05-23 22:33:11,706 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:33:11] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:34:17,976 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:34:17] "GET / HTTP/1.1" 200 -
+2025-05-23 22:34:18,051 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:34:18] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:35:04,694 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:35:04] "GET / HTTP/1.1" 200 -
+2025-05-23 22:35:04,767 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:35:04] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-23 22:39:36,312 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:39:36] "GET / HTTP/1.1" 200 -
+2025-05-23 22:39:36,366 - werkzeug - INFO - 192.168.0.101 - - [23/May/2025 22:39:36] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 00:28:56,697 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:28:56] "GET / HTTP/1.1" 200 -
+2025-05-24 00:28:56,800 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:28:56] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 00:29:29,985 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:29:29] "GET / HTTP/1.1" 200 -
+2025-05-24 00:29:30,044 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:29:30] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 00:35:24,284 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:35:24] "GET / HTTP/1.1" 200 -
+2025-05-24 00:35:24,338 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:35:24] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 00:38:35,991 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:38:35] "GET / HTTP/1.1" 200 -
+2025-05-24 00:38:36,037 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:38:36] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 00:48:49,003 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:48:49] "GET / HTTP/1.1" 200 -
+2025-05-24 00:48:49,057 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 00:48:49] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 01:07:50,943 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:07:50] "GET / HTTP/1.1" 200 -
+2025-05-24 01:07:51,000 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:07:51] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 01:36:28,544 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:36:28] "GET / HTTP/1.1" 200 -
+2025-05-24 01:36:28,596 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:36:28] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 01:39:14,532 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:39:14] "GET / HTTP/1.1" 200 -
+2025-05-24 01:39:14,591 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:39:14] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 01:40:28,704 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:40:28] "GET / HTTP/1.1" 200 -
+2025-05-24 01:40:28,755 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:40:28] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 01:42:45,216 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:42:45] "GET / HTTP/1.1" 200 -
+2025-05-24 01:42:45,288 - werkzeug - INFO - 192.168.0.101 - - [24/May/2025 01:42:45] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 01:44:54,841 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 01:44:54] "GET / HTTP/1.1" 200 -
+2025-05-24 01:44:54,909 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 01:44:54] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 02:15:08,619 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:15:08] "GET / HTTP/1.1" 200 -
+2025-05-24 02:15:08,664 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:15:08] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 02:22:34,944 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:22:34] "GET / HTTP/1.1" 200 -
+2025-05-24 02:22:35,098 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:22:35] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 02:23:05,695 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:23:05] "GET / HTTP/1.1" 200 -
+2025-05-24 02:23:05,810 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:23:05] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 02:24:39,538 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:24:39] "GET / HTTP/1.1" 200 -
+2025-05-24 02:24:39,589 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 02:24:39] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 15:24:58,380 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-05-24 15:24:58,380 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-24 15:24:58,382 - werkzeug - INFO -  * Restarting with stat
+2025-05-24 15:25:01,179 - werkzeug - WARNING -  * Debugger is active!
+2025-05-24 15:25:01,226 - werkzeug - INFO -  * Debugger PIN: 313-488-024
+2025-05-24 15:25:08,070 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 15:25:08] "GET / HTTP/1.1" 200 -
+2025-05-24 15:25:08,242 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 15:25:08] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
+2025-05-24 15:25:13,399 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 15:25:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 15:30:43,430 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 15:30:43] "GET / HTTP/1.1" 200 -
+2025-05-24 15:30:43,479 - werkzeug - INFO - 127.0.0.1 - - [24/May/2025 15:30:43] "GET /api/placeholder/300/300 HTTP/1.1" 200 -
