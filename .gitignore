@@ -1,8 +1,9 @@
-# Ignore virtual environment
 venv/
 
-# Ignore model & binary files
+# Ignore binary files, BUT make an exception for model files in the models/ directory
 *.pkl
+!models/*.pkl
+
 *.dll
 *.exe
 *.so
