@@ -1,6 +1,6 @@
 # Early Prediction of Chronic Kidney Disease (CKD)
 
-## 📖 Project Description
+## Project Description
 This project is a web-based application designed to assist in the **early detection of Chronic Kidney Disease (CKD)**.  
 It leverages a **Soft Voting and Stacking Ensemble Machine Learning model** to analyze various medical parameters and predict the probability of CKD risk.
 
@@ -9,7 +9,7 @@ The project can be run with **two different interfaces**: **Streamlit (modern an
 
 ---
 
-## ⚙️ Key Features
+## Key Features
 - **High Prediction Accuracy:**  
   Utilizes a Stacking Ensemble model that combines **Random Forest, XGBoost, and LightGBM** to achieve robust accuracy.
 
@@ -27,7 +27,7 @@ The project can be run with **two different interfaces**: **Streamlit (modern an
 
 ---
 
-## 🧠 Model & Technologies
+## Model & Technologies
 
 ### Core Model
 **StackingClassifier (Ensemble)** composed of:
