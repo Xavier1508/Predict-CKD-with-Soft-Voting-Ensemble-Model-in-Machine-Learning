@@ -7,26 +7,38 @@ from pathlib import Path
 # --- KONFIGURASI DAN PEMUATAN MODEL ---
 st.set_page_config(page_title="Prediksi Penyakit Ginjal Kronis", layout="wide")
 
-# Fungsi untuk memuat model dengan caching agar lebih cepat
+# Fungsi untuk memuat artifak model.
+# Didekorasi dengan @st.cache_resource agar hanya dijalankan sekali.
 @st.cache_resource
 def load_model_artifacts():
+    """
+    Memuat model pipeline, nama fitur, dan median untuk imputasi.
+    Model pipeline (stackingensemble.pkl) sudah berisi scaler di dalamnya,
+    sehingga kita tidak perlu memuat scaler.pkl secara terpisah.
+    """
     try:
         base_dir = Path(__file__).parent.resolve()
         model_dir = base_dir / "models"
         
+        # 1. Muat model utama (ini adalah pipeline yang sudah berisi scaler)
         model = joblib.load(model_dir / 'stackingensemble.pkl')
+        
+        # 2. Muat nama fitur untuk memastikan urutan kolom benar
         feature_names = joblib.load(model_dir / 'feature_names.pkl')
-        scaler = joblib.load(model_dir / 'scaler.pkl')
+        
+        # 3. Muat median dari data training untuk mengisi nilai kosong
         training_medians = joblib.load(model_dir / 'training_medians.pkl')
         
-        return model, feature_names, scaler, training_medians
+        return model, feature_names, training_medians
     except FileNotFoundError as e:
-        st.error(f"Error: Salah satu file model tidak ditemukan di folder 'models'. Pastikan semua file .pkl ada. Detail: {e}")
-        return None, None, None, None
+        # Menampilkan pesan error yang jelas jika ada file yang hilang
+        st.error(f"Error: Salah satu file model tidak ditemukan di folder 'models'. Pastikan 'stackingensemble.pkl', 'feature_names.pkl', dan 'training_medians.pkl' ada. Detail: {e}")
+        return None, None, None
 
-model, feature_names, scaler, training_medians = load_model_artifacts()
+# Muat artifak saat aplikasi dimulai
+model, feature_names, training_medians = load_model_artifacts()
 
-# --- FUNGSI BANTUAN DARI FLASK APP (diadaptasi) ---
+# --- FUNGSI BANTUAN ---
 def calculate_bmi(weight, height):
     if height > 0 and weight > 0:
         return round(weight / ((height / 100) ** 2), 1)
@@ -38,47 +50,47 @@ def calculate_bun_creatinine_ratio(bu, sc):
         return round(bun / sc, 2)
     return None
 
-def preprocess_input(data, feature_names, scaler, training_medians):
+def preprocess_input(data, feature_names, training_medians):
     """
-    Fungsi ini mengambil input dari user, memprosesnya, dan menyiapkannya untuk model.
-    Logikanya diambil langsung dari app.py Anda.
+    Fungsi ini JAUH LEBIH SEDERHANA sekarang.
+    Tugasnya hanya:
+    1. Membuat DataFrame dengan urutan kolom yang benar.
+    2. Mengisi nilai yang kosong dengan median.
+    TIDAK ADA LAGI PROSES SCALING MANUAL DI SINI.
     """
     input_df = pd.DataFrame(columns=feature_names)
-    input_df.loc[0] = np.nan # Inisialisasi dengan NaN
+    input_df.loc[0] = np.nan  # Inisialisasi satu baris dengan nilai kosong (NaN)
 
-    # Isi nilai yang diberikan
+    # Isi DataFrame dengan data dari input pengguna
     for feature, value in data.items():
         if feature in feature_names:
             input_df.at[0, feature] = float(value)
 
-    # Hitung fitur turunan
+    # Hitung fitur turunan (jika ada di dalam model)
     if 'bun_to_creatinine_ratio' in feature_names:
         ratio = calculate_bun_creatinine_ratio(data.get('bu', 0), data.get('sc', 0))
         input_df.at[0, 'bun_to_creatinine_ratio'] = ratio
 
-    # Isi nilai yang kosong dengan median dari data training
+    # Isi sisa nilai yang kosong dengan median dari data training
     for col in input_df.columns:
         if pd.isna(input_df.loc[0, col]):
             input_df.at[0, col] = float(training_medians.get(col, 0))
 
-    # Scaling data
-    try:
-        scaled_values = scaler.transform(input_df)
-        return scaled_values
-    except Exception as e:
-        st.error(f"Terjadi kesalahan saat scaling data: {e}")
-        return None
+    # Kembalikan DataFrame yang sudah siap. Model pipeline akan menangani scaling.
+    return input_df
 
 
 # --- ANTARMUKA PENGGUNA (UI) STREAMLIT ---
+# Bagian UI ini tidak perlu diubah, sudah sangat baik.
 
 st.title("🩺 Prediksi Dini Penyakit Ginjal Kronis (CKD)")
 st.markdown("Masukkan data pasien di bawah ini untuk mendapatkan prediksi berbasis model *Stacking Ensemble*.")
 
+# Hentikan aplikasi jika model gagal dimuat
 if model is None:
-    st.stop() # Hentikan aplikasi jika model gagal dimuat
+    st.stop()
 
-# Gunakan kolom agar lebih rapi
+# Gunakan kolom agar antarmuka lebih rapi
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -117,7 +129,7 @@ with col3:
 
 
 # Tombol Prediksi dan Hasil
-if st.button("Buat Prediksi", type="primary"):
+if st.button("🚀 Buat Prediksi", type="primary"):
     # Kumpulkan semua data input ke dalam dictionary
     user_data = {
         'age': age, 'bp': bp, 'sg': sg, 'al': al, 'su': su, 'rbc': rbc, 'pc': pc,
@@ -131,11 +143,11 @@ if st.button("Buat Prediksi", type="primary"):
         # Jika BMI tidak bisa dihitung, gunakan median. Jika bisa, gunakan hasil hitungan.
         user_data['bmi'] = bmi if bmi else training_medians.get('bmi', 25.0)
 
-    # Preprocess data
-    processed_data = preprocess_input(user_data, feature_names, scaler, training_medians)
+    # Preprocess data menggunakan fungsi yang sudah disederhanakan
+    processed_data = preprocess_input(user_data, feature_names, training_medians)
     
     if processed_data is not None:
-        # Lakukan prediksi
+        # Lakukan prediksi. Model pipeline menerima DataFrame.
         prediction = model.predict(processed_data)[0]
         probability = model.predict_proba(processed_data)[0][1] # Probabilitas kelas 1 (CKD)
 
